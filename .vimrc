@@ -28,7 +28,7 @@
  Bundle 'kien/ctrlp.vim'
  Bundle 'scrooloose/syntastic'
  Bundle 'fholgado/minibufexpl.vim'
-
+ Bundle 'altercation/vim-colors-solarized'
  filetype plugin indent on     " required!
  "
  " Brief help
@@ -41,6 +41,6 @@
  " NOTE: comments after Bundle command are not allowed..
  
 
- colorscheme slate
+ colorscheme solarized 
  syntax on
  let mapleader=","
