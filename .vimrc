@@ -21,14 +21,13 @@ Bundle 'L9'
 " ...
 
 "Bundle 'Valloric/YouCompleteMe'
-Bundle 'https://bitbucket.org/ns9tks/vim-autocomplpop'
 Bundle 'shawncplus/phpcomplete.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'altercation/vim-colors-solarized'
-
+Bundle 'ervandew/supertab'
 filetype plugin indent on     " required!
 "
 " Brief help
@@ -47,18 +46,14 @@ syntax on
 let mapleader=","
 set term=xterm-256color
 set t_ut=
-function! SuperCleverTab()
-	if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*$'
-		return "\"
-	else
-		if &omnifunc != ''
-			return "\\"
-		elseif &dictionary != ''
-			return "\"
-		else
-			return "\"
-		endif
-	endif
-endfunction
 
-inoremap <Tab> <C-R>=SuperCleverTab()<cr>
+ 
+
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set ruler
+set columns=82
+set textwidth=78
+set number
+set smartindent
