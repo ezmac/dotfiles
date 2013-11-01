@@ -28,6 +28,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'ervandew/supertab'
+Bundle 'brookhong/DBGPavim'
 filetype plugin indent on     " required!
 "
 " Brief help
@@ -48,7 +49,7 @@ set term=xterm-256color
 set t_ut=
 
  
-
+set hidden
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -57,3 +58,5 @@ set columns=82
 set textwidth=78
 set number
 set smartindent
+map <leader>n :NERDTreeToggle<CR>
+let g:EasyMotion_leader_key = '<Leader>' 
