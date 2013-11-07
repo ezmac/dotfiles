@@ -150,7 +150,6 @@ fi
     alias ls="ls --color=auto"
     alias dir="dir --color=auto"
     alias grep="grep --color=auto"
-    alias dmesg="dmesg --color"
     man() {
         env LESS_TERMCAP_mb=$'\E[01;31m' \
         LESS_TERMCAP_md=$'\E[01;38;5;74m' \
