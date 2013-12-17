@@ -83,7 +83,8 @@ alias la='ls -A'
 alias l='ls -CF'
 alias lsa='ls -a'
 alias mdserver='grip'
-
+alias RAGE='feh /home/tad/Pictures/encouragement.jpg'
+alias codecept="php codecept.phar"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -150,7 +151,7 @@ fi
     alias ls="ls --color=auto"
     alias dir="dir --color=auto"
     alias grep="grep --color=auto"
-    alias dmesg="dmesg --color"
+    alias dmesg="dmesg "
     man() {
         env LESS_TERMCAP_mb=$'\E[01;31m' \
         LESS_TERMCAP_md=$'\E[01;38;5;74m' \
@@ -165,3 +166,4 @@ fi
     #alias dir='ls --color=auto --format=vertical'
     #alias vdir='ls --color=auto --format=long'
 
+export PORTERHOUSE_MOUNTPOINT=/var/porterhouse/f/Inetpub/wwwroot/

@@ -1,8 +1,9 @@
 [global_config]
-  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  enabled_plugins = ,
   title_transmit_bg_color = "#d30102"
   focus = system
 [keybindings]
+  full_screen = None
 [profiles]
   [[default]]
     use_system_font = False
