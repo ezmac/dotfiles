@@ -1,47 +1,48 @@
-set nocompatible               " be iMproved
-filetype on
-filetype plugin on
+set nocompatible
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set runtimepath+=~/.vim/bundle/neobundle.vim/
 
-" let Vundle manage Vundle
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+ " Let NeoBundle manage NeoBundle
+ " Required:
+ NeoBundleFetch 'Shougo/neobundle.vim'
 " required! 
-Bundle 'gmarik/vundle'
 
-" My Bundles here:
+" My NeoBundles here:
 "
 " original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-ragtag.git'
-Bundle 'tpope/vim-rails.git'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'rstacruz/sparkup'
+NeoBundle 'tpope/vim-ragtag.git'
+NeoBundle 'tpope/vim-rails.git'
 " vim-scripts repos
-Bundle 'L9'
 " ...
 
-"Bundle 'Valloric/YouCompleteMe'
-Bundle 'shawncplus/phpcomplete.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'ervandew/supertab'
-" Bundle 'brookhong/DBGPavim'
-Bundle 'evidens/vim-twig'
-Bundle 'joonty/vdebug'
+"NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'fholgado/minibufexpl.vim'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'ervandew/supertab'
+" NeoBundle 'brookhong/DBGPavim'
+NeoBundle 'evidens/vim-twig'
+NeoBundle 'joonty/vdebug'
+NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'm2mdas/phpcomplete-extended'
 filetype plugin indent on     " required!
 "
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :NeoBundleList          - list configured bundles
+" :NeoBundleInstall(!)    - install(update) bundles
+" :NeoBundleSearch(!) foo - search(or refresh cache first) for foo
+" :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "
 " see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed..
+" NOTE: comments after NeoBundle command are not allowed..
 
 
 colorscheme solarized 
@@ -60,7 +61,6 @@ set shiftwidth=2
 set expandtab
 set smarttab
 set ruler
-set columns=82
 set textwidth=78
 set number
 set showcmd
@@ -90,3 +90,8 @@ nmap <silent> <c-s-k> <C-W>k
 nmap <silent> <c-s-j> <C-W>j                                                                                                                       
 nmap <silent> <c-s-h> <C-W>h                                                                                                                       
 nmap <silent> <c-s-l> <C-W>l
+
+
+nmap <F2> :mksession ~/.vim_session <cr>
+nmap <F2> :source ~/.vim_session <cr>
+
