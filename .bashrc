@@ -91,6 +91,8 @@ alias doge="echo such=git, very=git, wow='git status'"
 alias such=git
 alias very=git
 alias wow='git status' 
+alias vi='vim -w ~/.vimlog "$@"'
+alias vim='vim -w ~/.vimlog "$@"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
