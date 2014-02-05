@@ -72,7 +72,6 @@ set shiftwidth=2
 set expandtab
 set smarttab
 set ruler
-set textwidth=78
 set number
 set showcmd
 set smartindent
@@ -85,7 +84,7 @@ set backup
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 map <leader>n :NERDTreeToggle<CR>
-let g:EasyMotion_leader_key = '<Leader>' 
+let g:EasyMotion_leader_key = '<Leader><Leader>' 
 "##############################################################################                                                                         
 " Easier split navigation                                                                                                                               
 "##############################################################################                                                                         
@@ -110,32 +109,36 @@ nmap <F2> :source ~/.vim_session <cr>
 " Cursor settings. This makes terminal vim sooo much nicer!
 " Tmux will only forward escape sequences to the terminal if surrounded by a DCS
 " sequence
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
+"if exists('$TMUX')
+"  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+"  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+"else
+"  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"endif
 
 
 
 " Unite
 call unite#custom_source("file_rec,file_rec/async,file_mru,file,buffer,grep,phpcomplete/files,phpcomplete/vendors,phpcomplete/extends,phpcomplete/implements",'ignore_pattern', join([
   \ '\.git/',
-  \ '*cache',
-  \ 'tmp'
+  \ '.*cache/.*',
+  \ '.*logs/.*',
+  \ 'web/.*',
+  \ '\.phpcomplete_extended/.*',
+  \ 'tmp',
+  \ 'library/Zend',
+  \ 'vendor'
   \ ], '\|'))
   
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <C-p> :Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert file_rec/async:! file<cr>
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 "nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
 "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <backspace>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <backspace>b :<C-u>Unite -no-split -quick-match -buffer-name=buffer  buffer<cr>
+nnoremap <C-y> :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+nnoremap <C-b> :<C-u>Unite -no-split -quick-match -buffer-name=buffer  buffer<cr>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
@@ -166,11 +169,11 @@ let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions',
-    \ 'phpcomplete_files': 'phpcomplete/files',
-    \ 'phpcomplete_vendors': 'phpcomplete/vendors',
-    \ 'phpcomplete_extends': 'phpcomplete/extends',
-    \ 'phpcomplete_implements': 'phpcomplete/implements'
-        \ }
+    \ }
+"    \ 'phpcomplete_files': 'phpcomplete/files',
+"    \ 'phpcomplete_vendors': 'phpcomplete/vendors',
+"    \ 'phpcomplete_extends': 'phpcomplete/extends',
+"    \ 'phpcomplete_implements': 'phpcomplete/implements'
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -225,11 +228,13 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType xml setlocal omnifunc=rubycomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
 
 " Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
+if exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  "let g:neocomplete#sources#omni#input_patterns = {}
 endif
 "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
@@ -237,4 +242,13 @@ endif
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+
+
+
+" set php specific options
+
+autocmd FileType php call s:php_settings()
+function! s:php_settings()
+  nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert phpcomplete/files:!<cr>
+endfunction
