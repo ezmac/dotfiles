@@ -59,7 +59,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -85,6 +85,8 @@ alias lsa='ls -a'
 alias mdserver='grip'
 alias RAGE='feh /home/tad/Pictures/encouragement.jpg'
 alias codecept="php codecept.phar"
+alias ts="date '+%s'"
+
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -108,6 +110,7 @@ export EDITOR=vim
 export EDIT=vim
 set -o vi
 
+echo "done with the crap before rvm use"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 rvm use 1.9.3
@@ -135,8 +138,7 @@ export HISTCONTROL=ignoredups
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
+#shopt -s checkwinsize 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
@@ -165,5 +167,3 @@ fi
 
     #alias dir='ls --color=auto --format=vertical'
     #alias vdir='ls --color=auto --format=long'
-
-export PORTERHOUSE_MOUNTPOINT=/var/porterhouse/f/Inetpub/wwwroot/

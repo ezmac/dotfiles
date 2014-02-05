@@ -61,7 +61,6 @@ set expandtab
 set smarttab
 set ruler
 set columns=82
-set textwidth=78
 set number
 set showcmd
 set smartindent
