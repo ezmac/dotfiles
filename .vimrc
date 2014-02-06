@@ -25,7 +25,7 @@ NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'scrooloose/nerdtree'
 "NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'fholgado/minibufexpl.vim'
+"NeoBundle 'fholgado/minibufexpl.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'ervandew/supertab'
 " NeoBundle 'brookhong/DBGPavim'
@@ -49,6 +49,8 @@ NeoBundle 'm2mdas/phpcomplete-extended'
 NeoBundle 'm2mdas/phpcomplete-extended-symfony'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'xolox/vim-session'
 NeoBundleCheck
 filetype plugin indent on     " required!
 "
