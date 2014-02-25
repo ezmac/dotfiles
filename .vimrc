@@ -21,7 +21,7 @@ NeoBundle 'tpope/vim-rails.git'
 " ...
 
 "NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'shawncplus/phpcomplete.vim'
+"NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'scrooloose/nerdtree'
 "NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'scrooloose/syntastic'
@@ -48,7 +48,8 @@ NeoBundle 'mileszs/ack.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'm2mdas/phpcomplete-extended'
-NeoBundle 'm2mdas/phpcomplete-extended-symfony'
+"NeoBundle 'm2mdas/phpcomplete-extended-symfony'
+"NeoBundle 'violetyk/neocomplete-php.vim'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 NeoBundleCheck
@@ -91,8 +92,8 @@ set incsearch
 set hlsearch
 set foldmethod=syntax
 let php_folding=1
-set foldlevel=2
-
+set foldlevelstart=4
+set foldlevel=20
 set backup
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
@@ -122,10 +123,10 @@ nmap <silent> <c-l> :wincmd l<CR>
 "  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 "endif
 
-
+" " sad
 
 " Unite
-call unite#custom_source("file_rec,file_rec/async,file_mru,file,buffer,grep,phpcomplete/files,phpcomplete/vendors,phpcomplete/extends,phpcomplete/implements",'ignore_pattern', join([
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep,phpcomplete/files,phpcomplete/vendors,phpcomplete/extends,phpcomplete/implements','ignore_pattern', join([
   \ '\.git/',
   \ '.*cache/.*',
   \ '.*logs/.*',
@@ -166,17 +167,11 @@ let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
+      "\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 " Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+   let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
@@ -226,21 +221,8 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php =
-      \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 let php_sql_query=1
 let php_htmlInStrings=1
 
@@ -251,8 +233,9 @@ function! s:php_settings()
 endfunction
 " Vim sessions
 let g:session_autosave="no"
+let g:session_autoload="yes"
 let g:session_autosave_periodic=5
-" let g:neocomplete#disable_auto_complete=1
+let g:neocomplete#disable_auto_complete=0
 
 
 let g:phpcomplete_index_composer_command='composer'
