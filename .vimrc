@@ -1,5 +1,7 @@
 set nocompatible
 
+
+
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -25,14 +27,14 @@ NeoBundle 'tpope/vim-rails.git'
 NeoBundle 'scrooloose/nerdtree'
 "NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'spf13/vim-autoclose'
-NeoBundle 'bling/vim-bufferline'
+"NeoBundle 'spf13/vim-autoclose'
+"NeoBundle 'bling/vim-bufferline'
 NeoBundle 'bling/vim-airline'
 
-NeoBundle 'godlygeek/csapprox'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'mbbill/undotree'
+""NeoBundle 'godlygeek/csapprox'
+"NeoBundle 'jistr/vim-nerdtree-tabs'
+"NeoBundle 'flazz/vim-colorschemes'
+"NeoBundle 'mbbill/undotree'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'tpope/vim-abolish.git'
@@ -49,7 +51,7 @@ NeoBundle 'godlygeek/tabular'
 if executable('ctags')
   NeoBundle 'majutsushi/tagbar'
 endif
- NeoBundle 'elzr/vim-json'
+NeoBundle 'elzr/vim-json'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'briancollins/vim-jst'
@@ -87,10 +89,11 @@ NeoBundle 'Shougo/neocomplete.vim'
 "     \ }
 NeoBundle 'm2mdas/phpcomplete-extended'
 NeoBundle 'm2mdas/phpcomplete-extended-symfony'
-"NeoBundle 'violetyk/neocomplete-php.vim'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
+
 NeoBundleCheck
+
 filetype plugin indent on     " required!
 set omnifunc=syntaxcomplete#Complete
 "
@@ -104,7 +107,7 @@ set omnifunc=syntaxcomplete#Complete
 " NOTE: comments after NeoBundle command are not allowed..
 "let g:airline_powerline_fonts = 1
 
-colorscheme solarized 
+colorscheme solarized
 set background=dark
 syntax on
 let mapleader=","
@@ -114,7 +117,7 @@ set t_Co=256
 " Let backspace go over automatic indention
 set backspace=2
 set grepprg=grep\ -nH\ $*
-set autoindent 
+set autoindent
 set hidden
 set tabstop=2
 set shiftwidth=2
@@ -130,10 +133,11 @@ set incsearch
 set hlsearch
 set foldmethod=syntax
 let php_folding=1
-set foldlevelstart=4
-set foldlevel=20
+set foldlevelstart=90
+set foldlevel=90
 set backup
 set backupdir=~/.vim/backup
+set undodir=~/.vim/undo
 set directory=~/.vim/tmp
 set history=1000
 if has('persistent_undo')
@@ -144,17 +148,17 @@ endif
 " Vim UI {
 
     if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-        let g:solarized_contrast="normal"
-        let g:solarized_visibility="normal"
+    "    let g:solarized_termcolors=256
+    "    let g:solarized_termtrans=1
+        let g:solarized_contrast="high"
+        let g:solarized_visibility="high"
         color solarized             " Load a colorscheme
     endif
 
-    set tabpagemax=15               " Only show 15 tabs
+    "set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    set cursorline                  " Highlight current line
+    "set cursorline                  " Highlight current line
 
 
     if has('cmdline_info')
@@ -189,7 +193,6 @@ endif
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=0                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
-    set foldenable                  " Auto fold code
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     set softtabstop=4               " Let backspace delete indent
@@ -237,7 +240,7 @@ endif
             hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
             " Some convenient mappings
-            inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+            inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc><Esc>"
             inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
             inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
             inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
@@ -262,21 +265,17 @@ endif
 
     " AutoCloseTag {
         " Make it so AutoCloseTag works for xml and xhtml files as well
-        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-        nmap <Leader>ac <Plug>ToggleAutoCloseMappings
+        "au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
+        "nmap <Leader>ac <Plug>ToggleAutoCloseMappings
     " }
 
 
     " NerdTree {
-        map <C-e> <plug>NERDTreeTabsToggle<CR>
-        map <leader>e :NERDTreeFind<CR>
-        nmap <leader>nt :NERDTreeFind<CR>
 
         let NERDTreeShowBookmarks=1
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
         let NERDTreeChDirMode=0
         let NERDTreeQuitOnOpen=1
-        let NERDTreeMouseMode=2
         let NERDTreeShowHidden=1
         let NERDTreeKeepTreeInNewTab=1
         let g:nerdtree_tabs_open_on_gui_startup=0
@@ -332,7 +331,8 @@ endif
         let g:neocomplete#enable_at_startup = 1
         let g:neocomplete#enable_smart_case = 1
         let g:neocomplete#enable_auto_delimiter = 1
-        let g:neocomplete#max_list = 15
+        let g:neocomplete#max_list = 25
+        let g:neocomplete#sources#syntax#min_keyword_length = 3
         let g:neocomplete#force_overwrite_completefunc = 1
 
 
@@ -350,10 +350,6 @@ endif
         let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
         " Plugin key-mappings {
-            imap <silent><expr><C-k> neosnippet#expandable() ?
-                        \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-                        \ "\<C-e>" : "\<Plug>(neosnippet_expand_or_jump)")
-            smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
 
             inoremap <expr><C-g> neocomplete#undo_completion()
             inoremap <expr><C-l> neocomplete#complete_common_string()
@@ -418,18 +414,6 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 
 
-" Cursor settings. This makes terminal vim sooo much nicer!
-" Tmux will only forward escape sequences to the terminal if surrounded by a DCS
-" sequence
-"if exists('$TMUX')
-"  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-"  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-"else
-"  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-"endif
-
-" " sad
 
 " Unite
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep,phpcomplete/files,phpcomplete/vendors,phpcomplete/extends,phpcomplete/implements','ignore_pattern', join([
@@ -485,3 +469,11 @@ let g:neocomplete#disable_auto_complete=0
 
 
 let g:phpcomplete_index_composer_command='composer'
+set term=xterm-256color
+set t_ut=
+set t_Co=256
+
+imap <ESC>oA <ESC>ki
+imap <ESC>oB <ESC>ji
+imap <ESC>oC <ESC>li
+imap <ESC>oD <ESC>hi
