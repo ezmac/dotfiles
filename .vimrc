@@ -21,13 +21,13 @@ NeoBundle 'tpope/vim-rails.git'
 " ...
 
 "NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'shawncplus/phpcomplete.vim'
+"NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'scrooloose/nerdtree'
 "NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'scrooloose/syntastic'
 "NeoBundle 'fholgado/minibufexpl.vim'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'ervandew/supertab'
+" NeoBundle 'ervandew/supertab'
 " NeoBundle 'brookhong/DBGPavim'
 NeoBundle 'evidens/vim-twig'
 NeoBundle 'joonty/vdebug'
@@ -47,14 +47,16 @@ NeoBundle 'Shougo/unite-help'
 NeoBundle 'Shougo/unite-session'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'mileszs/ack.vim'
-NeoBundle 'm2mdas/phpcomplete-extended'
-NeoBundle 'm2mdas/phpcomplete-extended-symfony'
-NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'm2mdas/phpcomplete-extended'
+"NeoBundle 'm2mdas/phpcomplete-extended-symfony'
+"NeoBundle 'violetyk/neocomplete-php.vim'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 NeoBundleCheck
 filetype plugin indent on     " required!
+set omnifunc=syntaxcomplete#Complete
 "
 " Brief help
 " :NeoBundleList          - list configured bundles
@@ -90,7 +92,10 @@ set smartcase
 set ignorecase
 set incsearch
 set hlsearch
-
+set foldmethod=syntax
+let php_folding=1
+set foldlevelstart=4
+set foldlevel=20
 set backup
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
@@ -106,15 +111,7 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>                                                                                                                       
 nmap <silent> <c-l> :wincmd l<CR>
 
-" Move the splits arround!
-nmap <silent> <c-s-k> <C-W>k                                                                                                                       
-nmap <silent> <c-s-j> <C-W>j                                                                                                                       
-nmap <silent> <c-s-h> <C-W>h                                                                                                                       
-nmap <silent> <c-s-l> <C-W>l
 
-
-nmap <F2> :mksession ~/.vim_session <cr>
-nmap <F2> :source ~/.vim_session <cr>
 
 
 " Cursor settings. This makes terminal vim sooo much nicer!
@@ -128,15 +125,14 @@ nmap <F2> :source ~/.vim_session <cr>
 "  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 "endif
 
-
+" " sad
 
 " Unite
-call unite#custom_source("file_rec,file_rec/async,file_mru,file,buffer,grep,phpcomplete/files,phpcomplete/vendors,phpcomplete/extends,phpcomplete/implements",'ignore_pattern', join([
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep,phpcomplete/files,phpcomplete/vendors,phpcomplete/extends,phpcomplete/implements','ignore_pattern', join([
   \ '\.git/',
   \ '.*cache/.*',
   \ '.*logs/.*',
   \ 'web/.*',
-  \ '\.phpcomplete_extended/.*',
   \ 'tmp',
   \ 'library/Zend',
   \ 'vendor'
@@ -155,7 +151,7 @@ nnoremap <C-b> :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
   " Play nice with supertab
-  let b:SuperTabDisabled=1
+   let b:SuperTabDisabled=1
   " Enable navigation with control-j and control-k in insert mode
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
@@ -163,10 +159,9 @@ function! s:unite_settings()
   
 endfunction
 " neocomplete
-
-" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
+"let g:acp_enableAtStartup = 1
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
@@ -174,21 +169,11 @@ let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
+      "\ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 " Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions',
-    \ }
-"    \ 'phpcomplete_files': 'phpcomplete/files',
-"    \ 'phpcomplete_vendors': 'phpcomplete/vendors',
-"    \ 'phpcomplete_extends': 'phpcomplete/extends',
-"    \ 'phpcomplete_implements': 'phpcomplete/implements'
-
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+   let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
@@ -238,6 +223,7 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
 " Enable heavy omni completion.
@@ -255,8 +241,19 @@ endif
 " https://github.com/c9s/perlomni.vim
 
 " set php specific options
+let php_sql_query=1
+let php_htmlInStrings=1
 
 autocmd FileType php call s:php_settings()
 function! s:php_settings()
-  nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert phpcomplete/files:!<cr>
+  "nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert phpcomplete/files:!<cr>
+  "setlocal omnifunc=phpcomplete_extended#CompletePHP
 endfunction
+" Vim sessions
+let g:session_autosave="no"
+let g:session_autoload="yes"
+let g:session_autosave_periodic=5
+let g:neocomplete#disable_auto_complete=0
+
+
+let g:phpcomplete_index_composer_command='composer'
