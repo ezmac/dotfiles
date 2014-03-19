@@ -20,6 +20,8 @@ NeoBundle 'Lokaltog/vim-easymotion'
 "NeoBundle 'rstacruz/sparkup'
 NeoBundle 'tpope/vim-ragtag.git'
 NeoBundle 'tpope/vim-rails.git'
+"  GOLANG
+NeoBundle 'jnwhiteh/vim-golang'
 " vim-scripts repos
 " ...
 

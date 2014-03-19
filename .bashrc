@@ -110,6 +110,12 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+export GOROOT=$HOME/code/go
+export PATH=$PATH:/usr/bin/go
+export GOPATH=$HOME/code/go
+ export PATH=$PATH:$GOPATH
+
+
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export CONCIERGE_USER=willtiam
 export EDITOR=vim
