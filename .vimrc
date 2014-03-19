@@ -16,7 +16,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 " original repos on github
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'rstacruz/sparkup'
+" like zencoding
+"NeoBundle 'rstacruz/sparkup'
 NeoBundle 'tpope/vim-ragtag.git'
 NeoBundle 'tpope/vim-rails.git'
 " vim-scripts repos
@@ -35,19 +36,25 @@ NeoBundle 'bling/vim-airline'
 "NeoBundle 'jistr/vim-nerdtree-tabs'
 "NeoBundle 'flazz/vim-colorschemes'
 "NeoBundle 'mbbill/undotree'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+"NeoBundle 'nathanaelkane/vim-indent-guides'
+"Show git diff in vim's sign column
 NeoBundle 'mhinz/vim-signify'
+"Abolish.vim provides a simpler way. The following one command produces 48 abbreviations including all of the above.
+
+":Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
+"My current configuration has 25 Abolish commands that create hundreds of corrections my fingers refuse to learn.
+"Want to turn fooBar into foo_bar? Press crs (coerce to snake_case). MixedCase (crm), camelCase (crc), snake_case (crs), and UPPER_CASE (cru) are all just 3 keystrokes away. 
 NeoBundle 'tpope/vim-abolish.git'
-NeoBundle 'osyo-manga/vim-over'
+"NeoBundle 'osyo-manga/vim-over'
 " }
 
 " General Programming {
 " Pick one of the checksyntax, jslint, or syntastic
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'mattn/gist-vim'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'godlygeek/tabular'
+"NeoBundle 'mattn/webapi-vim'
+"NeoBundle 'mattn/gist-vim'
+"NeoBundle 'scrooloose/nerdcommenter'
+"NeoBundle 'godlygeek/tabular'
 if executable('ctags')
   NeoBundle 'majutsushi/tagbar'
 endif
@@ -56,10 +63,9 @@ NeoBundle 'groenewege/vim-less'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'briancollins/vim-jst'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'spf13/PIV'
-NeoBundle 'arnaud-lb/vim-php-namespace'
+"NeoBundle 'spf13/PIV'
+"NeoBundle 'arnaud-lb/vim-php-namespace'
 
-NeoBundle 'scrooloose/syntastic'
 "NeoBundle 'fholgado/minibufexpl.vim'
 NeoBundle 'altercation/vim-colors-solarized'
 " NeoBundle 'ervandew/supertab'
@@ -132,7 +138,7 @@ set ignorecase
 set incsearch
 set hlsearch
 set foldmethod=syntax
-let php_folding=1
+"let php_folding=1
 set foldlevelstart=90
 set foldlevel=90
 set backup
@@ -158,7 +164,7 @@ endif
     "set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
-    "set cursorline                  " Highlight current line
+    set cursorline                  " Highlight current line
 
 
     if has('cmdline_info')
@@ -215,7 +221,7 @@ endif
 " Plugins {
 
     " PIV {
-        let g:DisableAutoPHPFolding = 0
+        let g:DisableAutoPHPFolding = 1
         let g:PIVAutoClose = 0
     " }
 
@@ -240,15 +246,6 @@ endif
             hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
             " Some convenient mappings
-            inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc><Esc>"
-            inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-            inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-            inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-            inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-            inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-            " Automatically open and close the popup menu / preview window
-            au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
             set completeopt=menu,preview,longest
         endif
     " }
@@ -281,28 +278,6 @@ endif
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
 
-    " Tabularize {
-        nmap <Leader>a& :Tabularize /&<CR>
-        vmap <Leader>a& :Tabularize /&<CR>
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:<CR>
-        vmap <Leader>a: :Tabularize /:<CR>
-        nmap <Leader>a:: :Tabularize /:\zs<CR>
-        vmap <Leader>a:: :Tabularize /:\zs<CR>
-        nmap <Leader>a, :Tabularize /,<CR>
-        vmap <Leader>a, :Tabularize /,<CR>
-        nmap <Leader>a,, :Tabularize /,\zs<CR>
-        vmap <Leader>a,, :Tabularize /,\zs<CR>
-        nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-    " }
-
-    " Session List {
-        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-        nmap <leader>sl :SessionList<CR>
-        nmap <leader>ss :SessionSave<CR>
-        nmap <leader>sc :SessionClose<CR>
     " }
 
 
@@ -354,6 +329,7 @@ endif
             inoremap <expr><C-g> neocomplete#undo_completion()
             inoremap <expr><C-l> neocomplete#complete_common_string()
             inoremap <expr><CR> neocomplete#complete_common_string()
+            "inoremap <expr><ESC> pumvisible() ? neocomplete#close_popup() : "\<ESC>"
 
             " <CR>: close popup
             " <s-CR>: close popup and save indent.
@@ -361,7 +337,7 @@ endif
             inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>"
 
             " <C-h>, <BS>: close popup and delete backword char.
-            inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+            "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
             inoremap <expr><C-y> neocomplete#close_popup()
             " <TAB>: completion.
             inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -428,7 +404,7 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep,phpc
   
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
+nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! <cr>
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 "nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
 "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
