@@ -131,6 +131,7 @@ set expandtab
 set smarttab
 set ruler
 set number
+set relativenumber
 set showcmd
 set smartindent
 set smartcase
