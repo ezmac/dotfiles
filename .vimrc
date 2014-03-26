@@ -101,6 +101,7 @@ NeoBundle 'm2mdas/phpcomplete-extended'
 NeoBundle 'm2mdas/phpcomplete-extended-symfony'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
+NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
 
 NeoBundleCheck
 
