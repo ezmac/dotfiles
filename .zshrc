@@ -72,3 +72,12 @@ export PATH="/home/tad/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448/bin:/home/tad/.rv
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
+#
+# Maybe fix the end of line woe
+autoload -Uz up-line-or-beginning-search
+autoload -Uz down-line-or-beginning-search
+zle -N up-line-or-beginning-search up-line-or-beginning-search
+zle -N down-line-or-beginning-search down-line-or-beginning-search
+bindkey -v
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
