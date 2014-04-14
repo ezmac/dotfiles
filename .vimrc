@@ -24,9 +24,10 @@ NeoBundle 'tpope/vim-rails.git'
 NeoBundle 'jnwhiteh/vim-golang'
 " vim-scripts repos
 " ...
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 "NeoBundle 'Valloric/YouCompleteMe'
-"NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'scrooloose/nerdtree'
 "NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'tpope/vim-surround'
@@ -97,8 +98,8 @@ NeoBundle 'Shougo/neocomplete.vim'
 "     \     'unix': './install.sh'
 "     \     }
 "     \ }
-NeoBundle 'm2mdas/phpcomplete-extended'
-NeoBundle 'm2mdas/phpcomplete-extended-symfony'
+" NeoBundle 'm2mdas/phpcomplete-extended'
+" NeoBundle 'm2mdas/phpcomplete-extended-symfony'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
@@ -107,6 +108,26 @@ NeoBundleCheck
 
 filetype plugin indent on     " required!
 set omnifunc=syntaxcomplete#Complete
+  
+    
+      
+        
+          
+            
+          
+        
+      
+    
+  
+
+
+
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey
+set ts=2 sw=2
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=2
+
 "
 " Brief help
 " :NeoBundleList          - list configured bundles
@@ -117,12 +138,12 @@ set omnifunc=syntaxcomplete#Complete
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after NeoBundle command are not allowed..
 "let g:airline_powerline_fonts = 1
-
-colorscheme solarized
+"set t_Co=256
 set background=dark
+colorscheme solarized
 syntax on
 let mapleader=","
-set term=xterm-256color
+set term=screen-256color
 set t_ut=
 set t_Co=256
 " Let backspace go over automatic indention
@@ -136,17 +157,17 @@ set expandtab
 set smarttab
 set ruler
 set number
-set relativenumber
+"set relativenumber
 set showcmd
 set smartindent
 set smartcase
 set ignorecase
 set incsearch
 set hlsearch
-set foldmethod=syntax
+"set foldmethod=syntax
 "let php_folding=1
-set foldlevelstart=90
-set foldlevel=90
+"set foldlevelstart=90
+"set foldlevel=90
 set backup
 set backupdir=~/.vim/backup
 set undodir=~/.vim/undo
@@ -159,14 +180,6 @@ if has('persistent_undo')
 endif
 " Vim UI {
 
-    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
-    "    let g:solarized_termcolors=256
-    "    let g:solarized_termtrans=1
-        let g:solarized_contrast="high"
-        let g:solarized_visibility="high"
-        color solarized             " Load a colorscheme
-    endif
-
     "set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
 
@@ -175,7 +188,7 @@ endif
 
     if has('cmdline_info')
         set ruler                   " Show the ruler
-        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+        "set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
         set showcmd                 " Show partial commands in status line and
                                     " Selected characters/lines in visual mode
     endif
@@ -193,18 +206,17 @@ endif
     endif
 
     set linespace=0                 " No extra spaces between rows
-    set nu                          " Line numbers on
     set showmatch                   " Show matching brackets/parenthesis
     set incsearch                   " Find as you type search
     set hlsearch                    " Highlight search terms
-    set winminheight=0              " Windows can be 0 line high
+    "set winminheight=0              " Windows can be 0 line high
     set ignorecase                  " Case insensitive search
     set smartcase                   " Case sensitive when uc present
     set wildmenu                    " Show list instead of just completing
     set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=0                " Lines to scroll when cursor leaves screen
-    set scrolloff=3                 " Minimum lines to keep above and below cursor
+    "set scrolloff=3                 " Minimum lines to keep above and below cursor
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
     set softtabstop=4               " Let backspace delete indent
@@ -247,9 +259,9 @@ endif
                     \endif
             endif
 
-            hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-            hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-            hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+    "        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+    "        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+    "        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
             " Some convenient mappings
             set completeopt=menu,preview,longest
@@ -278,7 +290,7 @@ endif
         let NERDTreeShowBookmarks=1
         let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
         let NERDTreeChDirMode=0
-        let NERDTreeQuitOnOpen=1
+    "    let NERDTreeQuitOnOpen=1
         let NERDTreeShowHidden=1
         let NERDTreeKeepTreeInNewTab=1
         let g:nerdtree_tabs_open_on_gui_startup=0
@@ -360,6 +372,7 @@ endif
         let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
         let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
+        let g:airline_powerline_fonts=1
       " vim-airline {
             " Set configuration options for the statusline plugin vim-airline.
             " Use the powerline theme and optionally enable powerline symbols.
@@ -383,14 +396,10 @@ endif
 
 map <leader>n :NERDTreeToggle<CR>
 let g:EasyMotion_leader_key = '<Leader><Leader>' 
-"##############################################################################                                                                         
-" Easier split navigation                                                                                                                               
-"##############################################################################                                                                         
-
 " Use ctrl-[hjkl] to select the active split!
-nmap <silent> <c-k> :wincmd k<CR>                                                                                                                       
-nmap <silent> <c-j> :wincmd j<CR>                                                                                                                       
-nmap <silent> <c-h> :wincmd h<CR>                                                                                                                       
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
 
@@ -467,11 +476,11 @@ let g:neocomplete#disable_auto_complete=0
 
 
 let g:phpcomplete_index_composer_command='composer'
-set term=xterm-256color
-set t_ut=
-set t_Co=256
+"set term=screen-256color
+"set t_ut=
+"set t_Co=256
 
-imap <ESC>oA <ESC>ki
-imap <ESC>oB <ESC>ji
-imap <ESC>oC <ESC>li
-imap <ESC>oD <ESC>hi
+"imap <ESC>oA <ESC>ki
+"imap <ESC>oB <ESC>ji
+"imap <ESC>oC <ESC>li
+"imap <ESC>oD <ESC>hi

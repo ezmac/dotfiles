@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="amuse"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -41,7 +41,9 @@ ZSH_THEME="agnoster"
 # in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
  HIST_STAMPS="yyyy-mm-dd"
-
+ HISTSIZE=10000
+ SAVEHIST=HISTSIZE
+ setopt hist_ignore_all_dupes
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
@@ -69,6 +71,7 @@ export PATH="/home/tad/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448/bin:/home/tad/.rv
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+export TERM=screen-256color
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
@@ -81,3 +84,8 @@ zle -N down-line-or-beginning-search down-line-or-beginning-search
 bindkey -v
 bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
+GOROOT="/usr/local/go"
+PATH=$PATH:$GOROOT/bin
+GOPATH="$HOME/go"
+setopt SHARE_HISTORY=off
+setopt INC_APPEND_HISTORY=on
