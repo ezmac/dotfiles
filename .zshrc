@@ -86,3 +86,8 @@ bindkey "^[[B" down-line-or-beginning-search
 GOROOT="/usr/local/go"
 PATH=$PATH:$GOROOT/bin
 GOPATH="$HOME/go"
+
+export TERM=xterm-256color
+
+
+alias tmux="tmux -2 "

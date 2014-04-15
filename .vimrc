@@ -138,12 +138,11 @@ let g:indent_guides_guide_size=2
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after NeoBundle command are not allowed..
 "let g:airline_powerline_fonts = 1
-set t_Co=256
 set background=dark
 colorscheme solarized
 syntax on
 let mapleader=","
-"set term=screen-256color
+set term=screen-256color
 "set t_ut=
 "set t_Co=256
 " Let backspace go over automatic indention
@@ -476,11 +475,9 @@ let g:neocomplete#disable_auto_complete=0
 
 
 let g:phpcomplete_index_composer_command='composer'
-"set term=screen-256color
-"set t_ut=
-"set t_Co=256
 
 "imap <ESC>oA <ESC>ki
 "imap <ESC>oB <ESC>ji
 "imap <ESC>oC <ESC>li
 "imap <ESC>oD <ESC>hi
+autocmd vimenter * if !argc() | NERDTree | endif
