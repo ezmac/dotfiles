@@ -138,14 +138,14 @@ let g:indent_guides_guide_size=2
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after NeoBundle command are not allowed..
 "let g:airline_powerline_fonts = 1
-"set t_Co=256
+set t_Co=256
 set background=dark
 colorscheme solarized
 syntax on
 let mapleader=","
-set term=screen-256color
-set t_ut=
-set t_Co=256
+"set term=screen-256color
+"set t_ut=
+"set t_Co=256
 " Let backspace go over automatic indention
 set backspace=2
 set grepprg=grep\ -nH\ $*
