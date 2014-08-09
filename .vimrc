@@ -1,5 +1,6 @@
 set nocompatible
 
+"change
 
 
 set runtimepath+=~/.vim/bundle/neobundle.vim/
