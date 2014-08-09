@@ -6,9 +6,9 @@ set runtimepath+=~/.vim/bundle/neobundle.vim/
 
 call neobundle#rc(expand('~/.vim/bundle/'))
 
- " Let NeoBundle manage NeoBundle
- " Required:
- NeoBundleFetch 'Shougo/neobundle.vim'
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
 " required! 
 
 " My NeoBundles here:
@@ -26,7 +26,12 @@ NeoBundle 'jnwhiteh/vim-golang'
 " ...
 NeoBundle 'nathanaelkane/vim-indent-guides'
 
+" syntax highlighting for Dockerfiles
+NeoBundle 'ekalinin/Dockerfile.vim'
+
+
 "NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'scrooloose/nerdtree'
 "NeoBundle 'kien/ctrlp.vim'
@@ -35,7 +40,7 @@ NeoBundle 'tpope/vim-surround'
 "NeoBundle 'bling/vim-bufferline'
 NeoBundle 'bling/vim-airline'
 
-""NeoBundle 'godlygeek/csapprox'
+"NeoBundle 'godlygeek/csapprox'
 "NeoBundle 'jistr/vim-nerdtree-tabs'
 "NeoBundle 'flazz/vim-colorschemes'
 "NeoBundle 'mbbill/undotree'
@@ -61,6 +66,7 @@ NeoBundle 'scrooloose/syntastic'
 if executable('ctags')
   NeoBundle 'majutsushi/tagbar'
 endif
+NeoBundle 'vim-scripts/AutoTag'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'groenewege/vim-less'
 NeoBundle 'pangloss/vim-javascript'
@@ -98,27 +104,28 @@ NeoBundle 'Shougo/neocomplete.vim'
 "     \     'unix': './install.sh'
 "     \     }
 "     \ }
-" NeoBundle 'm2mdas/phpcomplete-extended'
+NeoBundle 'm2mdas/phpcomplete-extended'
 " NeoBundle 'm2mdas/phpcomplete-extended-symfony'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
+NeoBundle 'xsbeats/vim-blade'
 
 NeoBundleCheck
 
 filetype plugin indent on     " required!
 set omnifunc=syntaxcomplete#Complete
-  
-    
-      
-        
-          
-            
-          
-        
-      
-    
-  
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -179,219 +186,200 @@ if has('persistent_undo')
 endif
 " Vim UI {
 
-    "set tabpagemax=15               " Only show 15 tabs
-    set showmode                    " Display the current mode
+"set tabpagemax=15               " Only show 15 tabs
+set showmode                    " Display the current mode
 
-    set cursorline                  " Highlight current line
+set cursorline                  " Highlight current line
 
 
-    if has('cmdline_info')
-        set ruler                   " Show the ruler
-        "set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
-        set showcmd                 " Show partial commands in status line and
-                                    " Selected characters/lines in visual mode
-    endif
+if has('cmdline_info')
+  set ruler                   " Show the ruler
+  "set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+  set showcmd                 " Show partial commands in status line and
+  " Selected characters/lines in visual mode
+endif
 
-    if has('statusline')
-        set laststatus=2
+if has('statusline')
+  set laststatus=2
 
-        " Broken down into easily includeable segments
-        set statusline=%<%f\                     " Filename
-        ""set statusline+=%w%h%m%r                 " Options
-        set statusline+=%{fugitive#statusline()} " Git Hotness
-        ""set statusline+=\ [%{&ff}/%Y]            " Filetype
-        set statusline+=\ [%{getcwd()}]          " Current dir
-        set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-    endif
+  " Broken down into easily includeable segments
+  set statusline=%<%f\                     " Filename
+  ""set statusline+=%w%h%m%r                 " Options
+  set statusline+=%{fugitive#statusline()} " Git Hotness
+  set statusline+=\ [%{&ff}/%Y]            " Filetype
+  "set statusline+=\ [%{getcwd()}]          " Current dir
+  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+endif
 
-    set linespace=0                 " No extra spaces between rows
-    set showmatch                   " Show matching brackets/parenthesis
-    set incsearch                   " Find as you type search
-    set hlsearch                    " Highlight search terms
-    "set winminheight=0              " Windows can be 0 line high
-    set ignorecase                  " Case insensitive search
-    set smartcase                   " Case sensitive when uc present
-    set wildmenu                    " Show list instead of just completing
-    set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
-    set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-    set scrolljump=0                " Lines to scroll when cursor leaves screen
-    "set scrolloff=3                 " Minimum lines to keep above and below cursor
-    set list
-    set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-    set softtabstop=4               " Let backspace delete indent
-    set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
-    set splitright                  " Puts new vsplit windows to the right of the current
-    set splitbelow                  " Puts new split windows to the bottom of the current
-    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+set linespace=0                 " No extra spaces between rows
+set showmatch                   " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+"set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=0                " Lines to scroll when cursor leaves screen
+"set scrolloff=3                 " Minimum lines to keep above and below cursor
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+set softtabstop=4               " Let backspace delete indent
+set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set splitright                  " Puts new vsplit windows to the right of the current
+set splitbelow                  " Puts new split windows to the bottom of the current
+autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 
-    " leader slash turns off search highlighting
-    nmap <silent> <leader>/ :set invhlsearch<CR> 
-    "Find merge conflicts
-    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
-    " Some helpers to edit mode
-    " http://vimcasts.org/e/14
-    cnoremap %% <C-R>=expand('%:h').'/'<cr>
-    map <leader>ew :e %%
-    map <leader>es :sp %%
-    map <leader>ev :vsp %%
-    map <leader>et :tabe %%
+" leader slash turns off search highlighting
+nmap <silent> <leader>/ :set invhlsearch<CR> 
+"Find merge conflicts
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+" Some helpers to edit mode
+" http://vimcasts.org/e/14
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
 " Plugins {
 
-    " PIV {
-        let g:DisableAutoPHPFolding = 1
-        let g:PIVAutoClose = 0
-    " }
+" PIV {
+let g:DisableAutoPHPFolding = 0
+let g:PIVAutoClose = 0
+" }
 
-    " Misc {
-        let g:NERDShutUp=1
-        let b:match_ignorecase = 1
-    " }
-
-    " OmniComplete {
-        " To disable omni complete, add the following to your .vimrc.before.local file:
-        "   let g:spf13_no_omni_complete = 1
-        if !exists('g:spf13_no_omni_complete')
-            if has("autocmd") && exists("+omnifunc")
-                autocmd Filetype *
-                    \if &omnifunc == "" |
-                    \setlocal omnifunc=syntaxcomplete#Complete |
-                    \endif
-            endif
-
-    "        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-    "        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-    "        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-            " Some convenient mappings
-            set completeopt=menu,preview,longest
-        endif
-    " }
-
-    " Ctags {
-        set tags=./tags;/,~/.vimtags
-
-        " Make tags placed in .git/tags file available in all levels of a repository
-        let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-        if gitroot != ''
-            let &tags = &tags . ',' . gitroot . '/.git/tags'
-        endif
-    " }
-
-    " AutoCloseTag {
-        " Make it so AutoCloseTag works for xml and xhtml files as well
-        "au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-        "nmap <Leader>ac <Plug>ToggleAutoCloseMappings
-    " }
+" Misc {
+let g:NERDShutUp=0
+let b:match_ignorecase = 1
+" }
 
 
-    " NerdTree {
+" Ctags {
+set tags=./tags;/,~/.vimtags
 
-        let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-        let NERDTreeChDirMode=0
-    "    let NERDTreeQuitOnOpen=1
-        let NERDTreeShowHidden=1
-        let NERDTreeKeepTreeInNewTab=1
-        let g:nerdtree_tabs_open_on_gui_startup=0
-    " }
+" Make tags placed in .git/tags file available in all levels of a repository
+let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
+if gitroot != ''
+  let &tags = &tags . ',' . gitroot . '/.git/tags'
+endif
+" }
 
-    " }
+" AutoCloseTag {
+" Make it so AutoCloseTag works for xml and xhtml files as well
+"au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
+"nmap <Leader>ac <Plug>ToggleAutoCloseMappings
+" }
+
+
+" NerdTree {
+
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+let NERDTreeChDirMode=0
+"    let NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+let g:nerdtree_tabs_open_on_gui_startup=0
+" }
+
+" }
 
 
 
-    " TagBar {
-        nnoremap <silent> <leader>tt :TagbarToggle<CR>
+" TagBar {
+nnoremap <silent> <leader>tt :TagbarToggle<CR>
 
-   " Fugitive {
-        nnoremap <silent> <leader>gs :Gstatus<CR>
-        nnoremap <silent> <leader>gd :Gdiff<CR>
-        nnoremap <silent> <leader>gc :Gcommit<CR>
-        nnoremap <silent> <leader>gb :Gblame<CR>
-        nnoremap <silent> <leader>gl :Glog<CR>
-        nnoremap <silent> <leader>gp :Git push<CR>
-        nnoremap <silent> <leader>gr :Gread<CR>
-        nnoremap <silent> <leader>gw :Gwrite<CR>
-        nnoremap <silent> <leader>ge :Gedit<CR>
-        " Mnemonic _i_nteractive
-        nnoremap <silent> <leader>gi :Git add -p %<CR>
-        nnoremap <silent> <leader>gg :SignifyToggle<CR>
-    "}
+" Fugitive {
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+" Mnemonic _i_nteractive
+nnoremap <silent> <leader>gi :Git add -p %<CR>
+nnoremap <silent> <leader>gg :SignifyToggle<CR>
+"}
 
-    " NeoComplete
+" NeoComplete
 
-        let g:acp_enableAtStartup = 0
-        let g:neocomplete#enable_at_startup = 1
-        let g:neocomplete#enable_smart_case = 1
-        let g:neocomplete#enable_auto_delimiter = 1
-        let g:neocomplete#max_list = 25
-        let g:neocomplete#sources#syntax#min_keyword_length = 3
-        let g:neocomplete#force_overwrite_completefunc = 1
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_auto_delimiter = 1
+let g:neocomplete#max_list = 25
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#force_overwrite_completefunc = 1
 
 
-        " Define dictionary.
-        let g:neocomplete#sources#dictionary#dictionaries = {
-                    \ 'default' : '',
-                    \ 'vimshell' : $HOME.'/.vimshell_hist',
-                    \ 'scheme' : $HOME.'/.gosh_completions'
-                    \ }
+" Define dictionary.
+"let g:neocomplete#sources#dictionary#dictionaries = {
+"\ 'default' : '',
+"\ 'vimshell' : $HOME.'/.vimshell_hist',
+"\ 'scheme' : $HOME.'/.gosh_completions'
+"\ }
+"
+"" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-        " Define keyword.
-        if !exists('g:neocomplete#keyword_patterns')
-            let g:neocomplete#keyword_patterns = {}
-        endif
-        let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" Plugin key-mappings {
 
-        " Plugin key-mappings {
+inoremap <expr><C-g> neocomplete#undo_completion()
+inoremap <expr><C-l> neocomplete#complete_common_string()
+inoremap <expr><CR> neocomplete#complete_common_string()
+"inoremap <expr><ESC> pumvisible() ? neocomplete#close_popup() : "\<ESC>"
 
-            inoremap <expr><C-g> neocomplete#undo_completion()
-            inoremap <expr><C-l> neocomplete#complete_common_string()
-            inoremap <expr><CR> neocomplete#complete_common_string()
-            "inoremap <expr><ESC> pumvisible() ? neocomplete#close_popup() : "\<ESC>"
+" <CR>: close popup
+" <s-CR>: close popup and save indent.
+inoremap <expr><s-CR> pumvisible() ? neocomplete#close_popup()"\<CR>" : "\<CR>"
+inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>"
 
-            " <CR>: close popup
-            " <s-CR>: close popup and save indent.
-            inoremap <expr><s-CR> pumvisible() ? neocomplete#close_popup()"\<CR>" : "\<CR>"
-            inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>"
+" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y> neocomplete#close_popup()
+" <TAB>: completion.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+" }
 
-            " <C-h>, <BS>: close popup and delete backword char.
-            "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-            inoremap <expr><C-y> neocomplete#close_popup()
-            " <TAB>: completion.
-            inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-            inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-        " }
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
-        " Enable heavy omni completion.
-        if !exists('g:neocomplete#sources#omni#input_patterns')
-            let g:neocomplete#sources#omni#input_patterns = {}
-        endif
-        let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-        let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-        let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+let g:airline_powerline_fonts=1
+" vim-airline {
+" Set configuration options for the statusline plugin vim-airline.
+" Use the powerline theme and optionally enable powerline symbols.
+" To use the symbols , , , , , , and .in the statusline
+" segments add the following to your .vimrc.before.local file:
+"   let g:airline_powerline_fonts=1
+" If the previous symbols do not render for you then install a
+" powerline enabled font.
 
-        let g:airline_powerline_fonts=1
-      " vim-airline {
-            " Set configuration options for the statusline plugin vim-airline.
-            " Use the powerline theme and optionally enable powerline symbols.
-            " To use the symbols , , , , , , and .in the statusline
-            " segments add the following to your .vimrc.before.local file:
-            "   let g:airline_powerline_fonts=1
-            " If the previous symbols do not render for you then install a
-            " powerline enabled font.
-
-            " See `:echo g:airline_theme_map` for some more choices
-            " Default in terminal vim is 'dark'
-            if !exists('g:airline_theme')
-                let g:airline_theme = 'solarized'
-            endif
-            if !exists('g:airline_powerline_fonts')
-                " Use the default set of separators with a few customizations
-                let g:airline_left_sep='›'  " Slightly fancier than '>'
-                let g:airline_right_sep='‹' " Slightly fancier than '<'
-            endif
-        " }
+" See `:echo g:airline_theme_map` for some more choices
+" Default in terminal vim is 'dark'
+if !exists('g:airline_theme')
+  let g:airline_theme = 'solarized'
+endif
+if !exists('g:airline_powerline_fonts')
+  " Use the default set of separators with a few customizations
+  let g:airline_left_sep='›'  " Slightly fancier than '>'
+  let g:airline_right_sep='‹' " Slightly fancier than '<'
+endif
+" }
 
 map <leader>n :NERDTreeToggle<CR>
 let g:EasyMotion_leader_key = '<Leader><Leader>' 
@@ -406,19 +394,19 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 
 " Unite
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep,phpcomplete/files,phpcomplete/vendors,phpcomplete/extends,phpcomplete/implements','ignore_pattern', join([
-  \ '\.git/',
-  \ '.*cache/.*',
-  \ '.*logs/.*',
-  \ 'web/.*',
-  \ 'tmp',
-  \ 'library/Zend',
-  \ 'vendor'
-  \ ], '\|'))
-  
+"call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep,phpcomplete/files,phpcomplete/vendors,phpcomplete/extends,phpcomplete/implements','ignore_pattern', join([
+      "\ '\.git/',
+      "\ '.*cache/.*',
+      "\ '.*logs/.*',
+      "\ 'web/.*',
+      "\ 'tmp',
+      "\ 'library/Zend',
+      "\ 'vendor'
+      "\ ], '\|'))
+
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert buffer file file_rec/async:! file<cr>
+nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 "nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
 "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
@@ -429,28 +417,33 @@ nnoremap <C-b> :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
   " Play nice with supertab
-   let b:SuperTabDisabled=1
+  let b:SuperTabDisabled=1
   " Enable navigation with control-j and control-k in insert mode
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
   nmap <buffer> <ESC> <Plug>(unite_exit)
-  
+
 endfunction
+
+let g:phpcomplete_extended_use_default_mapping = 0
+
+
+
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
-" Enable heavy omni completion.
-if exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-  "let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  "let g:neocomplete#sources#omni#input_patterns = {}
-endif
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
+"" Enable heavy omni completion.
+"if exists('g:neocomplete#sources#omni#input_patterns')
+  "let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+  "let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  ""let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+  ""let g:neocomplete#sources#omni#input_patterns = {}
+"endif
 "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
@@ -462,11 +455,19 @@ endif
 let php_sql_query=1
 let php_htmlInStrings=1
 
-autocmd FileType php call s:php_settings()
+"autocmd FileType php call s:php_settings()
 function! s:php_settings()
   "nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert phpcomplete/files:!<cr>
   "setlocal omnifunc=phpcomplete_extended#CompletePHP
+  setlocal omnifunc=phpcomplete_extended#CompletePHP
+  "let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 endfunction
+  "let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+  let g:neocomplete#sources#omni#input_patterns.php = '\h\w\{3,}\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+
+  "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+let g:phpcomplete_parse_docblock_comments = 1
 " Vim sessions
 let g:session_autosave="no"
 let g:session_autoload="yes"
@@ -475,9 +476,14 @@ let g:neocomplete#disable_auto_complete=0
 
 
 let g:phpcomplete_index_composer_command='composer'
+"let g:phpcomplete_extended_use_default_mapping=1
 
 "imap <ESC>oA <ESC>ki
 "imap <ESC>oB <ESC>ji
 "imap <ESC>oC <ESC>li
 "imap <ESC>oD <ESC>hi
 autocmd vimenter * if !argc() | NERDTree | endif
+
+
+
+set tags=./tags;~/code

@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="ezmac"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -49,7 +49,7 @@ ZSH_THEME="agnoster"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump catimg composer common-aliases debian docker fasd git-flow lol tmux vi-mode wd taskwarrior)
+plugins=(git autojump catimg composer common-aliases debian docker fasd git-flow lol tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -87,7 +87,14 @@ GOROOT="/usr/local/go"
 PATH=$PATH:$GOROOT/bin
 GOPATH="$HOME/go"
 
+export DEFAULT_USER='tad'
 export TERM=xterm-256color
+export DOCKER_BASEDIR=$HOME/apps/docker
+export SPINUP_BASEDIR=/var/storage/spinup
+export AS=$DOCKER_BASEDIR/ArchivesSpace
+export NEWSITE=/var/porterhouse/f/Inetpub/wwwroot/newsite/
 
-
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
 alias tmux="tmux -2 "
+alias diff=colordiff
