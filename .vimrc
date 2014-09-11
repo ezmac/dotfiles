@@ -15,73 +15,87 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " My NeoBundles here:
 "
 " original repos on github
+" Tim pope all up in my vimrc
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'Lokaltog/vim-easymotion'
-" like zencoding
-"NeoBundle 'rstacruz/sparkup'
 NeoBundle 'tpope/vim-ragtag.git'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-abolish.git'
 NeoBundle 'tpope/vim-rails.git'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'bling/vim-airline'
+"Show git diff in vim's sign column
+NeoBundle 'mhinz/vim-signify'
+NeoBundle 'rstacruz/sparkup'
+
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'xolox/vim-session'
+NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
+NeoBundle 'godlygeek/tabular'
+
+
+" Syntax checkers/linters
+" Pick one of the checksyntax, jslint, or syntastic
+NeoBundle 'scrooloose/syntastic'
+
+" like zencoding
 "  GOLANG
 NeoBundle 'jnwhiteh/vim-golang'
-" vim-scripts repos
-" ...
-NeoBundle 'nathanaelkane/vim-indent-guides'
+
+" UNUSED but might want to work on
+" has some issues in console, so disabled
+" NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'Valloric/YouCompleteMe'
+" NeoBundle 'kien/ctrlp.vim'
+" NeoBundle 'mbbill/undotree'
+" NeoBundle 'scrooloose/nerdcommenter'
+" NeoBundle 'mattn/webapi-vim'
+" NeoBundle 'mattn/gist-vim'
+" NeoBundle 'elzr/vim-json'
+" NeoBundle 'fholgado/minibufexpl.vim'
 
 " syntax highlighting for Dockerfiles
 NeoBundle 'ekalinin/Dockerfile.vim'
 
 
-"NeoBundle 'Valloric/YouCompleteMe'
+" PHP
 NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'scrooloose/nerdtree'
-"NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tpope/vim-surround'
-"NeoBundle 'spf13/vim-autoclose'
-"NeoBundle 'bling/vim-bufferline'
-NeoBundle 'bling/vim-airline'
+NeoBundle 'joonty/vdebug'
+NeoBundle 'm2mdas/phpcomplete-extended'
 
-"NeoBundle 'godlygeek/csapprox'
-"NeoBundle 'jistr/vim-nerdtree-tabs'
-"NeoBundle 'flazz/vim-colorschemes'
-"NeoBundle 'mbbill/undotree'
-"NeoBundle 'nathanaelkane/vim-indent-guides'
-"Show git diff in vim's sign column
-NeoBundle 'mhinz/vim-signify'
+" Javascript
+NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+NeoBundle 'moll/vim-node'
+
+" Coffeescript
+NeoBundle 'kchmck/vim-coffee-script'
+" NeoBundle 'maksimr/vim-jsbeautify'
+
+
+" Template engines
+NeoBundle 'evidens/vim-twig'
+NeoBundle 'xsbeats/vim-blade'
+
 "Abolish.vim provides a simpler way. The following one command produces 48 abbreviations including all of the above.
 
 ":Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
 "My current configuration has 25 Abolish commands that create hundreds of corrections my fingers refuse to learn.
 "Want to turn fooBar into foo_bar? Press crs (coerce to snake_case). MixedCase (crm), camelCase (crc), snake_case (crs), and UPPER_CASE (cru) are all just 3 keystrokes away. 
-NeoBundle 'tpope/vim-abolish.git'
-"NeoBundle 'osyo-manga/vim-over'
-" }
-
+"
 " General Programming {
-" Pick one of the checksyntax, jslint, or syntastic
-NeoBundle 'scrooloose/syntastic'
-"NeoBundle 'mattn/webapi-vim'
-"NeoBundle 'mattn/gist-vim'
-"NeoBundle 'scrooloose/nerdcommenter'
-"NeoBundle 'godlygeek/tabular'
+
 if executable('ctags')
   NeoBundle 'majutsushi/tagbar'
 endif
 NeoBundle 'vim-scripts/AutoTag'
-NeoBundle 'elzr/vim-json'
 NeoBundle 'groenewege/vim-less'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'briancollins/vim-jst'
-NeoBundle 'kchmck/vim-coffee-script'
 "NeoBundle 'spf13/PIV'
 "NeoBundle 'arnaud-lb/vim-php-namespace'
 
-"NeoBundle 'fholgado/minibufexpl.vim'
 NeoBundle 'altercation/vim-colors-solarized'
-" NeoBundle 'ervandew/supertab'
-" NeoBundle 'brookhong/DBGPavim'
-NeoBundle 'evidens/vim-twig'
-NeoBundle 'joonty/vdebug'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -90,8 +104,6 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite-help'
@@ -105,12 +117,7 @@ NeoBundle 'Shougo/neocomplete.vim'
 "     \     'unix': './install.sh'
 "     \     }
 "     \ }
-NeoBundle 'm2mdas/phpcomplete-extended'
 " NeoBundle 'm2mdas/phpcomplete-extended-symfony'
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'xolox/vim-session'
-NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
-NeoBundle 'xsbeats/vim-blade'
 
 NeoBundleCheck
 
@@ -483,8 +490,17 @@ let g:phpcomplete_index_composer_command='composer'
 "imap <ESC>oB <ESC>ji
 "imap <ESC>oC <ESC>li
 "imap <ESC>oD <ESC>hi
-autocmd vimenter * if !argc() | NERDTree | endif
+" autocmd vimenter * if !argc() | NERDTree | endif
 
+  autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+  " for html
+  autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+  " for css or scss
+  autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+  " beautify ranges
+  autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+  autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+  autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 
 set tags=./tags;~/code
