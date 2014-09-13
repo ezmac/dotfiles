@@ -41,13 +41,13 @@ NeoBundle 'scrooloose/syntastic'
 
 " like zencoding
 "  GOLANG
-NeoBundle 'jnwhiteh/vim-golang'
+NeoBundle 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
 
 " UNUSED but might want to work on
 " has some issues in console, so disabled
 " NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'Valloric/YouCompleteMe'
-" NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'kien/ctrlp.vim'
 " NeoBundle 'mbbill/undotree'
 " NeoBundle 'scrooloose/nerdcommenter'
 " NeoBundle 'mattn/webapi-vim'
@@ -60,19 +60,23 @@ NeoBundle 'ekalinin/Dockerfile.vim'
 
 
 " PHP
-NeoBundle 'StanAngeloff/php.vim'
-NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'joonty/vdebug'
-NeoBundle 'm2mdas/phpcomplete-extended'
+NeoBundleLazy 'StanAngeloff/php.vim', {'autoload':{'filetypes':['php']}}
+NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload':{'filetypes':['php']}}
+NeoBundle 'joonty/vdebug', {'autoload':{'filetypes':['php']}}
+NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload':{'filetypes':['php']}}
 
 " Javascript
 NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
+NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-NeoBundle 'moll/vim-node'
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
 
 " Coffeescript
 NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'maksimr/vim-jsbeautify'
+" Autocomplete matched characters
+NeoBundle 'Raimondi/delimitMate'
+" NeoBundle 'christoomey/vim-tmux-navigator'
 
 
 " Template engines
@@ -111,16 +115,35 @@ NeoBundle 'Shougo/unite-session'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplete.vim'
-"NeoBundle 'Valloric/YouCompleteMe', {
-"     \ 'build': {
-"     \     'unix': './install.sh'
-"     \     }
-"     \ }
+"NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Valloric/YouCompleteMe', {
+     \ 'build': {
+     \     'unix': './install.sh'
+     \     }
+     \ }
 " NeoBundle 'm2mdas/phpcomplete-extended-symfony'
+
+" Track the engine.
+NeoBundle 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+NeoBundle 'honza/vim-snippets'
+
+
+
 
 NeoBundleCheck
 
+
+
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-tab>"
+let g:UltiSnipsJumpBackwardTrigger="<sc-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 filetype plugin indent on     " required!
 set omnifunc=syntaxcomplete#Complete
 
@@ -313,60 +336,6 @@ nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 "}
 
-" NeoComplete
-
-let g:acp_enableAtStartup = 0
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_auto_delimiter = 1
-let g:neocomplete#max_list = 25
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#force_overwrite_completefunc = 1
-
-
-" Define dictionary.
-"let g:neocomplete#sources#dictionary#dictionaries = {
-"\ 'default' : '',
-"\ 'vimshell' : $HOME.'/.vimshell_hist',
-"\ 'scheme' : $HOME.'/.gosh_completions'
-"\ }
-"
-"" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
-endif
-"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings {
-
-inoremap <expr><C-g> neocomplete#undo_completion()
-inoremap <expr><C-l> neocomplete#complete_common_string()
-inoremap <expr><CR> neocomplete#complete_common_string()
-"inoremap <expr><ESC> pumvisible() ? neocomplete#close_popup() : "\<ESC>"
-
-" <CR>: close popup
-" <s-CR>: close popup and save indent.
-inoremap <expr><s-CR> pumvisible() ? neocomplete#close_popup()"\<CR>" : "\<CR>"
-inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "\<CR>"
-
-" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y> neocomplete#close_popup()
-" <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-" }
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-
 let g:airline_powerline_fonts=1
 " vim-airline {
 " Set configuration options for the statusline plugin vim-airline.
@@ -414,7 +383,10 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 let g:unite_source_history_yank_enable = 1
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
+" Disable unite for ctrlp
+"nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
+"
+"
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 "nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
 "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
@@ -437,27 +409,6 @@ let g:phpcomplete_extended_use_default_mapping = 0
 
 
 
-" Enable omni completion.
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
-"" Enable heavy omni completion.
-"if exists('g:neocomplete#sources#omni#input_patterns')
-  "let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-  "let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-  ""let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  ""let g:neocomplete#sources#omni#input_patterns = {}
-"endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
 
 " set php specific options
 let php_sql_query=1
@@ -468,19 +419,15 @@ function! s:php_settings()
   "nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert phpcomplete/files:!<cr>
   "setlocal omnifunc=phpcomplete_extended#CompletePHP
   setlocal omnifunc=phpcomplete_extended#CompletePHP
-  "let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 endfunction
-  "let g:neocomplete#sources#omni#input_patterns.php = '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-  let g:neocomplete#sources#omni#input_patterns.php = '\h\w\{3,}\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-  "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 let g:phpcomplete_parse_docblock_comments = 1
 " Vim sessions
 let g:session_autosave="no"
 let g:session_autoload="yes"
 let g:session_autosave_periodic=5
-let g:neocomplete#disable_auto_complete=0
+" let g:neocomplete#disable_auto_complete=0
 
 
 let g:phpcomplete_index_composer_command='composer'
@@ -504,3 +451,34 @@ let g:phpcomplete_index_composer_command='composer'
 
 
 set tags=./tags;~/code
+
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+"if exists('$TMUX')
+"function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+"let previous_winnr = winnr()
+"silent! execute "wincmd " . a:wincmd
+"if previous_winnr == winnr()
+"call system("tmux select-pane -" . a:tmuxdir)
+"redraw!
+"endif
+"endfunction
+"
+"let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+"let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+"let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+"
+"nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
+"nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+"nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+"nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+"else
+"map <C-h> <C-w>h
+"map <C-j> <C-w>j
+"map <C-k> <C-w>k
+"map <C-l> <C-w>l
+"endif
