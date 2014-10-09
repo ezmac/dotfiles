@@ -96,5 +96,10 @@ export NEWSITE=/var/porterhouse/f/Inetpub/wwwroot/newsite/
 
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
-alias tmux="tmux -2 "
+alias grep='grep --color=always'
+
 alias diff=colordiff
+# http://blog.stefanxo.com/2014/02/clean-up-after-docker/
+alias dockercleancontainers="docker ps -a -notrunc| grep 'Exit' | awk '{print \$1}' | xargs -L 1 -r docker rm"
+alias dockercleanimages="docker images -a -notrunc | grep none | awk '{print \$3}' | xargs -L 1 -r docker rmi"
+alias dockerclean="dockercleancontainers && dockercleanimages"

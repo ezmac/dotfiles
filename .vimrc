@@ -66,7 +66,7 @@ NeoBundle 'joonty/vdebug', {'autoload':{'filetypes':['php']}}
 NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload':{'filetypes':['php']}}
 
 " Javascript
-NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
+" NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
@@ -75,7 +75,7 @@ NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes'
 NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'maksimr/vim-jsbeautify'
 " Autocomplete matched characters
-NeoBundle 'Raimondi/delimitMate'
+" NeoBundle 'Raimondi/delimitMate'
 " NeoBundle 'christoomey/vim-tmux-navigator'
 
 
@@ -91,10 +91,10 @@ NeoBundle 'xsbeats/vim-blade'
 "
 " General Programming {
 
-if executable('ctags')
-  NeoBundle 'majutsushi/tagbar'
-endif
-NeoBundle 'vim-scripts/AutoTag'
+"if executable('ctags')
+"  NeoBundle 'majutsushi/tagbar'
+"endif
+" NeoBundle 'vim-scripts/AutoTag'
 NeoBundle 'groenewege/vim-less'
 "NeoBundle 'spf13/PIV'
 "NeoBundle 'arnaud-lb/vim-php-namespace'
