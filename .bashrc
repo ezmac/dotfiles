@@ -87,6 +87,14 @@ alias RAGE='feh /home/tad/Pictures/encouragement.jpg'
 alias codecept="php codecept.phar"
 alias ts="date '+%s'"
 
+alias sudoedit="sudo -eE "
+#doge git
+alias doge="echo such=git, very=git, wow='git status'"
+alias such=git
+alias very=git
+alias wow='git status' 
+alias vi='vim -w ~/.vimlog "$@"'
+alias vim='vim -w ~/.vimlog "$@"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -103,6 +111,12 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+export GOROOT=$HOME/code/go
+export PATH=$PATH:/usr/bin/go
+export GOPATH=$HOME/code/go
+ export PATH=$PATH:$GOPATH
+
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export CONCIERGE_USER=willtiam
