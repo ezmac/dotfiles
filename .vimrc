@@ -14,13 +14,13 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " My NeoBundles here:
 "
-" original repos on github
 " Tim pope all up in my vimrc
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-ragtag.git'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-abolish.git'
 NeoBundle 'tpope/vim-rails.git'
+
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'scrooloose/nerdtree'
@@ -58,18 +58,19 @@ NeoBundle 'kien/ctrlp.vim'
 " syntax highlighting for Dockerfiles
 NeoBundle 'ekalinin/Dockerfile.vim'
 
+NeoBundle 'Shougo/unite.vim'
 
 " PHP
-NeoBundleLazy 'StanAngeloff/php.vim', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload':{'filetypes':['php']}}
-NeoBundle 'joonty/vdebug', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload':{'filetypes':['php']}}
+"NeoBundle 'StanAngeloff/php.vim'
+NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'joonty/vdebug'
+NeoBundle 'm2mdas/phpcomplete-extended'
 
 " Javascript
-" NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
+NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
+" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+"NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
 
 " Coffeescript
 NeoBundle 'kchmck/vim-coffee-script'
@@ -80,8 +81,8 @@ NeoBundle 'kchmck/vim-coffee-script'
 
 
 " Template engines
-NeoBundle 'evidens/vim-twig'
-NeoBundle 'xsbeats/vim-blade'
+"NeoBundle 'evidens/vim-twig'
+"NeoBundle 'xsbeats/vim-blade'
 
 "Abolish.vim provides a simpler way. The following one command produces 48 abbreviations including all of the above.
 
@@ -108,13 +109,12 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/unite-help'
-NeoBundle 'Shougo/unite-session'
-NeoBundle 'thinca/vim-unite-history'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'Shougo/unite-outline'
+"NeoBundle 'Shougo/unite-help'
+"NeoBundle 'Shougo/unite-session'
+"NeoBundle 'thinca/vim-unite-history'
+"NeoBundle 'mileszs/ack.vim'
 "NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build': {
@@ -145,7 +145,8 @@ let g:UltiSnipsJumpBackwardTrigger="<sc-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 filetype plugin indent on     " required!
-set omnifunc=syntaxcomplete#Complete
+"set completefunc=youcompleteme#Complete
+"set omnifunc=youcompleteme#OmniComplete
 
 
 
@@ -381,8 +382,8 @@ nmap <silent> <c-l> :wincmd l<CR>
       "\ 'vendor'
       "\ ], '\|'))
 
-let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"let g:unite_source_history_yank_enable = 1
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Disable unite for ctrlp
 "nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
 "
@@ -390,8 +391,8 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 "nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
 "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <C-y> :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <C-b> :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+"nnoremap <C-y> :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+"nnoremap <C-b> :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
@@ -405,7 +406,7 @@ function! s:unite_settings()
 
 endfunction
 
-let g:phpcomplete_extended_use_default_mapping = 0
+"let g:phpcomplete_extended_use_default_mapping = 1
 
 
 
@@ -417,12 +418,12 @@ let php_htmlInStrings=1
 "autocmd FileType php call s:php_settings()
 function! s:php_settings()
   "nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert phpcomplete/files:!<cr>
-  "setlocal omnifunc=phpcomplete_extended#CompletePHP
-  setlocal omnifunc=phpcomplete_extended#CompletePHP
+  " setlocal omnifunc=phpcomplete_extended#CompletePHP
+  " setlocal omnifunc=phpcomplete_extended#CompletePHP
 endfunction
 
 
-let g:phpcomplete_parse_docblock_comments = 1
+"let g:phpcomplete_parse_docblock_comments = 1
 " Vim sessions
 let g:session_autosave="no"
 let g:session_autoload="yes"
@@ -482,3 +483,11 @@ map <C-l> <C-w>l
 "map <C-k> <C-w>k
 "map <C-l> <C-w>l
 "endif
+
+let g:ycm_min_num_of_chars_for_completion=2
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+
+
+"autocmd  FileType  php setlocal omnifunc=phpcomplete#CompletePHP
+autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
