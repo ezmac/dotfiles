@@ -191,13 +191,28 @@ prompt_status() {
 
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
+prompt_random_name(){
+  prompt_segment black green 
+  pad_str " " 13 $(js ~/.prompt_randomizer.js)
+
+}
+
+pad_str() {
+  pad=$(printf '%0.1s' $1{1..60})
+  padlength=$2;
+  string1=$3;
+
+  printf '%s' "$string1";
+  printf '%*.*s' 0 $((padlength - ${#string1} )) "$pad";
+}
 
 ## Main prompt
 build_prompt() {
   RETVAL=$?
   prompt_status
   prompt_virtualenv
-  prompt_cmdnumber
+  prompt_random_name
+  #prompt_cmdnumber
   prompt_context
   prompt_dir
   prompt_git
@@ -205,4 +220,4 @@ build_prompt() {
   prompt_end
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt) '
+PROMPT='%{%-f%b%k%}$(build_prompt) '

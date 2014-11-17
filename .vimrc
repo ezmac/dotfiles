@@ -33,6 +33,7 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
 NeoBundle 'godlygeek/tabular'
+NeoBundle 'jplaut/vim-arduino-ino'
 
 
 " Syntax checkers/linters
@@ -489,6 +490,10 @@ let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 
-
 "autocmd  FileType  php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+
+"
+" VIM ARDUINO "
+
+
