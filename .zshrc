@@ -104,3 +104,6 @@ alias dockercleancontainers="docker ps -a -notrunc| grep 'Exit' | awk '{print \$
 alias dockercleanimages="docker images -a -notrunc | grep none | awk '{print \$3}' | xargs -L 1 -r docker rmi"
 alias dockerclean="dockercleancontainers && dockercleanimages"
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
+
+
+

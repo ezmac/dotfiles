@@ -59,7 +59,7 @@ NeoBundle 'kien/ctrlp.vim'
 " syntax highlighting for Dockerfiles
 NeoBundle 'ekalinin/Dockerfile.vim'
 
-NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'Shougo/unite.vim'
 
 " PHP
 "NeoBundle 'StanAngeloff/php.vim'
@@ -122,7 +122,6 @@ NeoBundle 'Valloric/YouCompleteMe', {
      \     'unix': './install.sh'
      \     }
      \ }
-" NeoBundle 'm2mdas/phpcomplete-extended-symfony'
 
 " Track the engine.
 NeoBundle 'SirVer/ultisnips'
@@ -150,16 +149,21 @@ filetype plugin indent on     " required!
 "set omnifunc=youcompleteme#OmniComplete
 
 
-
-
-
-
-
-
-
-
-
-
+" Set up tabs for easier use.
+set showtabline=2
+map <c-t> <Esc>:tabnew<CR>:NERDTree<CR>
+nnoremap th  :tabfirst<CR>
+nnoremap tj  :tabnext<CR>
+nnoremap tk  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
+" Alternatively use
+" "nnoremap th :tabnext<CR>
+" "nnoremap tl :tabprev<CR>
+" "nnoremap tn :tabnew<CR>
 
 
 hi IndentGuidesOdd  ctermbg=black
@@ -387,7 +391,7 @@ nmap <silent> <c-l> :wincmd l<CR>
 "let g:unite_source_history_yank_enable = 1
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Disable unite for ctrlp
-"nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
+"nmap <C-s-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
 "
 "
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
@@ -397,16 +401,16 @@ nmap <silent> <c-l> :wincmd l<CR>
 "nnoremap <C-b> :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
 " Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
+"autocmd FileType unite call s:unite_settings()
+"function! s:unite_settings()
   " Play nice with supertab
-  let b:SuperTabDisabled=1
+  "let b:SuperTabDisabled=1
   " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-  nmap <buffer> <ESC> <Plug>(unite_exit)
+  "imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  "imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  "nmap <buffer> <ESC> <Plug>(unite_exit)
 
-endfunction
+"endfunction
 
 "let g:phpcomplete_extended_use_default_mapping = 1
 
