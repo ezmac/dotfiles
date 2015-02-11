@@ -55,7 +55,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/tad/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448@global/bin:/home/tad/.rvm/rubies/ruby-1.9.3-p448/bin:/home/tad/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin"
+export PATH="/home/tad/apps/phpctags/:/home/tad/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448@global/bin:/home/tad/.rvm/rubies/ruby-1.9.3-p448/bin:/home/tad/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment

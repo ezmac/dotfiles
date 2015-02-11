@@ -64,8 +64,17 @@ NeoBundle 'ekalinin/Dockerfile.vim'
 " PHP
 "NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'joonty/vdebug'
 NeoBundle 'm2mdas/phpcomplete-extended'
+NeoBundle 'm2mdas/phpcomplete-extended-laravel'
+NeoBundle 'joonty/vdebug'
+NeoBundle 'arnaud-lb/vim-php-namespace'
+NeoBundle 'vim-php/tagbar-phpctags.vim'
+NeoBundle '2072/PHP-Indenting-for-VIm'
+NeoBundle '2072/vim-syntax-for-PHP'
+NeoBundle 'Rican7/php-doc-modded'
+NeoBundle 'xsbeats/vim-blade'
+"NeoBundle 'paulyg/Vim-PHP-Stuff' "https://github.com/paulyg/Vim-PHP-Stuff "looks complicated
+
 
 " Javascript
 NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
@@ -94,13 +103,10 @@ NeoBundle 'kchmck/vim-coffee-script'
 " General Programming {
 
 "if executable('ctags')
-"  NeoBundle 'majutsushi/tagbar'
+NeoBundle 'majutsushi/tagbar'
 "endif
 " NeoBundle 'vim-scripts/AutoTag'
 NeoBundle 'groenewege/vim-less'
-"NeoBundle 'spf13/PIV'
-"NeoBundle 'arnaud-lb/vim-php-namespace'
-
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
@@ -116,7 +122,7 @@ NeoBundle 'Shougo/vimproc', {
 "NeoBundle 'Shougo/unite-session'
 "NeoBundle 'thinca/vim-unite-history'
 "NeoBundle 'mileszs/ack.vim'
-"NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build': {
      \     'unix': './install.sh'
@@ -209,7 +215,6 @@ set ignorecase
 set incsearch
 set hlsearch
 "set foldmethod=syntax
-"let php_folding=1
 "set foldlevelstart=90
 "set foldlevel=90
 set backup
@@ -282,11 +287,6 @@ map <leader>ev :vsp %%
 map <leader>et :tabe %%
 " Plugins {
 
-" PIV {
-let g:DisableAutoPHPFolding = 0
-let g:PIVAutoClose = 0
-" }
-
 " Misc {
 let g:NERDShutUp=0
 let b:match_ignorecase = 1
@@ -294,7 +294,6 @@ let b:match_ignorecase = 1
 
 
 " Ctags {
-set tags=./tags;/,~/.vimtags
 
 " Make tags placed in .git/tags file available in all levels of a repository
 let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
@@ -388,7 +387,7 @@ nmap <silent> <c-l> :wincmd l<CR>
       "\ 'vendor'
       "\ ], '\|'))
 
-"let g:unite_source_history_yank_enable = 1
+let g:unite_source_history_yank_enable = 1
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Disable unite for ctrlp
 "nmap <C-s-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
@@ -397,22 +396,21 @@ nmap <silent> <c-l> :wincmd l<CR>
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 "nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
 "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-"nnoremap <C-y> :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-"nnoremap <C-b> :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+nnoremap <C-y> :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+nnoremap <C-b> :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
 " Custom mappings for the unite buffer
-"autocmd FileType unite call s:unite_settings()
-"function! s:unite_settings()
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
   " Play nice with supertab
-  "let b:SuperTabDisabled=1
+  let b:SuperTabDisabled=1
   " Enable navigation with control-j and control-k in insert mode
-  "imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  "imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-  "nmap <buffer> <ESC> <Plug>(unite_exit)
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  nmap <buffer> <ESC> <Plug>(unite_exit)
 
-"endfunction
+endfunction
 
-"let g:phpcomplete_extended_use_default_mapping = 1
 
 
 
@@ -420,25 +418,54 @@ nmap <silent> <c-l> :wincmd l<CR>
 " set php specific options
 let php_sql_query=1
 let php_htmlInStrings=1
+"let g:phpcomplete_extended_use_default_mapping = 1
 
+"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 "autocmd FileType php call s:php_settings()
-function! s:php_settings()
-  "nmap <C-p> :Unite -no-split -buffer-name=files   -start-insert phpcomplete/files:!<cr>
-  " setlocal omnifunc=phpcomplete_extended#CompletePHP
-  " setlocal omnifunc=phpcomplete_extended#CompletePHP
-endfunction
+"function! s:php_settings()
+"  setlocal omnifunc=phpcomplete_extended#CompletePHP
+"endfunction
+
+let g:phpcomplete_parse_docblock_comments = 1
+"let g:phpcomplete_complete_for_unknown_classes = 1
 
 
-"let g:phpcomplete_parse_docblock_comments = 1
+autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+" PIV {
+let php_folding=0
+let g:DisableAutoPHPFolding = 1
+let g:PIVAutoClose = 0
+" }
+
+let g:tagbar_phpctags_memory_limit='512M'
+
+" joonty/Vdebug 
+    let g:vdebug_options= {
+    \    "port" : 9900,
+    \    "server" : 'localhost',
+    \    "timeout" : 20,
+    \    "on_close" : 'detach',
+    \    "break_on_open" : 1,
+    \    "ide_key" : '',
+    \    "continuous_mode" : '0',
+    \    "path_maps" : {},
+    \    "debug_window_level" : 0,
+    \    "debug_file_level" : 0,
+    \    "debug_file" : "",
+    \    "watch_window_style" : 'expanded',
+    \    "marker_default" : '⬦',
+    \    "marker_closed_tree" : '▸',
+    \    "marker_open_tree" : '▾'
+    \}
+
+
 " Vim sessions
-let g:session_autosave="no"
+let g:session_autosave="yes"
 let g:session_autoload="yes"
 let g:session_autosave_periodic=5
 " let g:neocomplete#disable_auto_complete=0
 
 
-let g:phpcomplete_index_composer_command='composer'
-"let g:phpcomplete_extended_use_default_mapping=1
 
 "imap <ESC>oA <ESC>ki
 "imap <ESC>oB <ESC>ji
@@ -494,10 +521,5 @@ let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 
-"autocmd  FileType  php setlocal omnifunc=phpcomplete#CompletePHP
-autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
-"
-" VIM ARDUINO "
-
-
+set tags=./tags
