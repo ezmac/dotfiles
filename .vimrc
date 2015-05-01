@@ -1,11 +1,15 @@
-set nocompatible
+ " Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
+if has('vim_starting')
+  if &compatible
+    set nocompatible               " Be iMproved
+  endif
+  " Required:
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-"change
-
-
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-
-call neobundle#rc(expand('~/.vim/bundle/'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -138,6 +142,7 @@ NeoBundle 'honza/vim-snippets'
 
 
 
+ call neobundle#end()
 NeoBundleCheck
 
 
