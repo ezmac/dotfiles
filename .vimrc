@@ -81,10 +81,12 @@ NeoBundle 'xsbeats/vim-blade'
 
 
 " Javascript
-NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
+NeoBundle 'marijnh/tern_for_vim'
 NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
-" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-"NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
+ NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
+NeoBundle 'vim-scripts/JavaScript-Indent'
+
 
 " Coffeescript
 NeoBundle 'kchmck/vim-coffee-script'
@@ -126,7 +128,7 @@ NeoBundle 'Shougo/vimproc', {
 "NeoBundle 'Shougo/unite-session'
 "NeoBundle 'thinca/vim-unite-history'
 "NeoBundle 'mileszs/ack.vim'
-NeoBundle 'Shougo/neocomplete.vim'
+"NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build': {
      \     'unix': './install.sh'
@@ -138,8 +140,7 @@ NeoBundle 'SirVer/ultisnips'
 
 " Snippets are separated from the engine. Add this if you want them:
 NeoBundle 'honza/vim-snippets'
-
-
+NeoBundle 'davejlong/cf-utils.vim'
 
 
  call neobundle#end()

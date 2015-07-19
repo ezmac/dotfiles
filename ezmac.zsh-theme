@@ -63,7 +63,7 @@ prompt_context() {
   local user=`whoami`
 
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$user@%m"
+    prompt_segment black default "%(!.%{%F{yellow}%}.)$user@MacBox"
   fi
 }
 
@@ -192,7 +192,7 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 prompt_random_name(){
-  prompt_segment black green 
+  prompt_segment black green "💩 💩 💩 "
   #pad_str " " 13 $(js ~/.prompt_randomizer.js)
 
 }
@@ -215,7 +215,7 @@ build_prompt() {
   #prompt_cmdnumber
   prompt_context
   prompt_dir
-  prompt_git
+  #prompt_git
   prompt_hg
   prompt_end
 }
