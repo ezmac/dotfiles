@@ -68,8 +68,8 @@ NeoBundle 'ekalinin/Dockerfile.vim'
 " PHP
 "NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'm2mdas/phpcomplete-extended'
-NeoBundle 'm2mdas/phpcomplete-extended-laravel'
+"NeoBundle 'm2mdas/phpcomplete-extended'
+"NeoBundle 'm2mdas/phpcomplete-extended-laravel'
 NeoBundle 'joonty/vdebug'
 NeoBundle 'arnaud-lb/vim-php-namespace'
 NeoBundle 'vim-php/tagbar-phpctags.vim'
@@ -436,7 +436,7 @@ let g:phpcomplete_parse_docblock_comments = 1
 "let g:phpcomplete_complete_for_unknown_classes = 1
 
 
-autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 " PIV {
 let php_folding=0
 let g:DisableAutoPHPFolding = 1
