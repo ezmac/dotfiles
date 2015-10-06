@@ -113,7 +113,11 @@ NeoBundle 'majutsushi/tagbar'
 "endif
 " NeoBundle 'vim-scripts/AutoTag'
 NeoBundle 'groenewege/vim-less'
-NeoBundle 'altercation/vim-colors-solarized'
+"NeoBundle 'altercation/vim-colors-solarized'
+"NeoBundle 'nielsmadan/harlequin'
+"NeoBundle 'justincampbell/vim-railscasts'
+NeoBundle 'tomasr/molokai'
+NeoBundle 'sickill/vim-monokai'
 NeoBundle 'Shougo/vimproc', {
       \ 'build' : {
       \     'windows' : 'make -f make_mingw32.mak',
@@ -195,7 +199,9 @@ let g:indent_guides_guide_size=2
 " NOTE: comments after NeoBundle command are not allowed..
 "let g:airline_powerline_fonts = 1
 set background=dark
-colorscheme solarized
+colorscheme molokai
+let g:rehash256=1
+
 syntax on
 let mapleader=","
 set term=screen-256color
@@ -447,14 +453,14 @@ let g:tagbar_phpctags_memory_limit='512M'
 
 " joonty/Vdebug 
     let g:vdebug_options= {
-    \    "port" : 9900,
-    \    "server" : 'localhost',
+    \    "port" : 9000,
+    \    "server" : '0.0.0.0',
     \    "timeout" : 20,
     \    "on_close" : 'detach',
     \    "break_on_open" : 1,
     \    "ide_key" : '',
     \    "continuous_mode" : '0',
-    \    "path_maps" : {},
+    \    "path_maps" : {"/data/www/": "/Users/wm284/code/phpProjects/oauth/"},
     \    "debug_window_level" : 0,
     \    "debug_file_level" : 0,
     \    "debug_file" : "",
@@ -528,4 +534,6 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 
 
+let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_log_level = 'debug'
 set tags=./tags

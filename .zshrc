@@ -106,4 +106,7 @@ alias dockerclean="dockercleancontainers && dockercleanimages"
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
 
 
-
+export PATH='/Users/wm284/Downloads/Kitematic (Beta).app/Contents/Resources/resources:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin' 
+export DOCKER_HOST=tcp://192.168.99.101:2376 
+export DOCKER_CERT_PATH=/Users/wm284/.docker/machine/machines/dev 
+export DOCKER_TLS_VERIFY=1
