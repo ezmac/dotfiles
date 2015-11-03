@@ -161,8 +161,8 @@ let g:UltiSnipsJumpBackwardTrigger="<sc-tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 filetype plugin indent on     " required!
-"set completefunc=youcompleteme#Complete
-"set omnifunc=youcompleteme#OmniComplete
+set completefunc=youcompleteme#Complete
+set omnifunc=youcompleteme#OmniComplete
 
 
 " Set up tabs for easier use.
