@@ -106,6 +106,6 @@ alias dockerclean="dockercleancontainers && dockercleanimages"
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
-export PATH="~/.composer/vendor/bin":$PATH
+export PATH="/home/tad/.composer/vendor/bin":$PATH
 
 
