@@ -81,8 +81,8 @@ autoload -Uz down-line-or-beginning-search
 zle -N up-line-or-beginning-search up-line-or-beginning-search
 zle -N down-line-or-beginning-search down-line-or-beginning-search
 bindkey -v
-bindkey "^[[A" up-line-or-beginning-search
-bindkey "^[[B" down-line-or-beginning-search
+bindkey "${key[Up]}" up-line-or-beginning-search
+bindkey "${key[Down]}" down-line-or-beginning-search
 GOROOT="/usr/local/go"
 PATH=$PATH:$GOROOT/bin
 GOPATH="$HOME/go"
@@ -104,6 +104,8 @@ alias dockercleancontainers="docker ps -a -notrunc| grep 'Exit' | awk '{print \$
 alias dockercleanimages="docker images -a -notrunc | grep none | awk '{print \$3}' | xargs -L 1 -r docker rmi"
 alias dockerclean="dockercleancontainers && dockercleanimages"
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
-
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
+export PATH="~/.composer/vendor/bin":$PATH
 
 
