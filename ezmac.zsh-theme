@@ -192,7 +192,9 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 prompt_random_name(){
-  prompt_segment black green "💩 💩 💩 "
+  #prompt_segment black green "✨ 🌟 😎 💎 "
+  prompt_segment black green "💙 💚 💛 💜 💖 💗"
+  #💩 💩 💩 
   #pad_str " " 13 $(js ~/.prompt_randomizer.js)
 
 }

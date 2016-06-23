@@ -74,10 +74,11 @@ NeoBundle 'joonty/vdebug'
 NeoBundle 'arnaud-lb/vim-php-namespace'
 NeoBundle 'vim-php/tagbar-phpctags.vim'
 NeoBundle '2072/PHP-Indenting-for-VIm'
-NeoBundle '2072/vim-syntax-for-PHP'
-NeoBundle 'Rican7/php-doc-modded'
+"NeoBundle '2072/vim-syntax-for-PHP'
+"NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'xsbeats/vim-blade'
 "NeoBundle 'paulyg/Vim-PHP-Stuff' "https://github.com/paulyg/Vim-PHP-Stuff "looks complicated
+NeoBundle 'mkusher/padawan.vim'
 
 
 " Javascript
@@ -163,6 +164,9 @@ let g:UltiSnipsEditSplit="vertical"
 filetype plugin indent on     " required!
 set completefunc=youcompleteme#Complete
 set omnifunc=youcompleteme#OmniComplete
+let g:EclimCompletionMethod = 'omnifunc'
+
+
 
 
 " Set up tabs for easier use.
@@ -230,7 +234,7 @@ set hlsearch
 "set foldlevelstart=90
 "set foldlevel=90
 set backup
-set backupdir=~/.vim/backup
+"set backupdir=~/.vim/backup
 set undodir=~/.vim/undo
 set directory=~/.vim/tmp
 set history=1000
@@ -367,7 +371,7 @@ let g:airline_powerline_fonts=1
 " See `:echo g:airline_theme_map` for some more choices
 " Default in terminal vim is 'dark'
 if !exists('g:airline_theme')
-  let g:airline_theme = 'solarized'
+  let g:airline_theme = 'molokai'
 endif
 if !exists('g:airline_powerline_fonts')
   " Use the default set of separators with a few customizations
@@ -430,16 +434,16 @@ endfunction
 " set php specific options
 let php_sql_query=1
 let php_htmlInStrings=1
-"let g:phpcomplete_extended_use_default_mapping = 1
+let g:phpcomplete_extended_use_default_mapping = 1
 
-"autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 "autocmd FileType php call s:php_settings()
 "function! s:php_settings()
-"  setlocal omnifunc=phpcomplete_extended#CompletePHP
+  "setlocal omnifunc=phpcomplete#CompletePHP
 "endfunction
 
 let g:phpcomplete_parse_docblock_comments = 1
-"let g:phpcomplete_complete_for_unknown_classes = 1
+let g:phpcomplete_complete_for_unknown_classes = 1
 
 
 "autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
@@ -448,8 +452,20 @@ let php_folding=0
 let g:DisableAutoPHPFolding = 1
 let g:PIVAutoClose = 0
 " }
-
-let g:tagbar_phpctags_memory_limit='512M'
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.'],
+  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \             're!\[.*\]\s'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
+let g:tagbar_phpctags_memory_limit='1G'
 
 " joonty/Vdebug 
     let g:vdebug_options= {
@@ -537,3 +553,5 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
 set tags=./tags
+let $PATH=$PATH . ':' . expand('~/.composer/vendor/bin')
+let g:padawan#composer_command = 'php /local/bin/composer'
