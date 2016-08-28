@@ -68,15 +68,18 @@ NeoBundle 'ekalinin/Dockerfile.vim'
 " PHP
 "NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'm2mdas/phpcomplete-extended'
-NeoBundle 'm2mdas/phpcomplete-extended-laravel'
+"NeoBundle 'm2mdas/phpcomplete-extended'
+"NeoBundle 'm2mdas/phpcomplete-extended-laravel'
 NeoBundle 'joonty/vdebug'
-NeoBundle 'arnaud-lb/vim-php-namespace'
+"NeoBundle 'arnaud-lb/vim-php-namespace'
 NeoBundle 'vim-php/tagbar-phpctags.vim'
 NeoBundle '2072/PHP-Indenting-for-VIm'
-NeoBundle '2072/vim-syntax-for-PHP'
-NeoBundle 'Rican7/php-doc-modded'
+"NeoBundle '2072/vim-syntax-for-PHP'
+"NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'xsbeats/vim-blade'
+let $PATH=$PATH . ':' . expand('/usr/local/bin/')
+
+
 "NeoBundle 'paulyg/Vim-PHP-Stuff' "https://github.com/paulyg/Vim-PHP-Stuff "looks complicated
 
 
@@ -435,7 +438,7 @@ let g:phpcomplete_parse_docblock_comments = 1
 "let g:phpcomplete_complete_for_unknown_classes = 1
 
 
-autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+"autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 " PIV {
 let php_folding=0
 let g:DisableAutoPHPFolding = 1
