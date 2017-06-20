@@ -1,13 +1,6 @@
  " Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-" Required:
+set nocompatible               " Be iMproved
+set runtimepath+=/home/tad/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 
@@ -29,6 +22,7 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
 "Show git diff in vim's sign column
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'rstacruz/sparkup'

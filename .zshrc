@@ -113,3 +113,7 @@ export PATH="/home/tad/.composer/vendor/bin":$PATH
 
 export PATH="$HOME/.nodenv/bin:$PATH"
 eval "$(nodenv init -)"
+
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
