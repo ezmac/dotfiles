@@ -20,7 +20,7 @@ vicious         = require("vicious")
 scratch         = require("scratch")
 local menubar = require("menubar")
 local beautiful = require("beautiful")
- require("rodentbane")
+ rodentbane = require("rodentbane")
 -- }}}
 
 -- {{{ Autostart
@@ -332,7 +332,7 @@ local function create_calendar()
    local first_day = os.time({ day = 1, month = cal_month, year = cal_year})
    local first_day_in_week =
       os.date("%w", first_day)
-   local result = "do lu ma me gi ve sa\n"
+   local result = "su mo tu we th fr sa\n"
    for i = 1, first_day_in_week do
       result = result .. "   "
    end
@@ -401,58 +401,58 @@ mygmail = wibox.widget.textbox()
 notify_shown = false
 gmail_t = awful.tooltip({ objects = { mygmail },})
 mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
-vicious.register(mygmail, vicious.widgets.gmail,
-function (widget, args)
-  notify_title = "You have new email"
-  notify_text = '"' .. args["{subject}"] .. '"'
-  gmail_t:set_text(args["{subject}"])
-  gmail_t:add_to_object(mygmailimg)
-  if (args["{count}"] > 0) then
-    if (notify_shown == false) then
-      if (args["{count}"] > 1) then 
-          notify_title = "You have " .. args["{count}"] .. " new messages"
-          notify_text = 'First: "' .. args["{subject}"] .. '"'
-      else
-          notify_title = "You have new email"
-          notify_text = args["{subject}"]
-      end
-      naughty.notify({ title = notify_title, text = notify_text,
-      timeout = 7,
-      position = "top_left",
-      icon = beautiful.widget_mail_notify,
-      fg = beautiful.fg_urgent,
-      bg = beautiful.bg_urgent })
-      notify_shown = true
-    end
-    return '<span background="#313131" font="Droid sans mono 13" rise="2000"> <span font="Droid sans mono 9">' .. args["{count}"] .. ' </span></span>'
-  else
-    notify_shown = false
-    return ""
-  end
-end, 60)
-mygmail:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(mail, false) end)))
-
--- Music widget
-mpdwidget = wibox.widget.textbox()
-mpdicon = wibox.widget.imagebox()
-mpdicon:set_image(beautiful.widget_music)
-mpdicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(musicplr) end)))
-
-vicious.register(mpdwidget, vicious.widgets.mpd,
-function(widget, args)
-	-- play
-	if (args["{state}"] == "Play") then
-    mpdicon:set_image(beautiful.widget_music_on)
-		return "<span background='#313131' font='Droid sans mono 13' rise='2000'> <span font='Droid sans mono 9'>" .. red .. args["{Title}"] .. coldef .. colwhi .. " - " .. coldef .. colwhi  .. args["{Artist}"] .. coldef .. " </span></span>"
-	-- pause
-	elseif (args["{state}"] == "Pause") then
-    mpdicon:set_image(beautiful.widget_music)
-		return "<span background='#313131' font='Droid sans mono 13' rise='2000'> <span font='Droid sans mono 9'>" .. colwhi .. "mpd in pausa" .. coldef .. " </span></span>"
-	else
-    mpdicon:set_image(beautiful.widget_music)
-		return ""
-	end
-end, 1)
+-- vicious.register(mygmail, vicious.widgets.gmail,
+-- function (widget, args)
+--   notify_title = "You have new email"
+--   notify_text = '"' .. args["{subject}"] .. '"'
+--   gmail_t:set_text(args["{subject}"])
+--   gmail_t:add_to_object(mygmailimg)
+--   if (args["{count}"] > 0) then
+--     if (notify_shown == false) then
+--       if (args["{count}"] > 1) then 
+--           notify_title = "You have " .. args["{count}"] .. " new messages"
+--           notify_text = 'First: "' .. args["{subject}"] .. '"'
+--       else
+--           notify_title = "You have new email"
+--           notify_text = args["{subject}"]
+--       end
+--       naughty.notify({ title = notify_title, text = notify_text,
+--       timeout = 7,
+--       position = "top_left",
+--       icon = beautiful.widget_mail_notify,
+--       fg = beautiful.fg_urgent,
+--       bg = beautiful.bg_urgent })
+--       notify_shown = true
+--     end
+--     return '<span background="#313131" font="Droid sans mono 13" rise="2000"> <span font="Droid sans mono 9">' .. args["{count}"] .. ' </span></span>'
+--   else
+--     notify_shown = false
+--     return ""
+--   end
+-- end, 60)
+-- mygmail:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(mail, false) end)))
+-- 
+-- -- Music widget
+-- mpdwidget = wibox.widget.textbox()
+-- mpdicon = wibox.widget.imagebox()
+-- mpdicon:set_image(beautiful.widget_music)
+-- mpdicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(musicplr) end)))
+-- 
+-- vicious.register(mpdwidget, vicious.widgets.mpd,
+-- function(widget, args)
+-- 	-- play
+-- 	if (args["{state}"] == "Play") then
+--     mpdicon:set_image(beautiful.widget_music_on)
+-- 		return "<span background='#313131' font='Droid sans mono 13' rise='2000'> <span font='Droid sans mono 9'>" .. red .. args["{Title}"] .. coldef .. colwhi .. " - " .. coldef .. colwhi  .. args["{Artist}"] .. coldef .. " </span></span>"
+-- 	-- pause
+-- 	elseif (args["{state}"] == "Pause") then
+--     mpdicon:set_image(beautiful.widget_music)
+-- -- 		return "<span background='#313131' font='Droid sans mono 13' rise='2000'> <span font='Droid sans mono 9'>" .. colwhi .. "mpd in pausa" .. coldef .. " </span></span>"
+-- 	else
+--     mpdicon:set_image(beautiful.widget_music)
+-- 		return ""
+-- 	end
+-- end, 1)
 
 -- MEM widget
 memicon = wibox.widget.imagebox()
@@ -472,7 +472,28 @@ tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
 tempicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(terminal .. " -e sudo powertop ", false) end)))
 tempwidget = wibox.widget.textbox()
-vicious.register(tempwidget, vicious.widgets.thermal, '<span font="Droid sans mono 12"> <span font="Droid sans mono 9">$1°C </span></span>', 9, {"coretemp.0", "core"} )
+vicious.register(tempwidget, vicious.widgets.thermal, '<span font="Droid sans mono 12"> <span font="Droid sans mono 9">$1°C </span></span>', 9, {"thermal_zone1", "sys"} )
+-- Temp widget
+batticon = wibox.widget.imagebox()
+batticon:set_image(beautiful.widget_battery)
+battwidget = wibox.widget.textbox()
+function formatbatt (widget, args) 
+  local info=""
+  if (args[1]=="+") then
+    info = "+"..args[2].."%"
+  else
+    info = "-"..args[2].."% -"..args[3]
+  end
+  return '<span font="Droid sans mono 12"> <span font="Droid sans mono 9">'..info..'</span></span>'
+
+end
+vicious.register(battwidget, vicious.widgets.bat, formatbatt, 19, "BAT0" )
+battwidget:buttons(awful.util.table.join(
+        awful.button({ }, 1, function()
+            naughty.notify({ title = "Battery indicator",
+                             text = vicious.call(vicious.widgets.bat, "Remaining time: $3", "BAT0") })
+        end)
+    ))
 
 -- /home fs widget
 fshicon = wibox.widget.imagebox()
@@ -555,7 +576,7 @@ function (widget, args)
   -- plugged
   if (batstate() == 'Cable plugged' or batstate() == 'Unknown') then
     baticon:set_image(beautiful.widget_ac)     
-    return '<span font="Droid sans mono 12"> <span font="Droid sans mono 9">AC </span></span>'
+    return '<span background="#313131" font="Droid sans mono 12"> <span font="Droid sans mono 9">AC </span></span>'
     -- critical
   elseif (args[2] <= 5 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
@@ -584,7 +605,7 @@ function (widget, args)
     })
    else baticon:set_image(beautiful.widget_battery)
   end
-    return '<span font="Droid sans mono 12"> <span font="Droid sans mono 9">' .. args[2] .. '% </span></span>'
+    return '<span background="#313131" font="Droid sans mono 12"> <span font="Droid sans mono 9">' .. args[2] .. '% </span></span>'
 end, 1, 'BAT0')
 
 -- Volume widget
@@ -723,12 +744,13 @@ for s = 1, screen.count() do
     right_layout:add(arrl_dl)
     right_layout:add(tempicon)
     right_layout:add(tempwidget)
+    --right_layout:add(battwidget)
+    --right_layout:add(arrl_ld)
+    --right_layout:add(fshicon)
+    --right_layout:add(fshwidget)
     right_layout:add(arrl_ld)
-    right_layout:add(fshicon)
-    right_layout:add(fshwidget)
-    -- right_layout:add(arrl_dl)     
-    -- right_layout:add(baticon)
-    -- right_layout:add(batwidget)
+    right_layout:add(batwidget)
+    right_layout:add(baticon)
     -- right_layout:add(arrl_ld)
     -- right_layout:add(neticon)
     -- right_layout:add(netwidget)
