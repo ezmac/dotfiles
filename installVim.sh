@@ -11,6 +11,7 @@ sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
     ruby-dev git
 
 sudo apt-get remove -y vim vim-runtime
+sudo apt-get remove vim-tiny vim-common vim-gui-common vim-nox
 
 cd ~
 git clone https://github.com/vim/vim.git
@@ -22,11 +23,12 @@ cd vim
             --with-python-config-dir=/usr/lib/python2.7/config \
             --enable-perlinterp \
             --enable-luainterp \
+            --with-x \
             --enable-gui=gtk2 --enable-cscope --prefix=/usr
 #if [[ $distro == 'Debian' ]]; then
 make VIMRUNTIMEDIR=/usr/share/vim/vim80
 #elif [[ $distro == 'Ubuntu' ]]; then
-  make VIMRUNTIMEDIR=/usr/local/share/vim/vim74
+  #make VIMRUNTIMEDIR=/usr/local/share/vim/vim74
 #fi
 
 sudo apt-get install -y checkinstall
@@ -35,7 +37,7 @@ sudo checkinstall
 
 echo "I don't have time to debug, but look in ~/vim/ for the deb file.  install it."
 
-#sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-#sudo update-alternatives --set editor /usr/bin/vim
-#sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-#sudo update-alternatives --set vi /usr/bin/vim
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+sudo update-alternatives --set editor /usr/bin/vim
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+sudo update-alternatives --set vi /usr/bin/vim

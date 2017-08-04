@@ -76,6 +76,10 @@ let $PATH=$PATH . ':' . expand('/usr/local/bin/')
 
 "NeoBundle 'paulyg/Vim-PHP-Stuff' "https://github.com/paulyg/Vim-PHP-Stuff "looks complicated
 
+NeoBundle 'ernstvanderlinden/vim-coldfusion'
+autocmd Bufread,BufNewFile *.cfm set filetype=eoz
+autocmd Bufread,BufNewFile *.cfc set filetype=eoz
+
 
 " Javascript
 NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
@@ -84,7 +88,7 @@ NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
 "NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
 
 " Coffeescript
-NeoBundle 'kchmck/vim-coffee-script'
+"NeoBundle 'kchmck/vim-coffee-script'
 " NeoBundle 'maksimr/vim-jsbeautify'
 " Autocomplete matched characters
 " NeoBundle 'Raimondi/delimitMate'
