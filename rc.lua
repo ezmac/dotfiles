@@ -35,7 +35,7 @@ function run_once(cmd)
  end 
 awful.util.spawn_with_shell("randr --auto --output VGA1 --left-of HDMI1") 
 awful.util.spawn_with_shell("xinput set-button-map 10 1 2 1 4 5 6 7 8 3")
-awful.util.spawn_with_shell("syndaemon -i 1.5 -d -K")
+run_once("syndaemon -i 1.5 -d -K")
 run_once("unclutter -idle 10")
 
 -- }}}
@@ -918,7 +918,11 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+awful.key({ }, "XF86MonBrightnessDown", function ()
+        awful.util.spawn_with_shell("bash ~/dotfiles/brightness.sh d") end),
+awful.key({ }, "XF86MonBrightnessUp", function ()
+        awful.util.spawn_with_shell("bash ~/dotfiles/brightness.sh u") end)
 )
 
 
