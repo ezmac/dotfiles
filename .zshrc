@@ -49,7 +49,7 @@ ZSH_THEME="ezmac"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump catimg composer common-aliases debian docker fasd git-flow lol tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
+plugins=(git autojump catimg composer docker fasd git-flow lol tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -91,10 +91,6 @@ GOPATH="$HOME/go"
 
 export DEFAULT_USER='tad'
 export TERM=xterm-256color
-export DOCKER_BASEDIR=$HOME/apps/docker
-export SPINUP_BASEDIR=/var/storage/spinup
-export AS=$DOCKER_BASEDIR/ArchivesSpace
-export NEWSITE=/var/porterhouse/f/Inetpub/wwwroot/newsite/
 
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
@@ -108,7 +104,7 @@ alias dockerclean="dockercleancontainers && dockercleanimages"
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
-export PATH="/home/tad/.composer/vendor/bin":$PATH
+export PATH="$HOME/.config/composer/vendor/bin":$PATH
 
 
 export PATH="$HOME/.nodenv/bin:$PATH"
@@ -125,3 +121,18 @@ eval "$(rbenv init -)"
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
+
+PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/tad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/tad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/tad/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/tad/perl5"; export PERL_MM_OPT;
+
+
+
+
+set -o vi
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -921,6 +921,9 @@ globalkeys = awful.util.table.join(
               end)
 )
 
+
+-- there's a bug or something with a window that won't respect the WM rules.  it's probably maximized or marked as such.  try using mod+m to toggle that state.
+
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),

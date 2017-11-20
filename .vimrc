@@ -3,6 +3,8 @@ set nocompatible               " Be iMproved
 set runtimepath+=/home/tad/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 
+set rtp+=~/.fzf
+
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -32,11 +34,15 @@ NeoBundle 'xolox/vim-session'
 NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'jplaut/vim-arduino-ino'
-
+NeoBundle 'junegunn/fzf.vim'
+NeoBundle 'w0rp/ale'
+NeoBundle 'mkusher/padawan.vim'
+let g:padawan#composer_command = '/usr/bin/composer'
+let $PATH=$PATH . ':' . expand('~/.composer/vendor/bin')
 
 " Syntax checkers/linters
 " Pick one of the checksyntax, jslint, or syntastic
-NeoBundle 'scrooloose/syntastic'
+"NeoBundle 'scrooloose/syntastic'
 
 " like zencoding
 "  GOLANG
@@ -46,7 +52,7 @@ NeoBundle 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
 " has some issues in console, so disabled
 " NeoBundle 'nathanaelkane/vim-indent-guides'
 " NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'kien/ctrlp.vim'
+" NeoBundle 'kien/ctrlp.vim'
 " NeoBundle 'mbbill/undotree'
 " NeoBundle 'scrooloose/nerdcommenter'
 " NeoBundle 'mattn/webapi-vim'
@@ -58,16 +64,24 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'ekalinin/Dockerfile.vim'
 
 "NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
 
 " PHP
 "NeoBundle 'StanAngeloff/php.vim'
 NeoBundle 'shawncplus/phpcomplete.vim'
-"NeoBundle 'm2mdas/phpcomplete-extended'
-"NeoBundle 'm2mdas/phpcomplete-extended-laravel'
+NeoBundle 'm2mdas/phpcomplete-extended'
+NeoBundle 'm2mdas/phpcomplete-extended-laravel'
 NeoBundle 'joonty/vdebug'
-"NeoBundle 'arnaud-lb/vim-php-namespace'
+NeoBundle 'arnaud-lb/vim-php-namespace'
 NeoBundle 'vim-php/tagbar-phpctags.vim'
-NeoBundle '2072/PHP-Indenting-for-VIm'
+"NeoBundle '2072/PHP-Indenting-for-VIm'
 "NeoBundle '2072/vim-syntax-for-PHP'
 "NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'xsbeats/vim-blade'
@@ -111,23 +125,15 @@ NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
 NeoBundle 'majutsushi/tagbar'
 "endif
 " NeoBundle 'vim-scripts/AutoTag'
-NeoBundle 'groenewege/vim-less'
+"NeoBundle 'groenewege/vim-less'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
 "NeoBundle 'Shougo/unite.vim'
 "NeoBundle 'Shougo/unite-outline'
 "NeoBundle 'Shougo/unite-help'
 "NeoBundle 'Shougo/unite-session'
 "NeoBundle 'thinca/vim-unite-history'
 "NeoBundle 'mileszs/ack.vim'
-NeoBundle 'Shougo/neocomplete.vim'
+"NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build': {
      \     'unix': './install.sh'
@@ -158,7 +164,7 @@ let g:UltiSnipsJumpBackwardTrigger="<sc-tab>"
 let g:UltiSnipsEditSplit="vertical"
 filetype plugin indent on     " required!
 "set completefunc=youcompleteme#Complete
-"set omnifunc=youcompleteme#OmniComplete
+set omnifunc=youcompleteme#OmniComplete
 
 
 " Set up tabs for easier use.
@@ -434,9 +440,10 @@ let php_htmlInStrings=1
 
 let g:phpcomplete_parse_docblock_comments = 1
 "let g:phpcomplete_complete_for_unknown_classes = 1
+let g:phpcomplete_index_composer_command= 'composer'
 
 
-"autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 " PIV {
 let php_folding=0
 let g:DisableAutoPHPFolding = 1
@@ -445,16 +452,23 @@ let g:PIVAutoClose = 0
 
 let g:tagbar_phpctags_memory_limit='512M'
 
+"Let's say we're debugging a file on a remote machine, and the path is
+"/home/user/scripts/myscript.php. On my machine the same script is located in
+"/home/jon/php/myscript.php. I would have to set the remote and local path
+"options as so: >
+
+"    let g:vdebug_options['path_maps'] = {"/home/user/scripts": "/home/jon/php"}
+
 " joonty/Vdebug 
     let g:vdebug_options= {
     \    "port" : 9900,
-    \    "server" : 'localhost',
+    \    "server" : '0.0.0.0',
     \    "timeout" : 20,
     \    "on_close" : 'detach',
     \    "break_on_open" : 1,
-    \    "ide_key" : '',
+    \    "ide_key" : 'tad',
     \    "continuous_mode" : '0',
-    \    "path_maps" : {},
+    \    "path_maps" : {'/home/vagrant/Code/':'/home/tad/code/ut/brand-forms/'},
     \    "debug_window_level" : 0,
     \    "debug_file_level" : 0,
     \    "debug_file" : "",
@@ -497,6 +511,7 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+map <C-p> :Files<CR>
 
 "if exists('$TMUX')
 "function! TmuxOrSplitSwitch(wincmd, tmuxdir)
