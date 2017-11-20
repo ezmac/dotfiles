@@ -922,7 +922,9 @@ globalkeys = awful.util.table.join(
 awful.key({ }, "XF86MonBrightnessDown", function ()
         awful.util.spawn_with_shell("bash ~/dotfiles/brightness.sh d") end),
 awful.key({ }, "XF86MonBrightnessUp", function ()
-        awful.util.spawn_with_shell("bash ~/dotfiles/brightness.sh u") end)
+        awful.util.spawn_with_shell("bash ~/dotfiles/brightness.sh u") end),
+awful.key({ }, "XF86TouchpadToggle", function ()
+        awful.util.spawn_with_shell("bash ~/dotfiles/toggleTrackpad.sh") end)
 )
 
 
