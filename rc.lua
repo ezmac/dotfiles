@@ -11,16 +11,16 @@
 gears 	        = require("gears")
 awful           = require("awful")
 awful.rules     = require("awful.rules")
-local tyrannical = require("tyrannical")
+-- local tyrannical = require("tyrannical")
 awful.autofocus = require("awful.autofocus")
 wibox           = require("wibox")
 beautiful       = require("beautiful")
 naughty         = require("naughty")
 vicious         = require("vicious")
-scratch         = require("scratch")
+-- scratch         = require("scratch")
 local menubar = require("menubar")
 local beautiful = require("beautiful")
- rodentbane = require("rodentbane")
+rodentbane = require("./Re-rodentbane/rerodentbane")
 -- }}}
 
 -- {{{ Autostart
@@ -868,7 +868,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Dropdown terminal
-    awful.key({ modkey,	          }, "z",     function () scratch.drop(terminal) end),
+    -- awful.key({ modkey,	          }, "z",     function () scratch.drop(terminal) end),
 
     -- Widgets popups
     awful.key({ altkey,           }, "c",     function () add_calendar(7) end),
