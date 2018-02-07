@@ -19,6 +19,7 @@ NeoBundle 'tpope/vim-ragtag.git'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-abolish.git'
 NeoBundle 'tpope/vim-rails.git'
+NeoBundle 'Glench/Vim-Jinja2-Syntax'
 
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'editorconfig/editorconfig-vim'
