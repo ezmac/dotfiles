@@ -1,6 +1,9 @@
  " Note: Skip initialization for vim-tiny or vim-small.
 set nocompatible               " Be iMproved
 set runtimepath+=/home/tad/.vim/bundle/neobundle.vim/
+
+scriptencoding utf-8
+set encoding=utf-8
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 set rtp+=~/.fzf
