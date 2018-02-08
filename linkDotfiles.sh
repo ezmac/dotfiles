@@ -5,7 +5,11 @@ ln -s -f `pwd`/ezmac.zsh-theme ~/.oh-my-zsh/themes/
 ln -s -f `pwd`/.tmux.conf ~/.tmux.conf
 ln -s -f `pwd`/.inputrc ~/.inputrc
 ln -s -f `pwd`/prompt_randomizer.js ~/.prompt_randomizer.js
+
+## GUI tools
+mkdir -p ~/.config/awesome/
 ln -s -f `pwd`/rc.lua ~/.config/awesome/
+mkdir -p ~/.config/terminator/
 ln -s -f `pwd`/terminator_config ~/.config/terminator/config
 
 
