@@ -205,7 +205,7 @@ let g:indent_guides_guide_size=2
 " NOTE: comments after NeoBundle command are not allowed..
 "let g:airline_powerline_fonts = 1
 set background=dark
-colorscheme solarized
+silent! colorscheme solarized
 syntax on
 let mapleader=","
 set term=screen-256color
