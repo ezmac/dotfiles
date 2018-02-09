@@ -55,7 +55,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/tad/apps/phpctags/:/home/tad/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448@global/bin:/home/tad/.rvm/rubies/ruby-1.9.3-p448/bin:/home/tad/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin"
+export PATH="/home/tad/apps/phpctags/:/home/tad/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export PATH="/home/tad/.local/bin:$PATH"
@@ -63,12 +63,7 @@ export PATH="/home/tad/.local/bin:$PATH"
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# # Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='vim'
- fi
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -120,6 +115,7 @@ eval "$(rbenv init -)"
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
 alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
 
 PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
