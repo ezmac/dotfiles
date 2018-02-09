@@ -55,7 +55,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/home/tad/apps/phpctags/:/home/tad/bin:/home/tad/.rvm/gems/ruby-1.9.3-p448/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 export PATH="/home/tad/.local/bin:$PATH"
@@ -87,15 +87,17 @@ GOPATH="$HOME/go"
 export DEFAULT_USER='tad'
 export TERM=xterm-256color
 
+alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
+alias ymd="date +%Y-%m-%d"
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias grep='grep --color=always'
-
 alias diff=colordiff
 # http://blog.stefanxo.com/2014/02/clean-up-after-docker/
 alias dockercleancontainers="docker ps -a -notrunc| grep 'Exit' | awk '{print \$1}' | xargs -L 1 -r docker rm"
 alias dockercleanimages="docker images -a -notrunc | grep none | awk '{print \$3}' | xargs -L 1 -r docker rmi"
 alias dockerclean="dockercleancontainers && dockercleanimages"
+
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
@@ -116,13 +118,12 @@ eval "$(rbenv init -)"
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
-alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
 
-PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/tad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/tad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/tad/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/tad/perl5"; export PERL_MM_OPT;
+#PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
+#PERL5LIB="/home/tad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+#PERL_LOCAL_LIB_ROOT="/home/tad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+#PERL_MB_OPT="--install_base \"/home/tad/perl5\""; export PERL_MB_OPT;
+#PERL_MM_OPT="INSTALL_BASE=/home/tad/perl5"; export PERL_MM_OPT;
 
 
 
@@ -132,4 +133,4 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-alias ymd="date +%Y-%m-%d"
+
