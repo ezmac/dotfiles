@@ -4,7 +4,7 @@ echo "This script requires sudo because it uses apt-get to install things."
 mkdir installers -p
 
 sudo apt-get update
-sudo apt-get install -y git automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev curl cmake php7.0-cli zsh
+sudo apt-get install -y git automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev curl cmake php7.0-cli zsh python-pip
 #install ohmyzsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 #install nodenv
@@ -18,6 +18,10 @@ mkdir -p ~/.vim/{backup,undo,tmp}
 ./installNeobundle.sh
 vim "+set nomore" +NeoBundleInstall +qall
 ./installFZF.sh
+pip install --user yamllint
+
+
+
 
 # it's easy to tell if you're in a gui by the presence of the display env var used by X;
 # I'm not sure wayland uses it though
