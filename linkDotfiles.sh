@@ -5,6 +5,7 @@ ln -s -f `pwd`/ezmac.zsh-theme ~/.oh-my-zsh/themes/
 ln -s -f `pwd`/.tmux.conf ~/.tmux.conf
 ln -s -f `pwd`/.inputrc ~/.inputrc
 ln -s -f `pwd`/prompt_randomizer.js ~/.prompt_randomizer.js
+mkdir -p ~/.config/yamllint/
 ln -s -f `pwd`/yamllint_config ~/.config/yamllint/config
 
 ## GUI tools
