@@ -14,15 +14,19 @@ set rtp+=~/.fzf
 NeoBundleFetch 'Shougo/neobundle.vim'
 " required! 
 
-" My NeoBundles here:
 "
 " Tim pope all up in my vimrc
+NeoBundle 'tpope/vim-git'
 NeoBundle 'tpope/vim-fugitive'
+
 NeoBundle 'tpope/vim-ragtag.git'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-abolish.git'
 NeoBundle 'tpope/vim-rails.git'
+
 NeoBundle 'Glench/Vim-Jinja2-Syntax'
+NeoBundle 'pearofducks/ansible-vim'
+NeoBundle 'MicahElliott/Rocannon'
 
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'editorconfig/editorconfig-vim'
@@ -36,7 +40,7 @@ NeoBundle 'rstacruz/sparkup'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
-NeoBundle 'godlygeek/tabular'
+"NeoBundle 'godlygeek/tabular'
 NeoBundle 'jplaut/vim-arduino-ino'
 NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'w0rp/ale'
@@ -48,7 +52,6 @@ let $PATH=$PATH . ':' . expand('~/.composer/vendor/bin')
 " Pick one of the checksyntax, jslint, or syntastic
 "NeoBundle 'scrooloose/syntastic'
 
-" like zencoding
 "  GOLANG
 NeoBundle 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
 
@@ -94,16 +97,21 @@ let $PATH=$PATH . ':' . expand('/usr/local/bin/')
 
 "NeoBundle 'paulyg/Vim-PHP-Stuff' "https://github.com/paulyg/Vim-PHP-Stuff "looks complicated
 
-NeoBundle 'ernstvanderlinden/vim-coldfusion'
-autocmd Bufread,BufNewFile *.cfm set filetype=eoz
-autocmd Bufread,BufNewFile *.cfc set filetype=eoz
-
 
 " Javascript
-NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
+"NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
 " NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 "NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
+
+
+" Ruby
+"
+NeoBundle 'hackhowtofaq/vim-solargraph'
+
+
+
+
 
 " Coffeescript
 "NeoBundle 'kchmck/vim-coffee-script'
@@ -140,7 +148,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 "NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build': {
-     \     'unix': './install.sh'
+     \     'unix': './install.py --js-completer'
      \     }
      \ }
 
@@ -155,7 +163,6 @@ NeoBundle 'honza/vim-snippets'
 
  call neobundle#end()
 NeoBundleCheck
-
 
 
 
@@ -174,20 +181,12 @@ set omnifunc=youcompleteme#OmniComplete
 " Set up tabs for easier use.
 set showtabline=2
 map <c-t> <Esc>:tabnew<CR>:NERDTree<CR>
-nnoremap th  :tabfirst<CR>
-nnoremap tj  :tabnext<CR>
-nnoremap tk  :tabprev<CR>
-nnoremap tl  :tablast<CR>
-nnoremap tt  :tabedit<Space>
-nnoremap tn  :tabnext<Space>
-nnoremap tm  :tabm<Space>
-nnoremap td  :tabclose<CR>
 " Alternatively use
 " "nnoremap th :tabnext<CR>
 " "nnoremap tl :tabprev<CR>
 " "nnoremap tn :tabnew<CR>
 
-
+" TODO: either get tabguides working or remove
 hi IndentGuidesOdd  ctermbg=black
 hi IndentGuidesEven ctermbg=darkgrey
 set ts=2 sw=2
@@ -201,7 +200,6 @@ let g:indent_guides_guide_size=2
 " :NeoBundleSearch(!) foo - search(or refresh cache first) for foo
 " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "
-" see :h vundle for more details or wiki for FAQ
 " NOTE: comments after NeoBundle command are not allowed..
 "let g:airline_powerline_fonts = 1
 set background=dark
@@ -341,6 +339,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 
 
 " TagBar {
+" TODO: install tagbar
 nnoremap <silent> <leader>tt :TagbarToggle<CR>
 
 " Fugitive {
@@ -382,12 +381,6 @@ endif
 
 map <leader>n :NERDTreeToggle<CR>
 let g:EasyMotion_leader_key = '<Leader><Leader>' 
-" Use ctrl-[hjkl] to select the active split!
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
-
 
 
 
@@ -403,7 +396,7 @@ nmap <silent> <c-l> :wincmd l<CR>
       "\ 'vendor'
       "\ ], '\|'))
 
-let g:unite_source_history_yank_enable = 1
+"let g:unite_source_history_yank_enable = 1
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Disable unite for ctrlp
 "nmap <C-s-p> :Unite -no-split -buffer-name=files   -start-insert buffer file_rec/async:! file<cr>
@@ -412,20 +405,19 @@ let g:unite_source_history_yank_enable = 1
 "nnoremap <leader>w :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 "nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
 "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <C-y> :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <C-b> :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+"nnoremap <C-y> :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
 
 " Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
+"autocmd FileType unite call s:unite_settings()
+"function! s:unite_settings()
   " Play nice with supertab
-  let b:SuperTabDisabled=1
+  "let b:SuperTabDisabled=1
   " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-  nmap <buffer> <ESC> <Plug>(unite_exit)
-
-endfunction
+  "imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  "imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  "nmap <buffer> <ESC> <Plug>(unite_exit)
+"
+"endfunction
 
 
 
@@ -448,6 +440,18 @@ let g:phpcomplete_index_composer_command= 'composer'
 
 
 autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+
+
+
+autocmd Filetype ruby,eruby setlocal omnifunc=solargraph#CompleteSolar
+
+
+
+
+
+
+
+
 " PIV {
 let php_folding=0
 let g:DisableAutoPHPFolding = 1
@@ -465,14 +469,14 @@ let g:tagbar_phpctags_memory_limit='512M'
 
 " joonty/Vdebug 
     let g:vdebug_options= {
-    \    "port" : 9900,
+    \    "port" : 9000,
     \    "server" : '0.0.0.0',
     \    "timeout" : 20,
     \    "on_close" : 'detach',
     \    "break_on_open" : 1,
     \    "ide_key" : 'tad',
     \    "continuous_mode" : '0',
-    \    "path_maps" : {'/home/vagrant/Code/':'/home/tad/code/ut/brand-forms/'},
+    \    "path_maps" : {'/home/vagrant/Code/':'%%'},
     \    "debug_window_level" : 0,
     \    "debug_file_level" : 0,
     \    "debug_file" : "",
@@ -508,7 +512,7 @@ let g:session_autosave_periodic=5
   autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 
-set tags=./tags;~/code
+set tags=./tags
 
 
 map <C-h> <C-w>h
@@ -516,6 +520,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 map <C-p> :Files<CR>
+map <C-b> :Buffers<cr>
 
 "if exists('$TMUX')
 "function! TmuxOrSplitSwitch(wincmd, tmuxdir)
@@ -545,6 +550,7 @@ map <C-p> :Files<CR>
 let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
+
 
 
 set tags=./tags
