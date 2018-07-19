@@ -9,7 +9,7 @@ set -e
 # https://gist.github.com/odiumediae/3b22d09b62e9acb7788baf6fdbb77cf8
 echo "This needs sudo cause it messes with apt-get"
 
-sudo apt-get install -y python-dev ruby-dev git ncurses-dev checkinstall
+sudo apt-get install -y python-dev ruby-dev git ncurses-dev checkinstall python3 python3-dev
 
 sudo apt-get remove -y --allow-change-held-packages vim vim-runtime
 sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
