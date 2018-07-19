@@ -1,24 +1,32 @@
 #!/bin/bash
 #source osDetection.sh
+
 set -e
 
 # assumes apt based system
 # Props to valloric https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+#this gist for python3
+# https://gist.github.com/odiumediae/3b22d09b62e9acb7788baf6fdbb77cf8
 echo "This needs sudo cause it messes with apt-get"
 
 sudo apt-get install -y python-dev ruby-dev git ncurses-dev checkinstall
 
-sudo apt-get remove -y vim vim-runtime
-sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox
+sudo apt-get remove -y --allow-change-held-packages vim vim-runtime
+sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
 
 cd ~
-git clone https://github.com/vim/vim.git
+if [[ ! -d ~/vim ]]; then
+  git clone https://github.com/vim/vim.git
+fi
 cd vim
+git pull origin master
 ./configure --with-features=huge \
             --enable-multibyte \
             --enable-rubyinterp \
             --enable-pythoninterp \
             --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
+            --enable-python3interp \
+            --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
             --enable-perlinterp \
             --enable-luainterp \
             --enable-cscope --prefix=/usr
