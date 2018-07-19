@@ -1,4 +1,4 @@
-https://github.com/sheerun/vim-polyglot
+"https://github.com/sheerun/vim-polyglot
 
 " syntax highlighting plugins {
 NeoBundle 'sheerun/vim-polyglot'
