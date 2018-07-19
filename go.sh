@@ -16,6 +16,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 mkdir -p ~/.vim/{backup,undo,tmp}
 ./linkDotfiles.sh
 ./installNeobundle.sh
+source ~/.zshrc
+
+export PATH="$HOME/.nodenv/versions/9.4.0/bin/:$PATH"
 vim "+set nomore" +NeoBundleInstall +qall
 ./installFZF.sh
 pip install --user yamllint

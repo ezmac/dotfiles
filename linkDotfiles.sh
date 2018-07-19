@@ -6,6 +6,7 @@ ln -s -f `pwd`/.tmux.conf ~/.tmux.conf
 ln -s -f `pwd`/.inputrc ~/.inputrc
 ln -s -f `pwd`/prompt_randomizer.js ~/.prompt_randomizer.js
 ln -s -f `pwd`/yamllint_config ~/.config/yamllint/config
+ln -s -f `pwd`/.vim.conf.d ~/
 
 ## GUI tools
 mkdir -p ~/.config/awesome/

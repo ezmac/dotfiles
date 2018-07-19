@@ -49,7 +49,7 @@ ZSH_THEME="ezmac"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump catimg composer docker fasd git-flow lol tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
+plugins=(git aws autojump catimg composer docker fasd git-flow lol tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,15 +80,17 @@ zle -N down-line-or-beginning-search down-line-or-beginning-search
 bindkey -v
 bindkey "${key[Up]}" up-line-or-beginning-search
 bindkey "${key[Down]}" down-line-or-beginning-search
-GOROOT="/usr/local/go"
-PATH=$PATH:$GOROOT/bin
-GOPATH="$HOME/go"
+#GOROOT="/usr/local/go"
+#PATH=$PATH:$GOROOT/bin
+export GOPATH="$HOME/.gocode"
+export PATH=$PATH:$GOPATH/bin
 
 export DEFAULT_USER='tad'
 export TERM=xterm-256color
 
 alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
 alias ymd="date +%Y-%m-%d"
+alias ymdhms="date +%Y-%m-%d_%H-%M-%S"
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias grep='grep --color=always'
@@ -110,7 +112,8 @@ eval "$(nodenv init -)"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-
+export PATH="$PATH:/home/tad/.gem/ruby/2.3.0/bin"
+rbenv global 2.3.0
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh

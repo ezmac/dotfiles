@@ -12,38 +12,64 @@ set rtp+=~/.fzf
 " Let NeoBundle manage NeoBundle
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
-" required! 
 
-"
-" Tim pope all up in my vimrc
+
+" Language agnostic plugins (tools) {
+  "   Git specifically
 NeoBundle 'tpope/vim-git'
 NeoBundle 'tpope/vim-fugitive'
+  "   Not git
+NeoBundle 'scrooloose/nerdtree'
+  " advanced jumping
+NeoBundle 'Lokaltog/vim-easymotion'
+  " autotoggle between absolute and relativenumver
+NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
+  " use fzf for faster fuzzy search; requires fzf to be installed on system
+NeoBundle 'junegunn/fzf.vim'
+  " Async Lint Engine
+NeoBundle 'w0rp/ale'
+" }
+
+source ~/.vim.conf.d/syntax.vim
+
+" Bling (visual-ish only) {
+NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+  "Show git diff in vim's sign column
+NeoBundle 'mhinz/vim-signify'
+" }
+
+" language/tool specific {
+NeoBundle 'tpope/vim-rails.git'
+NeoBundle 'pearofducks/ansible-vim'
+" NeoBundle 'MicahElliott/Rocannon'
+" }
+
+" Java debugging plugin for gradle {
+" Not currently working, so disabled
+"NeoBundle 'Dica-Developer/vim-jdb'
+" }
+
+
+" Below are unorganized plugins.  At some point, I should switch to a newer
+" plugin manager.
+
+"
+" Tim pope all up in my vimrc {
 
 NeoBundle 'tpope/vim-ragtag.git'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-abolish.git'
-NeoBundle 'tpope/vim-rails.git'
+" }
 
-NeoBundle 'Glench/Vim-Jinja2-Syntax'
-NeoBundle 'pearofducks/ansible-vim'
-NeoBundle 'MicahElliott/Rocannon'
 
-NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-"Show git diff in vim's sign column
-NeoBundle 'mhinz/vim-signify'
-NeoBundle 'rstacruz/sparkup'
+" NeoBundle 'rstacruz/sparkup'
 
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
-NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
 "NeoBundle 'godlygeek/tabular'
 NeoBundle 'jplaut/vim-arduino-ino'
-NeoBundle 'junegunn/fzf.vim'
-NeoBundle 'w0rp/ale'
 NeoBundle 'mkusher/padawan.vim'
 let g:padawan#composer_command = '/usr/bin/composer'
 let $PATH=$PATH . ':' . expand('~/.composer/vendor/bin')
@@ -55,17 +81,6 @@ let $PATH=$PATH . ':' . expand('~/.composer/vendor/bin')
 "  GOLANG
 NeoBundle 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
 
-" UNUSED but might want to work on
-" has some issues in console, so disabled
-" NeoBundle 'nathanaelkane/vim-indent-guides'
-" NeoBundle 'Valloric/YouCompleteMe'
-" NeoBundle 'kien/ctrlp.vim'
-" NeoBundle 'mbbill/undotree'
-" NeoBundle 'scrooloose/nerdcommenter'
-" NeoBundle 'mattn/webapi-vim'
-" NeoBundle 'mattn/gist-vim'
-" NeoBundle 'elzr/vim-json'
-" NeoBundle 'fholgado/minibufexpl.vim'
 
 " syntax highlighting for Dockerfiles
 NeoBundle 'ekalinin/Dockerfile.vim'
@@ -92,10 +107,28 @@ NeoBundle 'vim-php/tagbar-phpctags.vim'
 "NeoBundle '2072/vim-syntax-for-PHP'
 "NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'xsbeats/vim-blade'
+
+
+
+
+" UNUSED but might want to work on
+" has some issues in console, so disabled
+" NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'Valloric/YouCompleteMe'
+" NeoBundle 'kien/ctrlp.vim'
+" NeoBundle 'mbbill/undotree'
+" NeoBundle 'scrooloose/nerdcommenter'
+" NeoBundle 'mattn/webapi-vim'
+" NeoBundle 'mattn/gist-vim'
+" NeoBundle 'elzr/vim-json'
+" NeoBundle 'fholgado/minibufexpl.vim'
+"NeoBundle 'paulyg/Vim-PHP-Stuff' "https://github.com/paulyg/Vim-PHP-Stuff "looks complicated
+
+
+
 let $PATH=$PATH . ':' . expand('/usr/local/bin/')
 
 
-"NeoBundle 'paulyg/Vim-PHP-Stuff' "https://github.com/paulyg/Vim-PHP-Stuff "looks complicated
 
 
 " Javascript
@@ -107,7 +140,13 @@ NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
 
 " Ruby
 "
-NeoBundle 'hackhowtofaq/vim-solargraph'
+NeoBundle 'hackhowtofaq/vim-solargraph',{
+      \ 'build' : {
+      \     'unix': 'gem install --user-install json rest-client solargraph'
+      \    },
+      \ }
+
+
 
 
 
@@ -285,7 +324,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 set softtabstop=4               " Let backspace delete indent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set splitright                  " Puts new vsplit windows to the right of the current
-set splitbelow                  " Puts new split windows to the bottom of the current
+"set splitbelow                  " Puts new split windows to the bottom of the current
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 
 " leader slash turns off search highlighting
