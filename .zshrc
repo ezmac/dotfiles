@@ -96,8 +96,8 @@ alias pbpaste='xsel --clipboard --output'
 alias grep='grep --color=always'
 alias diff=colordiff
 # http://blog.stefanxo.com/2014/02/clean-up-after-docker/
-alias dockercleancontainers="docker ps -a -notrunc| grep 'Exit' | awk '{print \$1}' | xargs -L 1 -r docker rm"
-alias dockercleanimages="docker images -a -notrunc | grep none | awk '{print \$3}' | xargs -L 1 -r docker rmi"
+alias dockercleancontainers="docker rmi $(docker images --filter "dangling=true" -q --no-trunc)"
+alias dockercleanimages="docker rm $(docker ps -qa --no-trunc --filter "status=exited")"
 alias dockerclean="dockercleancontainers && dockercleanimages"
 
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
@@ -114,12 +114,6 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$PATH:/home/tad/.gem/ruby/2.3.0/bin"
 rbenv global 2.3.0
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
 
 
 #PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -136,4 +130,8 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+
+[[ -f /home/tad/.environmental_variables ]] && . /home/tad/.environmental_variables
 

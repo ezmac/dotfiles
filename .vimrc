@@ -31,6 +31,7 @@ NeoBundle 'w0rp/ale'
 " }
 
 source ~/.vim.conf.d/syntax.vim
+source ~/.vim.conf.d/ruby.vim
 
 " Bling (visual-ish only) {
 NeoBundle 'bling/vim-airline'
@@ -127,6 +128,7 @@ NeoBundle 'xsbeats/vim-blade'
 
 
 let $PATH=$PATH . ':' . expand('/usr/local/bin/')
+let $PATH=$PATH . ':' . expand($HOME.'/.local/bin/')
 
 
 
@@ -140,12 +142,6 @@ NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
 
 " Ruby
 "
-NeoBundle 'hackhowtofaq/vim-solargraph',{
-      \ 'build' : {
-      \     'unix': 'gem install --user-install json rest-client solargraph'
-      \    },
-      \ }
-
 
 
 
@@ -482,7 +478,6 @@ autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 
 
-autocmd Filetype ruby,eruby setlocal omnifunc=solargraph#CompleteSolar
 
 
 

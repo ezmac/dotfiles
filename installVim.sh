@@ -1,6 +1,8 @@
 #!/bin/bash
 #source osDetection.sh
 
+## 156 without ramdisk ./installVim.sh  156.30s user 22.34s system 119% cpu 2:29.20 total
+## 156 with ramdisk..  ./installVim.sh  156.35s user 22.50s system 119% cpu 2:29.92 total
 set -e
 
 # assumes apt based system
@@ -16,7 +18,11 @@ sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-
 
 cd ~
 if [[ ! -d ~/vim ]]; then
-  git clone https://github.com/vim/vim.git
+  mkdir ~/vim
+  sudo ~/dotfiles/ramdisk.sh mount ~/vim
+  cd ~/vim
+  git clone https://github.com/vim/vim.git .
+  cd ..
 fi
 cd vim
 git pull origin master
@@ -31,7 +37,7 @@ git pull origin master
             --enable-luainterp \
             --enable-cscope --prefix=/usr
 #if [[ $distro == 'Debian' ]]; then
-make VIMRUNTIMEDIR=/usr/share/vim/vim80
+make VIMRUNTIMEDIR=/usr/share/vim/vim81
 #elif [[ $distro == 'Ubuntu' ]]; then
   #make VIMRUNTIMEDIR=/usr/local/share/vim/vim74
 #fi
@@ -48,3 +54,4 @@ sudo update-alternatives --set vi /usr/bin/vim
 #http://www.astarix.co.uk/2014/02/easily-exclude-packages-apt-get-upgrades/
 # Prevent automated dpkg operations from clobbering this package
 echo "vim hold" |sudo dpkg --set-selections
+sudo ~/dotfiles/ramdisk.sh umount ~/vim

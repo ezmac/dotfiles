@@ -397,10 +397,10 @@ mytextclock:buttons(util.table.join( awful.button({ }, 1, function() show(-1) en
                                      awful.button({ }, 3, function() show(1) end)))
 
 -- Mail widget
-mygmail = wibox.widget.textbox()
-notify_shown = false
-gmail_t = awful.tooltip({ objects = { mygmail },})
-mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
+-- mygmail = wibox.widget.textbox()
+-- notify_shown = false
+-- gmail_t = awful.tooltip({ objects = { mygmail },})
+-- mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
 -- vicious.register(mygmail, vicious.widgets.gmail,
 -- function (widget, args)
 --   notify_title = "You have new email"
@@ -551,6 +551,9 @@ fshicon:connect_signal('mouse::leave', function () remove_info() end)
 -- Battery widget
 baticon = wibox.widget.imagebox()
 baticon:set_image(beautiful.widget_battery)
+function chargerState()
+  --upower -d /org/freedesktop/UPower/devices
+end
 
 function batstate()
 
