@@ -112,8 +112,8 @@ eval "$(nodenv init -)"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-export PATH="$PATH:/home/tad/.gem/ruby/2.3.0/bin"
-rbenv global 2.3.0
+export PATH="$PATH:/home/tad/.gem/ruby/2.4.0/bin"
+rbenv global 2.4.0
 
 
 #PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
