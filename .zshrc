@@ -49,7 +49,7 @@ ZSH_THEME="ezmac"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git aws autojump catimg composer docker fasd git-flow lol tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
+plugins=(git aws autojump catimg composer docker fasd git-flow tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -96,8 +96,8 @@ alias pbpaste='xsel --clipboard --output'
 alias grep='grep --color=always'
 alias diff=colordiff
 # http://blog.stefanxo.com/2014/02/clean-up-after-docker/
-alias dockercleancontainers="docker rmi $(docker images --filter "dangling=true" -q --no-trunc)"
-alias dockercleanimages="docker rm $(docker ps -qa --no-trunc --filter "status=exited")"
+alias dockercleancontainers='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
+alias dockercleanimages='docker rm $(docker ps -qa --no-trunc --filter "status=exited")'
 alias dockerclean="dockercleancontainers && dockercleanimages"
 
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
