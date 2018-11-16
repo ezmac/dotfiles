@@ -1,168 +1,185 @@
  " Note: Skip initialization for vim-tiny or vim-small.
 set nocompatible               " Be iMproved
-set runtimepath+=/home/tad/.vim/bundle/neobundle.vim/
+set runtimepath+=$HOME/.vim/bundle/neobundle.vim/
+let $PATH=$PATH . ':' . expand('/usr/local/bin/')
+let $PATH=$PATH . ':' . expand($HOME.'/.local/bin/')
+set rtp+=~/.fzf
 
 scriptencoding utf-8
 set encoding=utf-8
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 
-set rtp+=~/.fzf
 
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-" required! 
-
-"
-" Tim pope all up in my vimrc
-NeoBundle 'tpope/vim-git'
-NeoBundle 'tpope/vim-fugitive'
-
-NeoBundle 'tpope/vim-ragtag.git'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-abolish.git'
-NeoBundle 'tpope/vim-rails.git'
-
-NeoBundle 'Glench/Vim-Jinja2-Syntax'
-NeoBundle 'pearofducks/ansible-vim'
-NeoBundle 'MicahElliott/Rocannon'
-
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-"Show git diff in vim's sign column
-NeoBundle 'mhinz/vim-signify'
-NeoBundle 'rstacruz/sparkup'
-
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'xolox/vim-session'
-NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
-"NeoBundle 'godlygeek/tabular'
-NeoBundle 'jplaut/vim-arduino-ino'
-NeoBundle 'junegunn/fzf.vim'
-NeoBundle 'w0rp/ale'
-NeoBundle 'mkusher/padawan.vim'
-let g:padawan#composer_command = '/usr/bin/composer'
-let $PATH=$PATH . ':' . expand('~/.composer/vendor/bin')
-
-" Syntax checkers/linters
-" Pick one of the checksyntax, jslint, or syntastic
-"NeoBundle 'scrooloose/syntastic'
-
-"  GOLANG
-NeoBundle 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
-
-" UNUSED but might want to work on
-" has some issues in console, so disabled
-" NeoBundle 'nathanaelkane/vim-indent-guides'
-" NeoBundle 'Valloric/YouCompleteMe'
-" NeoBundle 'kien/ctrlp.vim'
-" NeoBundle 'mbbill/undotree'
-" NeoBundle 'scrooloose/nerdcommenter'
-" NeoBundle 'mattn/webapi-vim'
-" NeoBundle 'mattn/gist-vim'
-" NeoBundle 'elzr/vim-json'
-" NeoBundle 'fholgado/minibufexpl.vim'
-
-" syntax highlighting for Dockerfiles
-NeoBundle 'ekalinin/Dockerfile.vim'
-
-"NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
-
-" PHP
-"NeoBundle 'StanAngeloff/php.vim'
-NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'm2mdas/phpcomplete-extended'
-NeoBundle 'm2mdas/phpcomplete-extended-laravel'
-NeoBundle 'joonty/vdebug'
-NeoBundle 'arnaud-lb/vim-php-namespace'
-NeoBundle 'vim-php/tagbar-phpctags.vim'
-"NeoBundle '2072/PHP-Indenting-for-VIm'
-"NeoBundle '2072/vim-syntax-for-PHP'
-"NeoBundle 'Rican7/php-doc-modded'
-NeoBundle 'xsbeats/vim-blade'
-let $PATH=$PATH . ':' . expand('/usr/local/bin/')
+  " Let NeoBundle manage NeoBundle
+  " Required:
+  NeoBundleFetch 'Shougo/neobundle.vim'
 
 
-"NeoBundle 'paulyg/Vim-PHP-Stuff' "https://github.com/paulyg/Vim-PHP-Stuff "looks complicated
+  " Language agnostic plugins (tools) {
+    "   Git specifically
+  NeoBundle 'tpope/vim-git'
+  NeoBundle 'tpope/vim-fugitive'
+    "   Not git
+  NeoBundle 'scrooloose/nerdtree'
+    " advanced jumping
+  NeoBundle 'Lokaltog/vim-easymotion'
+    " autotoggle between absolute and relativenumver
+  NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
+    " use fzf for faster fuzzy search; requires fzf to be installed on system
+  NeoBundle 'junegunn/fzf.vim'
+    " Async Lint Engine
+  NeoBundle 'w0rp/ale'
+  " }
+
+  source ~/.vim.conf.d/syntax.vim
+  source ~/.vim.conf.d/ruby.vim
+  source ~/.vim.conf.d/ansible.vim
+  source ~/.vim.conf.d/php.vim
+  "source ~/.vim.conf.d/completor.vim
+  source ~/.vim.conf.d/youcompleteme.vim
+
+  " Bling (visual-ish only) {
+  NeoBundle 'bling/vim-airline'
+  NeoBundle 'vim-airline/vim-airline-themes'
+    "Show git diff in vim's sign column
+  NeoBundle 'mhinz/vim-signify'
+  " }
+
+  " language/tool specific {
+  " }
+
+  " Java debugging plugin for gradle {
+  " Not currently working, so disabled
+  "NeoBundle 'Dica-Developer/vim-jdb'
+  " }
 
 
-" Javascript
-"NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
-" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-"NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
+  " Below are unorganized plugins.  At some point, I should switch to a newer
+  " plugin manager.
+
+  "
+  " Tim pope all up in my vimrc {
+
+  NeoBundle 'tpope/vim-ragtag.git'
+  NeoBundle 'tpope/vim-surround'
+  NeoBundle 'tpope/vim-abolish.git'
+  " }
 
 
-" Ruby
-"
-NeoBundle 'hackhowtofaq/vim-solargraph'
+  NeoBundle 'editorconfig/editorconfig-vim'
+  " NeoBundle 'rstacruz/sparkup'
+
+  NeoBundle 'xolox/vim-misc'
+  NeoBundle 'xolox/vim-session'
+  "NeoBundle 'godlygeek/tabular'
+  NeoBundle 'jplaut/vim-arduino-ino'
+
+  " Syntax checkers/linters
+  " Pick one of the checksyntax, jslint, or syntastic
+  "NeoBundle 'scrooloose/syntastic'
+
+  "  GOLANG
+  NeoBundle 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
+
+
+  " syntax highlighting for Dockerfiles
+  NeoBundle 'ekalinin/Dockerfile.vim'
+
+  "NeoBundle 'Shougo/unite.vim'
+  NeoBundle 'Shougo/vimproc', {
+        \ 'build' : {
+        \     'windows' : 'make -f make_mingw32.mak',
+        \     'cygwin' : 'make -f make_cygwin.mak',
+        \     'mac' : 'make -f make_mac.mak',
+        \     'unix' : 'make -f make_unix.mak',
+        \    },
+        \ }
 
 
 
 
 
-" Coffeescript
-"NeoBundle 'kchmck/vim-coffee-script'
-" NeoBundle 'maksimr/vim-jsbeautify'
-" Autocomplete matched characters
-" NeoBundle 'Raimondi/delimitMate'
-" NeoBundle 'christoomey/vim-tmux-navigator'
+  " UNUSED but might want to work on
 
-
-" Template engines
-"NeoBundle 'evidens/vim-twig'
-"NeoBundle 'xsbeats/vim-blade'
-
-"Abolish.vim provides a simpler way. The following one command produces 48 abbreviations including all of the above.
-
-":Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
-"My current configuration has 25 Abolish commands that create hundreds of corrections my fingers refuse to learn.
-"Want to turn fooBar into foo_bar? Press crs (coerce to snake_case). MixedCase (crm), camelCase (crc), snake_case (crs), and UPPER_CASE (cru) are all just 3 keystrokes away. 
-"
-" General Programming {
-
-"if executable('ctags')
-NeoBundle 'majutsushi/tagbar'
-"endif
-" NeoBundle 'vim-scripts/AutoTag'
-"NeoBundle 'groenewege/vim-less'
-NeoBundle 'altercation/vim-colors-solarized'
-"NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'Shougo/unite-outline'
-"NeoBundle 'Shougo/unite-help'
-"NeoBundle 'Shougo/unite-session'
-"NeoBundle 'thinca/vim-unite-history'
-"NeoBundle 'mileszs/ack.vim'
-"NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Valloric/YouCompleteMe', {
-     \ 'build': {
-     \     'unix': './install.py --js-completer'
-     \     }
-     \ }
-
-" Track the engine.
-NeoBundle 'SirVer/ultisnips'
-
-" Snippets are separated from the engine. Add this if you want them:
-NeoBundle 'honza/vim-snippets'
+  " has some issues in console, so disabled
+  " NeoBundle 'nathanaelkane/vim-indent-guides'
+  "
+  " NeoBundle 'kien/ctrlp.vim'
+  " NeoBundle 'mbbill/undotree'
+  " NeoBundle 'scrooloose/nerdcommenter'
+  " NeoBundle 'mattn/webapi-vim'
+  " NeoBundle 'mattn/gist-vim'
+  " NeoBundle 'elzr/vim-json'
+  " NeoBundle 'fholgado/minibufexpl.vim'
 
 
 
 
- call neobundle#end()
+
+
+  " Javascript
+  "NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
+  NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
+  " NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+  "NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
+
+
+  " Ruby
+  "
+
+
+
+
+
+
+  " Coffeescript
+  "NeoBundle 'kchmck/vim-coffee-script'
+  " NeoBundle 'maksimr/vim-jsbeautify'
+  " Autocomplete matched characters
+  " NeoBundle 'Raimondi/delimitMate'
+  " NeoBundle 'christoomey/vim-tmux-navigator'
+
+
+  " Template engines
+  "NeoBundle 'evidens/vim-twig'
+  "NeoBundle 'xsbeats/vim-blade'
+
+  "Abolish.vim provides a simpler way. The following one command produces 48 abbreviations including all of the above.
+
+  ":Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
+  "My current configuration has 25 Abolish commands that create hundreds of corrections my fingers refuse to learn.
+  "Want to turn fooBar into foo_bar? Press crs (coerce to snake_case). MixedCase (crm), camelCase (crc), snake_case (crs), and UPPER_CASE (cru) are all just 3 keystrokes away. 
+  "
+  " General Programming {
+
+  "if executable('ctags')
+  NeoBundle 'majutsushi/tagbar'
+  "endif
+  " NeoBundle 'vim-scripts/AutoTag'
+  "NeoBundle 'groenewege/vim-less'
+  NeoBundle 'altercation/vim-colors-solarized'
+  "NeoBundle 'Shougo/unite.vim'
+  "NeoBundle 'Shougo/unite-outline'
+  "NeoBundle 'Shougo/unite-help'
+  "NeoBundle 'Shougo/unite-session'
+  "NeoBundle 'thinca/vim-unite-history'
+  "NeoBundle 'mileszs/ack.vim'
+  "NeoBundle 'Shougo/neocomplete.vim'
+  " Track the engine.
+  NeoBundle 'SirVer/ultisnips'
+
+  " Snippets are separated from the engine. Add this if you want them:
+  NeoBundle 'honza/vim-snippets'
+  let g:completor_python_binary = '/usr/bin/python'
+
+
+
+
+call neobundle#end()
 NeoBundleCheck
+filetype plugin indent on     " required!
 
 
 
@@ -173,9 +190,8 @@ let g:UltiSnipsJumpBackwardTrigger="<sc-tab>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-filetype plugin indent on     " required!
 "set completefunc=youcompleteme#Complete
-set omnifunc=youcompleteme#OmniComplete
+"set omnifunc=youcompleteme#OmniComplete
 
 
 " Set up tabs for easier use.
@@ -285,7 +301,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 set softtabstop=4               " Let backspace delete indent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set splitright                  " Puts new vsplit windows to the right of the current
-set splitbelow                  " Puts new split windows to the bottom of the current
+"set splitbelow                  " Puts new split windows to the bottom of the current
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 
 " leader slash turns off search highlighting
@@ -443,7 +459,6 @@ autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 
 
-autocmd Filetype ruby,eruby setlocal omnifunc=solargraph#CompleteSolar
 
 
 

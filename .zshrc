@@ -49,7 +49,7 @@ ZSH_THEME="ezmac"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git autojump catimg composer docker fasd git-flow lol tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
+plugins=(git aws autojump catimg composer docker fasd git-flow tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,22 +80,24 @@ zle -N down-line-or-beginning-search down-line-or-beginning-search
 bindkey -v
 bindkey "${key[Up]}" up-line-or-beginning-search
 bindkey "${key[Down]}" down-line-or-beginning-search
-GOROOT="/usr/local/go"
-PATH=$PATH:$GOROOT/bin
-GOPATH="$HOME/go"
+#GOROOT="/usr/local/go"
+#PATH=$PATH:$GOROOT/bin
+export GOPATH="$HOME/.gocode"
+export PATH=$PATH:$GOPATH/bin
 
 export DEFAULT_USER='tad'
 export TERM=xterm-256color
 
 alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
 alias ymd="date +%Y-%m-%d"
+alias ymdhms="date +%Y-%m-%d_%H-%M-%S"
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias grep='grep --color=always'
 alias diff=colordiff
 # http://blog.stefanxo.com/2014/02/clean-up-after-docker/
-alias dockercleancontainers="docker ps -a -notrunc| grep 'Exit' | awk '{print \$1}' | xargs -L 1 -r docker rm"
-alias dockercleanimages="docker images -a -notrunc | grep none | awk '{print \$3}' | xargs -L 1 -r docker rmi"
+alias dockercleancontainers='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
+alias dockercleanimages='docker rm $(docker ps -qa --no-trunc --filter "status=exited")'
 alias dockerclean="dockercleancontainers && dockercleanimages"
 
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
@@ -110,13 +112,8 @@ eval "$(nodenv init -)"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /home/tad/.nodenv/versions/4.3.0/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+export PATH="$PATH:/home/tad/.gem/ruby/2.3.0/bin"
+rbenv global 2.3.0
 
 
 #PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -133,4 +130,8 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+
+[[ -f /home/tad/.environmental_variables ]] && . /home/tad/.environmental_variables
 

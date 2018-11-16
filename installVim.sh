@@ -1,29 +1,43 @@
 #!/bin/bash
 #source osDetection.sh
+
+## 156 without ramdisk ./installVim.sh  156.30s user 22.34s system 119% cpu 2:29.20 total
+## 156 with ramdisk..  ./installVim.sh  156.35s user 22.50s system 119% cpu 2:29.92 total
 set -e
 
 # assumes apt based system
 # Props to valloric https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
+#this gist for python3
+# https://gist.github.com/odiumediae/3b22d09b62e9acb7788baf6fdbb77cf8
 echo "This needs sudo cause it messes with apt-get"
 
-sudo apt-get install -y python-dev ruby-dev git ncurses-dev checkinstall
+sudo apt-get install -y python-dev ruby-dev git ncurses-dev checkinstall python3 python3-dev
 
-sudo apt-get remove -y vim vim-runtime
-sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox
+sudo apt-get remove -y --allow-change-held-packages vim vim-runtime
+sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
 
 cd ~
-git clone https://github.com/vim/vim.git
+if [[ ! -d ~/vim ]]; then
+  mkdir ~/vim
+  sudo ~/dotfiles/ramdisk.sh mount ~/vim
+  cd ~/vim
+  git clone https://github.com/vim/vim.git .
+  cd ..
+fi
 cd vim
+git pull origin master
 ./configure --with-features=huge \
             --enable-multibyte \
             --enable-rubyinterp \
             --enable-pythoninterp \
             --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
+            --enable-python3interp \
+            --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
             --enable-perlinterp \
             --enable-luainterp \
             --enable-cscope --prefix=/usr
 #if [[ $distro == 'Debian' ]]; then
-make VIMRUNTIMEDIR=/usr/share/vim/vim80
+make VIMRUNTIMEDIR=/usr/share/vim/vim81
 #elif [[ $distro == 'Ubuntu' ]]; then
   #make VIMRUNTIMEDIR=/usr/local/share/vim/vim74
 #fi
@@ -40,3 +54,4 @@ sudo update-alternatives --set vi /usr/bin/vim
 #http://www.astarix.co.uk/2014/02/easily-exclude-packages-apt-get-upgrades/
 # Prevent automated dpkg operations from clobbering this package
 echo "vim hold" |sudo dpkg --set-selections
+sudo ~/dotfiles/ramdisk.sh umount ~/vim

@@ -7,6 +7,7 @@ ln -s -f `pwd`/.inputrc ~/.inputrc
 ln -s -f `pwd`/prompt_randomizer.js ~/.prompt_randomizer.js
 mkdir -p ~/.config/yamllint/
 ln -s -f `pwd`/yamllint_config ~/.config/yamllint/config
+ln -s -f `pwd`/.vim.conf.d ~/
 
 ## GUI tools
 mkdir -p ~/.config/awesome/
@@ -14,4 +15,11 @@ ln -s -f `pwd`/rc.lua ~/.config/awesome/
 mkdir -p ~/.config/terminator/
 ln -s -f `pwd`/terminator_config ~/.config/terminator/config
 
+for i in `ls custom_commands` ; do ln -s `pwd`/custom_commands/$i $HOME/.local/bin/ ; done
+
+if [[ ! -f $HOME/.environmental_variables ]]; then
+  # I don't want my environmental variables committed, but I would like to have a record of the ones I expect set.
+  # so copy the file if it doesn't already exist so that I can at least try.
+  cp `pwd`/.environmental_variables $HOME/ 
+fi
 
