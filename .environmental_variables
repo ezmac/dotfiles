@@ -1,0 +1,4 @@
+AWS_ECR_PROFILE=#used for logging into remote ECR
+AWS_ECR_ACCOUNT_ID=#used for logging into remote ECR
+PROD_AWS_PROFILE=# used for cloud prompt matching
+
