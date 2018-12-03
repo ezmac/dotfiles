@@ -103,6 +103,24 @@ prompt_git() {
     echo -n "${ref/refs\/heads\// }${vcs_info_msg_0_%% }${mode}"
   fi
 }
+prompt_aws() {
+  repo_path=$(git rev-parse --git-dir 2>/dev/null)
+
+  if [[ -z $AWS_PROFILE ]]; then
+    return
+  fi
+  if [[ ! -z $AWS_PROFILE ]]; then
+
+    if [[ $AWS_PROFILE == *"prod"*  ||  $AWS_PROFILE == ${PROD_AWS_PROFILE} ]]; then
+      prompt_segment red white
+    else
+      prompt_segment green black
+    fi
+    setopt promptsubst
+    echo -n "☁️ $AWS_PROFILE"
+  fi
+}
+
 
 prompt_hg() {
   local rev status
@@ -217,6 +235,7 @@ build_prompt() {
   prompt_dir
   prompt_git
   prompt_hg
+  prompt_aws
   prompt_end
 }
 

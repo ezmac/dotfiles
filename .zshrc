@@ -135,3 +135,9 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 [[ -f /home/tad/.environmental_variables ]] && . /home/tad/.environmental_variables
 
+
+
+## kubectl autocompletion
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
