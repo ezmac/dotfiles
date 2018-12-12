@@ -37,21 +37,28 @@ ZSH_THEME="ezmac"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Uncomment following line if you want to the command execution time stamp shown 
-# in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
- HIST_STAMPS="yyyy-mm-dd"
- HISTSIZE=10000
- SAVEHIST=HISTSIZE
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git aws autojump catimg composer docker fasd git-flow tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
+plugins=(kubectl git aws autojump catimg composer docker fasd git-flow tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
+# Uncomment following line if you want to the command execution time stamp shown 
+# in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+ HIST_STAMPS="yyyy-mm-dd"
+ HISTSIZE=20000
+ SAVEHIST=HISTSIZE
+ setopt INC_APPEND_HISTORY
+ setopt SHARE_HISTORY
+ unsetopt HIST_IGNORE_DUPS
+ unsetopt HIST_IGNORE_ALL_DUPS
+ setopt HIST_IGNORE_SPACE
+ unsetopt HIST_SAVE_NO_DUPS
+ setopt EXTENDED_HISTORY
 
 # User configuration
 
@@ -136,8 +143,3 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [[ -f /home/tad/.environmental_variables ]] && . /home/tad/.environmental_variables
 
 
-
-## kubectl autocompletion
-if [ $commands[kubectl] ]; then
-  source <(kubectl completion zsh)
-fi
