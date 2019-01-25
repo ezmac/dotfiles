@@ -4,7 +4,7 @@ echo "This script requires sudo because it uses apt-get to install things."
 mkdir installers -p
 
 sudo apt-get update
-sudo apt-get install -y git automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev curl cmake php7.0-cli zsh python-pip libssl-dev libreadline-dev
+sudo apt-get install -y git automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev curl cmake zsh libssl-dev libreadline-dev
 #install ohmyzsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 #install nodenv

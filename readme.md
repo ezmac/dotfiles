@@ -28,4 +28,6 @@ There are a number of unused files, but I'm sure you can figure out which ones a
  - move installer git clones to installer directory for a cleanable install
  - options
  - immutablilty
-
+ - python
+   - I'm adding awscli-login to my normal flow and that means using python3.  Python is about to get tricky and I need something to take care of it.
+ - split in to different or smaller containers if the investigation proves useful.

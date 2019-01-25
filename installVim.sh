@@ -17,10 +17,10 @@ sudo apt-get remove -y --allow-change-held-packages vim vim-runtime
 sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
 
 cd ~
-if [[ ! -d ~/vim ]]; then
-  mkdir ~/vim
-  sudo ~/dotfiles/ramdisk.sh mount ~/vim
-  cd ~/vim
+if [[ ! -d "~/installers/vim" ]]; then
+  mkdir ~/installers/vim
+  sudo ~/dotfiles/ramdisk.sh mount ~/installers/vim
+  cd ~/installers/vim
   git clone https://github.com/vim/vim.git .
   cd ..
 fi
@@ -44,7 +44,7 @@ make VIMRUNTIMEDIR=/usr/share/vim/vim81
 
 sudo checkinstall
 
-echo "I don't have time to debug, but look in ~/vim/ for the deb file.  install it."
+echo "I don't have time to debug, but look in ~/installers/vim/ for the deb file.  install it."
 
 sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
 sudo update-alternatives --set editor /usr/bin/vim
@@ -54,4 +54,4 @@ sudo update-alternatives --set vi /usr/bin/vim
 #http://www.astarix.co.uk/2014/02/easily-exclude-packages-apt-get-upgrades/
 # Prevent automated dpkg operations from clobbering this package
 echo "vim hold" |sudo dpkg --set-selections
-sudo ~/dotfiles/ramdisk.sh umount ~/vim
+sudo ~/dotfiles/ramdisk.sh umount ~/installers/vim

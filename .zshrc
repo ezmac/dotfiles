@@ -37,28 +37,54 @@ ZSH_THEME="ezmac"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(kubectl git aws autojump catimg composer docker fasd git-flow tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
 # Uncomment following line if you want to the command execution time stamp shown 
 # in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
  HIST_STAMPS="yyyy-mm-dd"
  HISTSIZE=20000
  SAVEHIST=HISTSIZE
- setopt INC_APPEND_HISTORY
- setopt SHARE_HISTORY
+ export HISTSIZE
+ export SAVEHIST
+ #
+ # TODO many of the history options could be cleaned up.  I wanted to save duplicates because 
+ # I use history to backfill what I was working on at any given time; removing dups hinders that.
+ # Do not consider this appropriate, but it appears to be working
+
  unsetopt HIST_IGNORE_DUPS
  unsetopt HIST_IGNORE_ALL_DUPS
  setopt HIST_IGNORE_SPACE
  unsetopt HIST_SAVE_NO_DUPS
+
+ setopt INC_APPEND_HISTORY
+ setopt SHARE_HISTORY
  setopt EXTENDED_HISTORY
+
+ unsetopt hist_ignore_dups
+ unsetopt hist_ignore_all_dups
+ setopt hist_ignore_space
+ unsetopt hist_save_no_dups
+
+ setopt inc_append_history
+ setopt share_history
+ setopt extended_history
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git autojump catimg composer docker fasd git-flow tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+ unsetopt HIST_IGNORE_DUPS
+ unsetopt HIST_IGNORE_ALL_DUPS
+ setopt HIST_IGNORE_SPACE
+ unsetopt HIST_SAVE_NO_DUPS
+
+ unsetopt hist_ignore_dups
+ unsetopt hist_ignore_all_dups
+ setopt hist_ignore_space
+ unsetopt hist_save_no_dups
 
 # User configuration
 
@@ -85,8 +111,13 @@ autoload -Uz down-line-or-beginning-search
 zle -N up-line-or-beginning-search up-line-or-beginning-search
 zle -N down-line-or-beginning-search down-line-or-beginning-search
 bindkey -v
-bindkey "${key[Up]}" up-line-or-beginning-search
-bindkey "${key[Down]}" down-line-or-beginning-search
+# this causes errors in zsh 5.6.2
+# bindkey "${key[Up]}" up-line-or-beginning-search
+# bindkey "${key[Down]}" down-line-or-beginning-search
+#bindkey "^[[A" up-line-or-beginning-search
+#bindkey "^[[B" down-line-or-beginning-search
+bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 #GOROOT="/usr/local/go"
 #PATH=$PATH:$GOROOT/bin
 export GOPATH="$HOME/.gocode"
@@ -143,3 +174,19 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [[ -f /home/tad/.environmental_variables ]] && . /home/tad/.environmental_variables
 
 
+
+ unsetopt hist_expire_dups_first
+
+ unsetopt hist_ignore_dups
+ unsetopt hist_ignore_all_dups
+ setopt hist_ignore_space
+ unsetopt hist_save_no_dups
+ unsetopt HIST_IGNORE_DUPS
+ unsetopt HIST_IGNORE_ALL_DUPS
+ setopt HIST_IGNORE_SPACE
+ unsetopt HIST_SAVE_NO_DUPS
+# Pyenv config 
+export PATH="$HOME/.pyenv/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
