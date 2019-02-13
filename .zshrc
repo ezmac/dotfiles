@@ -190,3 +190,11 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+export GOPATH=$HOME/code/go
+
+aws_completer_path=$HOME/.pyenv/versions/`pyenv version-name`/bin/aws_zsh_completer.sh
+if [[ -f $aws_completer_path ]]; then
+  autoload bashcompinit
+  bashcompinit
+  source $aws_completer_path
+fi
