@@ -1,50 +1,114 @@
  " Note: Skip initialization for vim-tiny or vim-small.
 set nocompatible               " Be iMproved
-set runtimepath+=$HOME/.vim/bundle/neobundle.vim/
+
 let $PATH=$PATH . ':' . expand('/usr/local/bin/')
 let $PATH=$PATH . ':' . expand($HOME.'/.local/bin/')
-set rtp+=~/.fzf
 
 scriptencoding utf-8
 set encoding=utf-8
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+"https://github.com/junegunn/vim-plug
+" install if not exists
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 
 
-  " Let NeoBundle manage NeoBundle
-  " Required:
-  NeoBundleFetch 'Shougo/neobundle.vim'
-
-
+call plug#begin('~/.vim/bundle')
   " Language agnostic plugins (tools) {
     "   Git specifically
-  NeoBundle 'tpope/vim-git'
-  NeoBundle 'tpope/vim-fugitive'
+  Plug 'tpope/vim-git'
+  Plug 'tpope/vim-fugitive'
     "   Not git
-  NeoBundle 'scrooloose/nerdtree'
+  Plug 'scrooloose/nerdtree'
     " advanced jumping
-  NeoBundle 'Lokaltog/vim-easymotion'
+  Plug 'Lokaltog/vim-easymotion'
     " autotoggle between absolute and relativenumver
-  NeoBundle 'jeffkreeftmeijer/vim-numbertoggle'
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'
     " use fzf for faster fuzzy search; requires fzf to be installed on system
-  NeoBundle 'junegunn/fzf.vim'
+  Plug 'junegunn/fzf.vim'
     " Async Lint Engine
-  NeoBundle 'w0rp/ale'
+  Plug 'w0rp/ale'
   " }
+" Plug 'autozimu/LanguageClient-neovim', {
+"   \ 'branch': 'next',
+"   \ 'do': 'bash install.sh',
+"   \ }
+
+
+" let g:LanguageClient_autoStop = 0
+" let g:LanguageClient_loggingFile = expand('/tmp/languageclient.log')
+" let g:LanguageClient_loggingLevel = 'DEBUG'
+" let g:LanguageClient_serverCommands = {
+"     \ 'ruby': ['tcp://localhost:7658'],
+"     \ 'ansible': ['node', '$HOME/apps/yaml-language-server/out/server/src/server.js', '--stdio'],
+"     \ 'python': ['/home/tad/.pyenv/shims/pyls']
+"     \ }
+
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
+" autocmd FileType ansible setlocal omnifunc=LanguageClient#complete
+" autocmd FileType python setlocal omnifunc=LanguageClient#complete
+
+
+
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use K for show documentation in preview window
+"
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
   source ~/.vim.conf.d/syntax.vim
-  source ~/.vim.conf.d/ruby.vim
-  source ~/.vim.conf.d/ansible.vim
-  source ~/.vim.conf.d/php.vim
-  "source ~/.vim.conf.d/completor.vim
-  source ~/.vim.conf.d/youcompleteme.vim
+"  source ~/.vim.conf.d/ruby.vim
+"  source ~/.vim.conf.d/ansible.vim
+"  source ~/.vim.conf.d/php.vim
+"  source ~/.vim.conf.d/completor.vim
+"  source ~/.vim.conf.d/youcompleteme.vim
 
   " Bling (visual-ish only) {
-  NeoBundle 'bling/vim-airline'
-  NeoBundle 'vim-airline/vim-airline-themes'
+  Plug 'bling/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
     "Show git diff in vim's sign column
-  NeoBundle 'mhinz/vim-signify'
+  Plug 'mhinz/vim-signify'
   " }
 
   " language/tool specific {
@@ -52,7 +116,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
   " Java debugging plugin for gradle {
   " Not currently working, so disabled
-  "NeoBundle 'Dica-Developer/vim-jdb'
+  "Plug 'Dica-Developer/vim-jdb'
   " }
 
 
@@ -62,33 +126,33 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   "
   " Tim pope all up in my vimrc {
 
-  NeoBundle 'tpope/vim-ragtag.git'
-  NeoBundle 'tpope/vim-surround'
-  NeoBundle 'tpope/vim-abolish.git'
+  Plug 'tpope/vim-ragtag'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-abolish'
   " }
 
 
-  NeoBundle 'editorconfig/editorconfig-vim'
-  " NeoBundle 'rstacruz/sparkup'
+  Plug 'editorconfig/editorconfig-vim'
+  " Plug 'rstacruz/sparkup'
 
-  NeoBundle 'xolox/vim-misc'
-  NeoBundle 'xolox/vim-session'
-  "NeoBundle 'godlygeek/tabular'
-  NeoBundle 'jplaut/vim-arduino-ino'
+  Plug 'xolox/vim-misc'
+  Plug 'xolox/vim-session'
+  "Plug 'godlygeek/tabular'
+  Plug 'jplaut/vim-arduino-ino'
 
   " Syntax checkers/linters
   " Pick one of the checksyntax, jslint, or syntastic
-  "NeoBundle 'scrooloose/syntastic'
+  "Plug 'scrooloose/syntastic'
 
   "  GOLANG
-  NeoBundle 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
+  Plug 'jnwhiteh/vim-golang', {'autoload':{'filetypes':['go']}}
 
 
   " syntax highlighting for Dockerfiles
-  NeoBundle 'ekalinin/Dockerfile.vim'
+  Plug 'ekalinin/Dockerfile.vim'
 
-  "NeoBundle 'Shougo/unite.vim'
-  NeoBundle 'Shougo/vimproc', {
+  "Plug 'Shougo/unite.vim'
+  Plug 'Shougo/vimproc', {
         \ 'build' : {
         \     'windows' : 'make -f make_mingw32.mak',
         \     'cygwin' : 'make -f make_cygwin.mak',
@@ -104,15 +168,15 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   " UNUSED but might want to work on
 
   " has some issues in console, so disabled
-  " NeoBundle 'nathanaelkane/vim-indent-guides'
+  " Plug 'nathanaelkane/vim-indent-guides'
   "
-  " NeoBundle 'kien/ctrlp.vim'
-  " NeoBundle 'mbbill/undotree'
-  " NeoBundle 'scrooloose/nerdcommenter'
-  " NeoBundle 'mattn/webapi-vim'
-  " NeoBundle 'mattn/gist-vim'
-  " NeoBundle 'elzr/vim-json'
-  " NeoBundle 'fholgado/minibufexpl.vim'
+  " Plug 'kien/ctrlp.vim'
+  " Plug 'mbbill/undotree'
+  " Plug 'scrooloose/nerdcommenter'
+  " Plug 'mattn/webapi-vim'
+  " Plug 'mattn/gist-vim'
+  " Plug 'elzr/vim-json'
+  " Plug 'fholgado/minibufexpl.vim'
 
 
 
@@ -121,7 +185,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
   " Javascript
   "NeoBundleLazy 'marijnh/tern_for_vim', {'autoload':{'filetypes':['javascript']}}
-  NeoBundleLazy 'moll/vim-node', {'autoload':{'filetypes':['javascript']}}
+  Plug 'moll/vim-node',{'for': 'javascript'}
   " NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
   "NeoBundleLazy 'othree/javascript-libraries-syntax.vim', {'autoload':{'filetypes':['javascript']}}
 
@@ -135,16 +199,16 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 
   " Coffeescript
-  "NeoBundle 'kchmck/vim-coffee-script'
-  " NeoBundle 'maksimr/vim-jsbeautify'
+  "Plug 'kchmck/vim-coffee-script'
+  " Plug 'maksimr/vim-jsbeautify'
   " Autocomplete matched characters
-  " NeoBundle 'Raimondi/delimitMate'
-  " NeoBundle 'christoomey/vim-tmux-navigator'
+  " Plug 'Raimondi/delimitMate'
+  " Plug 'christoomey/vim-tmux-navigator'
 
 
   " Template engines
-  "NeoBundle 'evidens/vim-twig'
-  "NeoBundle 'xsbeats/vim-blade'
+  "Plug 'evidens/vim-twig'
+  "Plug 'xsbeats/vim-blade'
 
   "Abolish.vim provides a simpler way. The following one command produces 48 abbreviations including all of the above.
 
@@ -155,41 +219,42 @@ call neobundle#begin(expand('~/.vim/bundle/'))
   " General Programming {
 
   "if executable('ctags')
-  NeoBundle 'majutsushi/tagbar'
+  Plug 'majutsushi/tagbar'
   "endif
-  " NeoBundle 'vim-scripts/AutoTag'
-  "NeoBundle 'groenewege/vim-less'
-  NeoBundle 'altercation/vim-colors-solarized'
-  "NeoBundle 'Shougo/unite.vim'
-  "NeoBundle 'Shougo/unite-outline'
-  "NeoBundle 'Shougo/unite-help'
-  "NeoBundle 'Shougo/unite-session'
-  "NeoBundle 'thinca/vim-unite-history'
-  "NeoBundle 'mileszs/ack.vim'
-  "NeoBundle 'Shougo/neocomplete.vim'
+  " Plug 'vim-scripts/AutoTag'
+  "Plug 'groenewege/vim-less'
+  Plug 'altercation/vim-colors-solarized'
+  "Plug 'Shougo/unite.vim'
+  "Plug 'Shougo/unite-outline'
+  "Plug 'Shougo/unite-help'
+  "Plug 'Shougo/unite-session'
+  "Plug 'thinca/vim-unite-history'
+  "Plug 'mileszs/ack.vim'
+  "Plug 'Shougo/neocomplete.vim'
   " Track the engine.
-  NeoBundle 'SirVer/ultisnips'
+"  Plug 'SirVer/ultisnips'
 
   " Snippets are separated from the engine. Add this if you want them:
-  NeoBundle 'honza/vim-snippets'
-  let g:completor_python_binary = '/usr/bin/python'
+"  Plug 'honza/vim-snippets'
+"  let g:completor_python_binary = '/usr/bin/python'
 
 
 
 
-call neobundle#end()
-NeoBundleCheck
+call plug#end()
+
 filetype plugin indent on     " required!
 
 
 
+"
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-tab>"
-let g:UltiSnipsJumpBackwardTrigger="<sc-tab>"
+" let g:UltiSnipsExpandTrigger="<c-tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<sc-tab>"
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsEditSplit="vertical"
 "set completefunc=youcompleteme#Complete
 "set omnifunc=youcompleteme#OmniComplete
 
@@ -216,7 +281,7 @@ let g:indent_guides_guide_size=2
 " :NeoBundleSearch(!) foo - search(or refresh cache first) for foo
 " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 "
-" NOTE: comments after NeoBundle command are not allowed..
+" NOTE: comments after Plug command are not allowed..
 "let g:airline_powerline_fonts = 1
 set background=dark
 silent! colorscheme solarized
@@ -569,3 +634,5 @@ let g:ycm_seed_identifiers_with_syntax = 1
 
 
 set tags=./tags
+
+set rtp+=~/.fzf

@@ -133,10 +133,15 @@ alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias grep='grep --color=always'
 alias diff=colordiff
+
+
 # http://blog.stefanxo.com/2014/02/clean-up-after-docker/
-alias dockercleancontainers='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
-alias dockercleanimages='docker rm $(docker ps -qa --no-trunc --filter "status=exited")'
-alias dockerclean="dockercleancontainers && dockercleanimages"
+#alias dockercleancontainers='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
+#alias dockercleanimages='docker rm $(docker ps -qa --no-trunc --filter "status=exited")'
+#
+alias dockercleancontainers="docker container prune"
+alias dockercleanimages="docker image prune"
+alias dockerclean="dockercleancontainers && dockercleanimages && echo 'run with -a to reclaim more space'"
 
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
 fpath=(~/.zsh/completion $fpath)

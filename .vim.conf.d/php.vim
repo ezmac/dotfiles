@@ -1,19 +1,19 @@
 " PHP
 
-NeoBundleLazy 'mkusher/padawan.vim', {'autoload':{'filetypes':['php']}}
+Plug 'mkusher/padawan.vim'
 let g:padawan#composer_command = '/usr/bin/composer'
 let $PATH=$PATH . ':' . expand('~/.composer/vendor/bin')
 "NeoBundleLazy 'StanAngeloff/php.vim', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'shawncplus/phpcomplete.vim', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'm2mdas/phpcomplete-extended', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'm2mdas/phpcomplete-extended-laravel', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'joonty/vdebug', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'arnaud-lb/vim-php-namespace', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {'autoload':{'filetypes':['php']}}
+Plug 'shawncplus/phpcomplete.vim'
+Plug 'm2mdas/phpcomplete-extended'
+Plug 'm2mdas/phpcomplete-extended-laravel'
+Plug 'joonty/vdebug'
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'vim-php/tagbar-phpctags.vim'
 "NeoBundleLazy '2072/PHP-Indenting-for-VIm', {'autoload':{'filetypes':['php']}}
 "NeoBundleLazy '2072/vim-syntax-for-PHP', {'autoload':{'filetypes':['php']}}
 "NeoBundleLazy 'Rican7/php-doc-modded', {'autoload':{'filetypes':['php']}}
-NeoBundleLazy 'xsbeats/vim-blade', {'autoload':{'filetypes':['php']}}
+Plug 'xsbeats/vim-blade'
 
 
 
