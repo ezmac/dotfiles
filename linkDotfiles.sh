@@ -8,6 +8,7 @@ ln -s -f `pwd`/prompt_randomizer.js ~/.prompt_randomizer.js
 mkdir -p ~/.config/yamllint/
 ln -s -f `pwd`/yamllint_config ~/.config/yamllint/config
 ln -s -f `pwd`/.vim.conf.d ~/
+ln -s -f `pwd`/history.zsh ~/.oh-my-zsh/custom/history.zsh
 
 ## GUI tools
 mkdir -p ~/.config/awesome/
