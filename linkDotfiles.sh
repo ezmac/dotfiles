@@ -9,6 +9,7 @@ mkdir -p ~/.config/yamllint/
 ln -s -f `pwd`/yamllint_config ~/.config/yamllint/config
 ln -s -f `pwd`/.vim.conf.d ~/
 ln -s -f `pwd`/history.zsh ~/.oh-my-zsh/custom/history.zsh
+ln -s -f `pwd`/gpg.zsh ~/.oh-my-zsh/custom/gpg.zsh
 
 ## GUI tools
 mkdir -p ~/.config/awesome/
@@ -16,7 +17,7 @@ ln -s -f `pwd`/rc.lua ~/.config/awesome/
 mkdir -p ~/.config/terminator/
 ln -s -f `pwd`/terminator_config ~/.config/terminator/config
 
-for i in `ls custom_commands` ; do ln -s `pwd`/custom_commands/$i $HOME/.local/bin/ ; done
+for i in `ls custom_commands` ; do ln -s -f `pwd`/custom_commands/$i $HOME/.local/bin/ ; done
 
 if [[ ! -f $HOME/.environmental_variables ]]; then
   # I don't want my environmental variables committed, but I would like to have a record of the ones I expect set.
