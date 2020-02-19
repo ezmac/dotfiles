@@ -6,6 +6,16 @@ cd installers/the_silver-searcher/
 sudo make install
 cd -
 
+# Need AG and ACK to use SACK
+# install ack; keep versions around
+ack_version=3.3.1
+set -x
+curl https://beyondgrep.com/ack-v${ack_version} -o ~/.local/bin/ack-v${ack_version}
+chmod +x ~/.local/bin/ack-v${ack_version}
+ln -sf ~/.local/bin/ack-v${ack_version} ~/.local/bin/ack
+
+# Currently no sack
+# https://github.com/sampson-chen/sack
 
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+~/.fzf/install --key-bindings --update-rc --completion

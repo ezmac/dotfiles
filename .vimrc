@@ -59,7 +59,11 @@ call plug#begin('~/.vim/bundle')
 
 
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+
+
+
+let g:coc_node_path='/home/tad/.nodenv/shims/node'
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -98,6 +102,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
   source ~/.vim.conf.d/syntax.vim
+  source ~/.vim.conf.d/python.vim
 "  source ~/.vim.conf.d/ruby.vim
 "  source ~/.vim.conf.d/ansible.vim
 "  source ~/.vim.conf.d/php.vim
@@ -137,6 +142,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
   Plug 'xolox/vim-misc'
   Plug 'xolox/vim-session'
+
   "Plug 'godlygeek/tabular'
   Plug 'jplaut/vim-arduino-ino'
 
@@ -345,6 +351,9 @@ if has('statusline')
   ""set statusline+=%w%h%m%r                 " Options
   set statusline+=%{fugitive#statusline()} " Git Hotness
   set statusline+=\ [%{&ff}/%Y]            " Filetype
+  " The easiest way is add %{coc#status()} to your 'statusline' option.
+  set statusline+=%{coc#status()} " coc status
+  "
   "set statusline+=\ [%{getcwd()}]          " Current dir
   set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
@@ -459,6 +468,8 @@ if !exists('g:airline_powerline_fonts')
   let g:airline_right_sep='‹' " Slightly fancier than '<'
 endif
 " }
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
 map <leader>n :NERDTreeToggle<CR>
 let g:EasyMotion_leader_key = '<Leader><Leader>' 
@@ -571,6 +582,7 @@ let g:tagbar_phpctags_memory_limit='512M'
 let g:session_autosave="yes"
 let g:session_autoload="yes"
 let g:session_autosave_periodic=5
+let g:session_autosave_to=$PWD
 " let g:neocomplete#disable_auto_complete=0
 
 

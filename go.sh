@@ -12,6 +12,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 #install rbenv
 ./installRbenv.sh
 ./installVim.sh
+./installTmux.sh
 # my vimrc uses these folders, so they're important
 mkdir -p ~/.vim/{backup,undo,tmp}
 ./linkDotfiles.sh

@@ -31,3 +31,12 @@ There are a number of unused files, but I'm sure you can figure out which ones a
  - python
    - I'm adding awscli-login to my normal flow and that means using python3.  Python is about to get tricky and I need something to take care of it.
  - split in to different or smaller containers if the investigation proves useful.
+
+
+## manual changes
+Sometimes I don't have time to automate some changes; previously I've been bad about not tracking them at all.  I'll try to do better.
+
+### GnuPG and gnome keyring:
+upstart will start gpg-agent for you.  you want to comment out the `start` line in /usr/share/upstart/sessions/gpg-agent.conf
+details at: https://wiki.gnupg.org/GnomeKeyring
+that does mean that starting the agent is now full manual.  Perhaps time to revisit the session thing.
