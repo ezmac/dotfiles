@@ -10,6 +10,7 @@ ln -s -f `pwd`/yamllint_config ~/.config/yamllint/config
 ln -s -f `pwd`/.vim.conf.d ~/
 ln -s -f `pwd`/history.zsh ~/.oh-my-zsh/custom/history.zsh
 ln -s -f `pwd`/gpg.zsh ~/.oh-my-zsh/custom/gpg.zsh
+ln -s -f `pwd`/.taskrc ~/.taskrc
 
 ## GUI tools
 mkdir -p ~/.config/awesome/
