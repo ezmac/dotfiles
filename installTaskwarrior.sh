@@ -4,16 +4,10 @@ source installerCommon.sh
 
 version=2.5.1
 
-mkdir installers/taskwarrior/
-cd installers/taskwarrior
-WORKDIR=$PWD
-wget -d https://taskwarrior.org/download/task-${version}.tar.gz
+tarGetExtract https://taskwarrior.org/download/task-${version}.tar.gz taskwarrior task-${version}.tar.gz
 
-
-tar xzvf task-2.5.1.tar.gz
-cd task-2.5.1
-echo "Using -DCMAKE_INSTALL_PREFIX=${install_base}/.."
-sleep 10
+cd -
+cd installers/taskwarrior/task-$version
 cmake -DCMAKE_BUILD_TYPE=release -DCMAKE_INSTALL_PREFIX=${install_base}/.. .
 
 make
