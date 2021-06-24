@@ -1,5 +1,6 @@
 
 # Used to share common functionality across installers
+source settings.sh
 
 install_base="$HOME/.local/bin"
 
@@ -48,7 +49,7 @@ tarGetExtract(){
   mkdir -p installers/$installDirName
   cd installers/$installDirName
   curl -L $url -o $fileName
-  tar xzvf $fileName
+  tar xf $fileName
 }
   
 

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PYTHON_GLOBAL_VERSION=3.9.5
+
+export PYTHON_GLOBAL_VERSION

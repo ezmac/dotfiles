@@ -12,3 +12,9 @@ cmake -DCMAKE_BUILD_TYPE=release -DCMAKE_INSTALL_PREFIX=${install_base}/.. .
 
 make
 make install
+
+cd ../
+mkdir -p bugwarrior
+tarGetExtract https://github.com/ralphbean/bugwarrior/tarball/master bugwarrior-latest.tar.gz
+cd ralphbean-bugwarrior-*
+python setup.py install

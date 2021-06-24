@@ -1,12 +1,15 @@
 #!/bin/bash
+
+source installerCommon.sh
+
 # https://github.com/pyenv/pyenv
-if [[ ! -d "~/.pyenv" ]]; then
+if [[ ! -d ~/.pyenv ]]; then
   git clone https://github.com/pyenv/pyenv.git ~/.pyenv
   cd ~/.pyenv && src/configure && make -C src
   echo "# Pyenv config ">>~/.zshrc
   export PATH="$HOME/.pyenv/bin:$PATH"
-  echo "!!" >> ~/.zshrc
-  eval $(pyenv init -)
+  echo 'PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.zshrc
+  eval "$(pyenv init --path)"
   echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\n$(pyenv root)/completions/pyenv.zsh\nfi' >> ~/.zshrc
 
 else
@@ -15,6 +18,5 @@ else
 fi
 
 
-pyenv install 2.7.2
-pyenv install 3.5.2
-pyenv global 3.5.2
+env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install $PYTHON_GLOBAL_VERSION
+pyenv global $PYTHON_GLOBAL_VERSION

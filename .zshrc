@@ -103,8 +103,10 @@ alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias grep='grep --color=always'
 alias diff=colordiff
-
-
+# Alarm function taken from https://unix.stackexchange.com/questions/1974/how-do-i-make-my-pc-speaker-beep
+alarm() {
+timeout --foreground -s 1 ${2:-0.500} speaker-test --frequency ${1:-3000} --test sine
+}
 # http://blog.stefanxo.com/2014/02/clean-up-after-docker/
 #alias dockercleancontainers='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
 #alias dockercleanimages='docker rm $(docker ps -qa --no-trunc --filter "status=exited")'
@@ -161,10 +163,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
  setopt HIST_IGNORE_SPACE
  unsetopt HIST_SAVE_NO_DUPS
 # Pyenv config 
-export PATH="$HOME/.pyenv/bin:$PATH"
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+  eval "$(pyenv init --path)"
 fi
+
 export GOPATH=$HOME/code/go
 
 aws_completer_path=$HOME/.pyenv/versions/`pyenv version-name`/bin/aws_zsh_completer.sh
@@ -190,4 +195,26 @@ tmnt() {
   fi
 }
 # BFG https://rtyley.github.io/bfg-repo-cleaner/
-# alias bfg="java -jar ~/apps/bfg-1.13.0.jar"
+alias bfg="java -jar ~/apps/bfg-1.13.0.jar"
+countdown(){
+    date1=$((`date +%s` + $1));
+    while [ "$date1" -ge `date +%s` ]; do 
+    ## Is this more than 24h away?
+    days=$(($(($(( $date1 - $(date +%s))) * 1 ))/86400))
+    echo -ne "$days day(s) and $(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+    sleep 0.1
+    done
+}
+stopwatch(){
+    date1=`date +%s`;
+    while true; do 
+    days=$(( $(($(date +%s) - date1)) / 86400 ))
+    echo -ne "$days day(s) and $(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";
+    sleep 0.1
+    done
+}
+# Pyenv config 
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+source $(pyenv root)/completions/pyenv.zsh
+fi

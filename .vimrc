@@ -1,6 +1,6 @@
  " Note: Skip initialization for vim-tiny or vim-small.
 set nocompatible               " Be iMproved
-
+set pythonthreedll=/home/tad/.pyenv/versions/3.9.5/lib/libpython3.9.so
 let $PATH=$PATH . ':' . expand('/usr/local/bin/')
 let $PATH=$PATH . ':' . expand($HOME.'/.local/bin/')
 
@@ -38,6 +38,7 @@ call plug#begin('~/.vim/bundle')
 "   \ 'do': 'bash install.sh',
 "   \ }
 
+  Plug 'm-kat/aws-vim'
 
 " let g:LanguageClient_autoStop = 0
 " let g:LanguageClient_loggingFile = expand('/tmp/languageclient.log')
@@ -59,7 +60,7 @@ call plug#begin('~/.vim/bundle')
 
 
 
-  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 
 
@@ -103,6 +104,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
   source ~/.vim.conf.d/syntax.vim
   source ~/.vim.conf.d/python.vim
+
 "  source ~/.vim.conf.d/ruby.vim
 "  source ~/.vim.conf.d/ansible.vim
 "  source ~/.vim.conf.d/php.vim
