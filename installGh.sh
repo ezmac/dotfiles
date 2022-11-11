@@ -3,8 +3,14 @@
 
 set -x
 source installerCommon.sh
-prepWorkingDir "gh"
+if [[ $PLATFORM == "osx" ]]; then 
 
-githubDownloadLatestRelease "cli" "cli" 'gh_.*amd64.deb'
+  brew remove github-release # not the same as gh
+  brew install gh
+else
+  prepWorkingDir "gh"
 
-sudo dpkg -i $(basename $latest_version)
+  githubDownloadLatestRelease "cli" "cli" 'gh_.*amd64.deb'
+
+  sudo dpkg -i $(basename $latest_version)
+fi

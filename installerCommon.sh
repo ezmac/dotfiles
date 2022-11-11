@@ -1,6 +1,7 @@
 
 # Used to share common functionality across installers
 source settings.sh
+source osDetection.sh
 
 install_base="$HOME/.local/bin"
 
@@ -51,9 +52,3 @@ tarGetExtract(){
   curl -L $url -o $fileName
   tar xf $fileName
 }
-  
-
-
-
-
-

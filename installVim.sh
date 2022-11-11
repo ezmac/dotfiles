@@ -1,6 +1,7 @@
 #!/bin/bash
 #source osDetection.sh
 source installerCommon.sh
+source osDetection.sh
 
 # WARNING!
 # if you compile vim against a pyenv managed version, you will need to use 
@@ -17,15 +18,16 @@ set -e
 # Props to valloric https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 #this gist for python3
 # https://gist.github.com/odiumediae/3b22d09b62e9acb7788baf6fdbb77cf8
-echo "This needs sudo cause it messes with apt-get"
 
-sudo apt-get install -y python-dev ruby-dev git ncurses-dev checkinstall python3 python3-dev
-
-sudo apt-get remove -y --allow-change-held-packages vim vim-runtime
-sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
+if [[ $PLATFORM == "linux" ]]; then
+  echo "This needs sudo cause it messes with apt-get; also something about installing in your real sys path"
+  sudo apt-get install -y python-dev ruby-dev git ncurses-dev checkinstall python3 python3-dev
+  sudo apt-get remove -y --allow-change-held-packages vim vim-runtime
+  sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
+fi
 
 if [[ ! -d ~/installers/vim ]]; then
-  mkdir ~/installers/vim
+  mkdir -p ~/installers/vim
   sudo ~/dotfiles/ramdisk.sh mount ~/installers/vim
   cd ~/installers/vim
   git clone https://github.com/vim/vim.git .
@@ -50,18 +52,24 @@ make VIMRUNTIMEDIR=/usr/share/vim/vim82
 #elif [[ $distro == 'Ubuntu' ]]; then
   #make VIMRUNTIMEDIR=/usr/local/share/vim/vim74
 #fi
+if [[ $PLATFORM == "linux" ]]; then
 
-sudo checkinstall
+  sudo checkinstall
 
-echo "I don't have time to debug, but look in ~/installers/vim/ for the deb file.  install it."
+  echo "I don't have time to debug, but look in ~/installers/vim/ for the deb file.  install it."
 
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-sudo update-alternatives --set editor /usr/bin/vim
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-sudo update-alternatives --set vi /usr/bin/vim
+  sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+  sudo update-alternatives --set editor /usr/bin/vim
+  sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+  sudo update-alternatives --set vi /usr/bin/vim
+  echo "vim hold" |sudo dpkg --set-selections
+
+else
+  sudo make VIMRUNTIMEDIR=/usr/share/vim/vim82 install
+
+fi
 
 #http://www.astarix.co.uk/2014/02/easily-exclude-packages-apt-get-upgrades/
 # Prevent automated dpkg operations from clobbering this package
-echo "vim hold" |sudo dpkg --set-selections
 cd -
 # sudo ~/dotfiles/ramdisk.sh umount ~/installers/vim

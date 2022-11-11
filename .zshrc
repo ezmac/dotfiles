@@ -74,8 +74,9 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # I keep my installed binaries in my homedir in .local/bin
-export PATH="/home/tad/.local/bin:$PATH"
-
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/apps/gcloud/google-cloud-sdk/bin:$PATH"
+export PATH="$HOME/.dronedeploy/kutil:$PATH"
 
 export EDITOR='vim'
 set -o vi
@@ -108,6 +109,7 @@ alias ymdhms="date +%Y-%m-%d_%H-%M-%S"
 alias dockercleancontainers="docker container prune"
 alias dockercleanimages="docker image prune"
 alias dockerclean="dockercleancontainers && dockercleanimages && echo 'run with -a to reclaim more space'"
+#alias gpc="gh pr create --title \"`git branch --show-current | awk 'match($0, /^([A-Z]{2,3}-[0-9]{3,4})-(.+)$/, a) {print a[1] \" \" gensub(\"([-_])\", \" \", \"g\", a[2])}'`\""
 
 alias kc=kubectl
 
@@ -139,12 +141,6 @@ alarm() {
 #fpath=(~/.zsh/completion $fpath) # unused, but neat.
 
 
-if fzf --version & > /dev/null; then
-  export FZF_DEFAULT_COMMAND='ag -g ""'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fi
-
 
 
 # Load env vars if available
@@ -152,33 +148,23 @@ fi
 
 
 
-# Pyenv completion
-if which -s pyenv >/dev/null; then
-  export PYENV_ROOT="$HOME/.pyenv-$(uname -m)"
-  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  export PATH="$HOME/.pyenv-$(uname -m)/shims:${PATH}"
-  eval "$(pyenv init - --no-rehash)"
-  eval "$(pyenv virtualenv-init - zsh --no-rehash)"
-
-fi
-
-
-# AWS cli
-aws_completer_path=$HOME/.pyenv/versions/`pyenv version-name`/bin/aws_zsh_completer.sh
-if [[ -f $aws_completer_path ]]; then
-  autoload bashcompinit
-  bashcompinit
-  source $aws_completer_path
-fi
-
 # homebrew BEGIN
 if [[ "$(uname)" == "Darwin" ]]; then
   case "$(uname -m)" in
   "x86_64")
-     brew_exec=/usr/local/bin/brew
-     ;;
+    brew_exec=/usr/local/bin/brew
+    export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+    export CPPFLAGS="-I/usr/local/opt/libffi/include -I/usr/local/opt/openssl@3/include"
+    export LDFLAGS="-L/usr/local/opt/libffi/lib -L/usr/local/opt/openssl@3/lib"
+    export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/openssl@3/lib/pkgconfig"
+    ;;
   "arm64")
-     brew_exec=/opt/homebrew/bin/brew
+    brew_exec=/opt/homebrew/bin/brew
+    export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+    export CPPFLAGS="-I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/openssl@3/include"
+    export LDFLAGS="-L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/openssl@3/lib"
+    export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig:/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+
      ;;
   esac
   if [ -x "$brew_exec" ]; then
@@ -186,6 +172,31 @@ if [[ "$(uname)" == "Darwin" ]]; then
   fi
   # homebrew END
 fi
+
+# Pyenv completion
+export PYENV_ROOT="$HOME/.pyenv-$(uname -m)"
+if which -s pyenv >/dev/null; then
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  export PATH="$HOME/.pyenv-$(uname -m)/shims:${PATH}"
+  eval "$(pyenv init - --no-rehash)"
+#  eval "$(pyenv virtualenv-init - zsh --no-rehash)"
+fi
+
+
+# AWS cli
+aws_completer_path=$PYENV_ROOT/versions/`pyenv version-name`/bin/aws_zsh_completer.sh
+if [[ -f $aws_completer_path ]]; then
+  autoload bashcompinit
+  bashcompinit
+  source $aws_completer_path
+fi
+
+if which fzf  > /dev/null ; then
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fi
+
 
 
 tmnt() {
@@ -224,3 +235,21 @@ stopwatch(){
     sleep 0.1
     done
 }
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+source_miniconda () {
+  __conda_setup="$('/Users/tad/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+  if [ $? -eq 0 ]; then
+      eval "$__conda_setup"
+  else
+      if [ -f "/Users/tad/miniconda3/etc/profile.d/conda.sh" ]; then
+          . "/Users/tad/miniconda3/etc/profile.d/conda.sh"
+      else
+          export PATH="/Users/tad/miniconda3/bin:$PATH"
+      fi
+  fi
+  unset __conda_setup
+  # <<< conda initialize <<<
+}
+export PATH="${HOME}/.dronedeploy/kutil:${PATH}"

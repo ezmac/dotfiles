@@ -1,13 +1,15 @@
 #!/bin/bash
-platform='unknown'
+PLATFORM='unknown'
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
-   platform='linux'
+   PLATFORM='linux'
+   distro=`lsb_release -si`
 elif [[ "$unamestr" == 'FreeBSD' ]]; then
-   platform='freebsd'
+   PLATFORM='freebsd'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+   PLATFORM='osx'
 fi
 
-distro=`lsb_release -si`
 
 
 

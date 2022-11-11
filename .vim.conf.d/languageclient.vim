@@ -11,7 +11,7 @@ let g:LanguageClient_loggingLevel = 'DEBUG'
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['tcp://localhost:7658'],
     \ 'yaml.ansible': ['node', '$HOME/apps/yaml-language-server/out/server/src/server.js', '--stdio'],
-    \ 'python': ['/home/tad/.pyenv/shims/pyls']
+    \ 'python': ['/Users/tad/.pyenv/shims/pyls']
     \ }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
