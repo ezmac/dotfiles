@@ -15,3 +15,8 @@ sudo apt-get install -y  libjson-glib-dev libglib2.0-dev libprotobuf-c-dev proto
 #./installThunderbird.sh
 ./installZoom.sh
 
+# git clone --recurse-submodules --remote-submodules --depth 1 -j 2 https://github.com/lcpz/awesome-copycats.gitI
+#mv -bv awesome-copycats/{*,.[^.]*} ~/.config/awesome; rm -rf awesome-copycats
+
+#cd ~/.config/awesome
+#cp rc.lua.template rc.lua
