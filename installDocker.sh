@@ -2,7 +2,7 @@
 echo "this script uses sudo"
 
 #https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#set-up-the-repository 
-sudo apt-get install \
+sudo apt-get install -y \
   apt-transport-https \
   ca-certificates \
   curl \

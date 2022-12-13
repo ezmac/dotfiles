@@ -58,10 +58,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
-
-export PATH="/home/tad/.local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin:/home/tad/.local/bin:$PATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -96,7 +93,7 @@ export PATH=$PATH:$GOPATH/bin
 export DEFAULT_USER='tad'
 export TERM=xterm-256color
 
-alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
+alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT1" #|grep capacity|cut -d: -f2"
 alias ymd="date +%Y-%m-%d"
 alias ymdhms="date +%Y-%m-%d_%H-%M-%S"
 alias pbcopy='xsel --clipboard --input'
@@ -115,14 +112,14 @@ alias dockercleancontainers="docker container prune"
 alias dockercleanimages="docker image prune"
 alias dockerclean="dockercleancontainers && dockercleanimages && echo 'run with -a to reclaim more space'"
 
-export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
-export PATH="$HOME/.config/composer/vendor/bin":$PATH
+# export PATH="$HOME/.config/composer/vendor/bin":$PATH
 
 
 export PATH="$HOME/.nodenv/bin:$PATH"
 eval "$(nodenv init -)"
+export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
 
 
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -164,11 +161,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
  unsetopt HIST_SAVE_NO_DUPS
 # Pyenv config 
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-fi
 
 export GOPATH=$HOME/code/go
 
@@ -214,7 +206,20 @@ stopwatch(){
     done
 }
 # Pyenv config 
+PATH="$HOME/.pyenv/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
-source $(pyenv root)/completions/pyenv.zsh
+$(pyenv root)/completions/pyenv.zsh
 fi
+# Pyenv config 
+PATH="$HOME/.pyenv/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+$(pyenv root)/completions/pyenv.zsh
+fi
+
+PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/tad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/tad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/tad/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/tad/perl5"; export PERL_MM_OPT;

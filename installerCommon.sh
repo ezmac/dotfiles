@@ -2,7 +2,10 @@
 # Used to share common functionality across installers
 source settings.sh
 
+local_base="$HOME/.local"
 install_base="$HOME/.local/bin"
+
+installer_storage="$HOME/dotfiles/installers"
 
 latest_release () {
   version=$(curl -s https://api.github.com/repos/$1/releases/latest \
@@ -32,9 +35,15 @@ githubDownloadLatestRelease() {
   # chmod +x ~/.local/bin/${ghrepo}
 }
 githubDownloadLatestReleaseBin() {
+  set -x
   fileName=`githubDownloadLatestRelease "$1" "$2" "$3" "$4"`
   ln -sf $PWD/$fileName $install_base/$fileName
   chmod +x $PWD/$fileName
+  set +x
+}
+githubDownloadLatestReleaseTar() {
+  fileName=`githubDownloadLatestRelease "$1" "$2" "$3" "$4"`
+  tar xf $filename
 }
 
 
@@ -51,8 +60,25 @@ tarGetExtract(){
   curl -L $url -o $fileName
   tar xf $fileName
 }
-  
 
+dpkg_install(){
+  url=$1
+  installDirName=$2
+  fileName=$3
+  if [[ -z $fileName ]]; then
+    fileName=`basename $1`
+  fi
+  mkdir -p installers/$installDirName
+  cd installers/$installDirName
+  curl -L $url -o $fileName
+  sudo dpkg -i $fileName
+
+  if [[ $? != 0 ]]; then
+    echo "FAILED: rolling back"
+    pkg_name=`dpkg -I $fileName|grep Package|cut -f2 -d:`
+    sudo dpkg --remove $pkg_name
+  fi
+}
 
 
 

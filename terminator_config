@@ -2,9 +2,30 @@
   focus = system
   title_transmit_bg_color = "#d30102"
 [keybindings]
-  full_screen = None
   new_tab = <Super>t
   next_tab = <Primary>Tab
+  full_screen = None
+[profiles]
+  [[default]]
+    background_color = "#002b36"
+    cursor_color = "#eee8d5"
+    font = Droid Sans Mono for Powerline 12
+    foreground_color = "#839496"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
+  [[solarized-dark]]
+    background_color = "#002b36"
+    cursor_color = "#eee8d5"
+    font = Droid Sans Mono for Powerline 08
+    foreground_color = "#657b83"
+    palette = "#073642:#d30102:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    custom_command = TERM=xterm-256color zsh -l
+    use_system_font = False
+  [[solarized-light]]
+    background_color = "#eee8d5"
+    cursor_color = "#002b36"
+    foreground_color = "#002b36"
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
 [layouts]
   [[default]]
     [[[child1]]]
@@ -15,27 +36,3 @@
       parent = ""
       type = Window
 [plugins]
-[profiles]
-  [[default]]
-    background_color = "#002b36"
-    background_image = None
-    cursor_color = "#eee8d5"
-    font = Droid Sans Mono for Powerline 14
-    foreground_color = "#839496"
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    use_system_font = False
-  [[solarized-dark]]
-    background_color = "#002b36"
-    background_image = None
-    cursor_color = "#eee8d5"
-    custom_command = TERM=xterm-256color zsh -l
-    font = Droid Sans Mono for Powerline 08
-    foreground_color = "#657b83"
-    palette = "#073642:#d30102:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
-    use_system_font = False
-  [[solarized-light]]
-    background_color = "#eee8d5"
-    background_image = None
-    cursor_color = "#002b36"
-    foreground_color = "#002b36"
-    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"

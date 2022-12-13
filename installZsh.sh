@@ -4,15 +4,17 @@
 ## 156 without ramdisk ./installVim.sh  156.30s user 22.34s system 119% cpu 2:29.20 total
 ## 156 with ramdisk..  ./installVim.sh  156.35s user 22.50s system 119% cpu 2:29.92 total
 set -ex
-zshversion=5.6.2
+zshversion=5.8.1
 # assumes apt based system
 # Props to valloric https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 #this gist for python3
 # https://gist.github.com/odiumediae/3b22d09b62e9acb7788baf6fdbb77cf8
 echo "This needs sudo cause it messes with apt-get"
+sudo apt-get install -y colordiff
 # yodl needed for zsh documentation build /sigh
 sudo apt-get install -y yodl
-sudo apt-get remove zsh-common
+#sudo apt-get remove zsh-common
+#Did I actually need the above for some reason
 
 
 cd ~

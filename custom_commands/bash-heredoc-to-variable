@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "
+https://stackoverflow.com/questions/1167746/how-to-assign-a-heredoc-value-to-a-variable-in-bash
+ read -r -d '' VAR <<EOF
+abc'asdf\"
+\$(dont-execute-this)
+foo\"bar\"''
+EOF
+# quoting the delimiter does no parameter expansion
+# https://stackoverflow.com/questions/4937792/using-variables-inside-a-bash-heredoc
+"

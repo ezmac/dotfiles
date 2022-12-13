@@ -1,0 +1,6 @@
+echo "
+# https://linuxize.com/post/bash-heredoc/
+[COMMAND] <<[-] 'DELIMITER'
+  HERE-DOCUMENT
+DELIMITER
+"
