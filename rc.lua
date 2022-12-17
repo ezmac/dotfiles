@@ -68,7 +68,7 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
+run_once({ "urxvtd", "unclutter -root", "xss-lock -- i3lock -n -i background_image.png", "fusuma" }) -- comma-separated entries
 
 -- This function implements the XDG autostart specification
 --[[
@@ -565,6 +565,29 @@ globalkeys = mytable.join(
               {description = "lua execute prompt", group = "awesome"})
     --]]
 )
+clientkeys = awful.util.table.join(
+    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
+    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
+    awful.key({ modkey, "Shift"   }, ".",      awful.client.movetoscreen                        ),
+    awful.key({ modkey, "Shift"   }, ",",      awful.client.movetoscreen                        ),
+    awful.key({ modkey, "Shift", "Control"   }, "j",    function (c)  awful.client.movetoscreen(c,c.screen - 1)  end),
+    awful.key({ modkey, "Shift", "Control"   }, "k",    function (c)  awful.client.movetoscreen(c,c.screen + 1)   end),
+    --awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+    --awful.key({ modkey,           }, "n",
+    --    function (c)
+            -- The client currently has the input focus, so it cannot be
+            -- minimized, since minimized clients can't have the focus.
+   --         c.minimized = true
+   --     end),
+    awful.key({ modkey,           }, "m",
+        function (c)
+            c.maximized_horizontal = not c.maximized_horizontal
+            c.maximized_vertical   = not c.maximized_vertical
+        end)
+)
 
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -868,5 +891,4 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-
 -- }}}
