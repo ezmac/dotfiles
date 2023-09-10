@@ -15,6 +15,13 @@ latest_release () {
   )
   # Can't return strings in bash.  only integers.
   # Echo string, let whatever needs it pick it up.
+  if [[ "$version" == "" ]]; then 
+  version=$(curl -s https://api.github.com/repos/$1/releases/latest \
+  | grep -E "browser_download_url.$2" \
+  | cut -d : -f 2,3 \
+  | tr -d \"
+  )
+  fi
   echo $version
 }
 

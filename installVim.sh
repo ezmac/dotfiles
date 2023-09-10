@@ -21,9 +21,9 @@ echo "This needs sudo cause it messes with apt-get"
 
 # Big list of needed packages held over from past installs and stack overflow answers.
 # https://stackoverflow.com/questions/11416069/compile-vim-with-clipboard-and-xterm
-sudo apt-get install -y libsm-dev dbus-x11 libxt-dev libsm-dev libxpm-dev xorg-dev libx11-dev libxtst-dev python-dev ruby-dev git ncurses-dev checkinstall python3 python3-dev
+sudo apt-get install -y libsm-dev dbus-x11 libxt-dev libsm-dev libxpm-dev xorg-dev libx11-dev libxtst-dev python3-dev ruby-dev git ncurses-dev checkinstall python3 python3-dev
 
-sudo apt-get remove -y --allow-change-held-packages vim vim-runtime xdd
+sudo apt-get remove -y --allow-change-held-packages vim vim-runtime xxd
 sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
 
 if [[ ! -d ~/dotfiles/installers/vim ]]; then

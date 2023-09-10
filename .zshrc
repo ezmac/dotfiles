@@ -218,10 +218,16 @@ if command -v pyenv 1>/dev/null 2>&1; then
 $(pyenv root)/completions/pyenv.zsh
 fi
 
-PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/tad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/tad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/tad/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/tad/perl5"; export PERL_MM_OPT;
+# PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
+# PERL5LIB="/home/tad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+# PERL_LOCAL_LIB_ROOT="/home/tad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+# PERL_MB_OPT="--install_base \"/home/tad/perl5\""; export PERL_MB_OPT;
+# PERL_MM_OPT="INSTALL_BASE=/home/tad/perl5"; export PERL_MM_OPT;
 
 alias gitleaks="sudo docker run -v ${PWD}:/path zricethezav/gitleaks:latest --source='/path' "
+
+PATH="/home/taddd/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/taddd/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/taddd/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/taddd/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/taddd/perl5"; export PERL_MM_OPT;
