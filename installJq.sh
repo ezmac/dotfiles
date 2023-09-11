@@ -3,8 +3,7 @@
 
 set -x
 source installerCommon.sh
-prepWorkingDir "gh"
+prepInstallDir "jq"
 
-githubDownloadLatestRelease "cli" "cli" 'gh_.*amd64.deb'
+githubDownloadLatestReleaseBin "jqlang" "jq" 'jq-linux-amd64' 'jq'
 
-sudo dpkg -i $(basename $latest_version)
