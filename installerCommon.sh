@@ -25,6 +25,10 @@ latest_release () {
   echo $version
 }
 
+prepInstallDir(){
+  mkdir -p $local_base/$1
+  cd $local_base/$1
+}
 prepWorkingDir(){
   mkdir -p installers/$1
   cd installers/$1
@@ -52,7 +56,11 @@ githubDownloadLatestReleaseTar() {
   fileName=`githubDownloadLatestRelease "$1" "$2" "$3" "$4"`
   tar xf $filename
 }
-
+symlinkFileToLocalBin() {
+  binary=$1
+  name=$2
+  ln -sf "$binary" "$install_base/$name"
+}
 
 # leave state in current directory instead of going back?
 tarGetExtract(){
