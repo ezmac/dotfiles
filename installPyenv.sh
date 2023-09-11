@@ -6,18 +6,19 @@ set -x
 if [[ $PLATFORM == "osx" ]]; then 
   brew install pyenv
 else
+  pyenv_path=$HOME/.pyenv-$(uname -m)
 
   # https://github.com/pyenv/pyenv
-  if [[ ! -d ~/.pyenv ]]; then
+  if [[ ! -d $pyenv_path ]]; then
     sudo apt-get install -y tk-dev
-    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-    cd ~/.pyenv && src/configure && make -C src
-    export PATH="$HOME/.pyenv/bin:$PATH"
+    git clone https://github.com/pyenv/pyenv.git $pyenv_path
+    cd $pyenv_path && src/configure && make -C src
+    export PATH="$pyenv_path/bin:$PATH"
     eval "$(pyenv init --path)"
     #  If you want this to config your dotfiles..
-    # echo "# Pyenv config ">>~/.zshrc
-    # echo 'PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.zshrc
-    #echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\n$(pyenv root)/completions/pyenv.zsh\nfi' >> ~/.zshrc
+    echo "# Pyenv config ">>~/.zshrc
+    echo 'PATH="'$pyenv_path'/bin:$PATH"' >> ~/.zshrc
+    echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\n$(pyenv root)/completions/pyenv.zsh\nfi' >> ~/.zshrc
 
   else
     # if already installed, update from source.

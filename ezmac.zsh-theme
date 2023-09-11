@@ -223,10 +223,33 @@ pad_str() {
   printf '%s' "$string1";
   printf '%*.*s' 0 $((padlength - ${#string1} )) "$pad";
 }
+PROMPT_SHOW_KUBE_CONTEXT=true
+enable_prompt_kube_context() {
+  PROMPT_SHOW_KUBE_CONTEXT=true
+}
+disable_prompt_kube_context() {
+  PROMPT_SHOW_KUBE_CONTEXT=false
+}
+toggle_prompt_kube_context() {
+  PROMPT_SHOW_KUBE_CONTEXT=!$PROMPT_SHOW_KUBE_CONTEXT
+}
 
+prompt_kube_env() {
+  if [[ ! -z "$PROMPT_SHOW_KUBE_CONTEXT" && "$PROMPT_SHOW_KUBE_CONTEXT" != false ]]; then
+    # Get current context
+    local CUR_CONTEXT=$(cat ~/.kube/config | grep --color=never "current-context:" | sed "s/current-context: //")
+    declare -A ENV_SHORT_NAMES
+    if [ -n "$CUR_CONTEXT" ]; then
+      prompt_segment black default  "⎈:${CUR_CONTEXT}"
+    fi
+    
+  fi
+}
+#
 ## Main prompt
 build_prompt() {
   RETVAL=$?
+  prompt_kube_env
   prompt_status
   prompt_virtualenv
   prompt_random_name
@@ -238,5 +261,6 @@ build_prompt() {
   prompt_aws
   prompt_end
 }
+
 
 PROMPT='%{%-f%b%k%}$(build_prompt) '

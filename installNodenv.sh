@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source osDetection.sh
-  lts_version=12.16.1
+source installerCommon.sh
+lts_version=$GLOBAL_NODE_VERSION
 
 if [[ $PLATFORM == "osx" ]]; then 
   brew install nodenv

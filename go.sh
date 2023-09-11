@@ -10,33 +10,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 #install nodenv
 ./installNodenv.sh
 #install rbenv
-#./installRbenv.sh
+./installRbenv.sh
 ./installVim.sh
 ./installTmux.sh
-
-
-## TODO Libffi needs install
-./installPyenv.sh
-./installAwscli.sh
-./installDocker.sh
-./installBat.sh
-./installDiffSoFancy.sh
-./installJp.sh
-# DevTools
-./installZsh.sh
-./installFZF.sh
-./installGh.sh
-./installJp.sh
-./installLastpassCLI.sh
-./installNeobundle.sh
-./installNodenv.sh
-./installPyenv.sh
-./installRbenv.sh
-./install-sam-cli.sh
-./installTaskwarrior.sh
-# Languages
-./installGolang.sh
-./installArduinoCli.sh
 # my vimrc uses these folders, so they're important
 mkdir -p ~/.vim/{backup,undo,tmp}
 ./linkDotfiles.sh
