@@ -47,8 +47,8 @@ githubDownloadLatestRelease() {
   ghRepo=$2
   ghFileName=$3
   latest_version=$(latest_release "${ghUser}/${ghRepo}" "${ghFileName}")
-  outputFile=${4-`basename $latest_version`}
-  curl -L $latest_version -o $outputFile
+  outputFile=${4:-`basename $latest_version`}
+  curl --silent -L $latest_version -o $outputFile
   echo "$outputFile"
   # chmod +x ~/.local/bin/${ghrepo}
 }
@@ -65,6 +65,7 @@ githubDownloadLatestReleaseTar() {
 symlinkFileToLocalBin() {
   binary=$1
   name=$2
+
   ln -sf "$binary" "$install_base/$name"
 }
 

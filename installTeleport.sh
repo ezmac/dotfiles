@@ -9,7 +9,6 @@ if [[ $PLATFORM == "osx" ]]; then
   brew install teleport
 else
   prepWorkingDir "teleport"
-  # prepInstallDir "teleport"
   TELEPORT_FILENAME="teleport-v$TELEPORT_VERSION-linux-$ARCH-bin.tar.gz"
   URL="https://get.gravitational.com/${TELEPORT_FILENAME}"
   if [[ ! -f $TELEPORT_FILENAME ]]; then 
