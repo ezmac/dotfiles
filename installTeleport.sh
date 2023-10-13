@@ -2,7 +2,7 @@
 set -euo pipefail
 
 
-TELEPORT_VERSION=13.3.9
+TELEPORT_VERSION=14.0.1
 source installerCommon.sh
 if [[ $PLATFORM == "osx" ]]; then 
 
@@ -19,8 +19,8 @@ else
   sha256sum -c "$TMP_CHECKSUM"
   tar xf ${TELEPORT_FILENAME}
   mkdir -p $local_base/teleport/$TELEPORT_VERSION/
-  for cmd in "tsh" "teleport" ; do
+  for cmd in "tsh" "teleport" "tctl" ; do
     mv teleport/$cmd $local_base/teleport/$TELEPORT_VERSION/
-    ln -sf $local_base/teleport/$TELEPORT_VERSION/tsh $install_base/
+    ln -sf $local_base/teleport/$TELEPORT_VERSION/$cmd $install_base/
   done
 fi

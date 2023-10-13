@@ -134,11 +134,6 @@ alarm() {
 #alias dockercleanimages='docker rm $(docker ps -qa --no-trunc --filter "status=exited")'
 #
 
-#export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules # TODO: Is this for CoC?
-
-
- export PATH="$HOME/.nodenv/bin:$PATH"
- eval "$(nodenv init -)"
 #fpath=(~/.zsh/completion $fpath) # unused, but neat.
 
 
@@ -173,22 +168,35 @@ if [[ "$(uname)" == "Darwin" ]]; then
   fi
   # homebrew END
 fi
+#export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules # TODO: Is this for CoC?
+
+
+ export PATH="$HOME/.nodenv/bin:$PATH"
+ eval "$(nodenv init -)"
 
 # Pyenv completion
+pre_path=$PATH
+PATH="$HOME/.pyenv-$(uname -m)/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv-$(uname -m)"
 if which -s pyenv >/dev/null; then
   command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
   export PATH="$HOME/.pyenv-$(uname -m)/shims:${PATH}"
   eval "$(pyenv init - --no-rehash)"
 #  eval "$(pyenv virtualenv-init - zsh --no-rehash)"
+else
+  PATH=$pre_path
 fi
 # rbenv completion
+pre_path=$PATH
+PATH="$HOME/.pyenv-$(uname -m)/bin:$PATH"
 export RBENV_ROOT="$HOME/.rbenv"
 if which -s rbenv >/dev/null; then
   command -v rbenv >/dev/null || export PATH="$RBENV_ROOT/bin:$PATH"
   export PATH="$HOME/.rbenv/shims:${PATH}"
-  eval "$(rbenv init - --no-rehash)"
+  eval "$(~/.rbenv/bin/rbenv init - zsh)"
 #  eval "$(rbenv virtualenv-init - zsh --no-rehash)"
+else
+  PATH=$pre_path
 fi
 
 
@@ -247,7 +255,6 @@ stopwatch(){
 }
 
 export PATH="${HOME}/.dronedeploy/kutil:${PATH}"
-eval "$(~/.rbenv/bin/rbenv init - zsh)"
 alias refresh_github_token="export GITHUB_TOKEN=\$(cat  ~/.config/gh/hosts.yml|grep 'oauth_token'|awk '{print \$2}')"
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
@@ -268,3 +275,11 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
   source $(pyenv root)/completions/pyenv.zsh
 fi
+
+HOSTNAME=`hostnamectl hostname`
+export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock
+ssh-add -l 2>/dev/null >/dev/null
+if [ $? -ge 2 ]; then
+  ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+fi
+alias k=ddutil
