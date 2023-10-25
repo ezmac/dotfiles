@@ -7,6 +7,9 @@ install_base="$HOME/.local/bin"
 local_base="$HOME/.local"
 installer_storage="$HOME/dotfiles/installers"
 
+local_bin_path="$HOME/.local/bin" # I should start using local_bin_path instead of install_base... Install base is not intuitive when I haven't looked at this in some time
+local_path="$HOME/.local"
+
 latest_release () {
   version=$(curl -s https://api.github.com/repos/$1/releases/latest \
   | grep "browser_download_url.*$2" \
@@ -102,3 +105,32 @@ dpkg_install(){
   fi
 }
 
+
+ensure_text_in_file() {
+    local file="$1"
+    local text_to_insert="$2"
+
+    # Check if the file exists
+    if [ ! -f "$file" ]; then
+        echo "Error: File '$file' does not exist."
+        return 1
+    fi
+
+    # Check if the text is already in the file
+    if grep -qF "$text_to_insert" "$file"; then
+        echo "Text is already present in the file."
+        return 0
+    fi
+
+    # If the text is not in the file, add it
+    if [ -z "$text_to_insert" ]; then
+        echo "Error: Text to insert is empty."
+        return 1
+    fi
+
+    # Use `sed` to append the text to the end of the file
+    echo "$text_to_insert" >> "$file"
+    echo "Text inserted into the file."
+
+    return 0
+}

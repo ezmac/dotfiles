@@ -283,3 +283,4 @@ if [ $? -ge 2 ]; then
   ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
 fi
 alias k=ddutil
+eval "$(direnv hook zsh)"
