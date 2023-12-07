@@ -63,7 +63,7 @@ githubDownloadLatestReleaseBin() {
 
 githubDownloadLatestReleaseTar() {
   fileName=`githubDownloadLatestRelease "$1" "$2" "$3" "$4"`
-  tar xf $filename
+  tar xf $fileName
 }
 symlinkFileToLocalBin() {
   binary=$1

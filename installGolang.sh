@@ -4,7 +4,7 @@ source installerCommon.sh
 
 
 # TODO: Make this a global var, look for a goenv, and use more installer common functions
-version=1.19
+version=1.21.4
 if [[ ! -f "installers/golang/go${version}-linux-amd64.tar.gz" ]]; then 
   tarGetExtract "https://golang.org/dl/go${version}.linux-amd64.tar.gz" golang go${version}-linux-amd64.tar.gz
   set -x
