@@ -43,112 +43,20 @@ ZSH_THEME="ezmac"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
+
 plugins=(git autojump catimg composer docker fasd git-flow tmux vi-mode wd taskwarrior zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
- unsetopt HIST_IGNORE_DUPS
- unsetopt HIST_IGNORE_ALL_DUPS
- setopt HIST_IGNORE_SPACE
- unsetopt HIST_SAVE_NO_DUPS
+# TODO: sort your history out.
+unsetopt HIST_IGNORE_DUPS
+unsetopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+unsetopt HIST_SAVE_NO_DUPS
 
- unsetopt hist_ignore_dups
- unsetopt hist_ignore_all_dups
- setopt hist_ignore_space
- unsetopt hist_save_no_dups
-
-# User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/home/tad/code/go/bin:/home/tad/.cabal/bin:/home/tad/.local/bin:$PATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-export EDITOR='vim'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-#export TERM=screen-256color
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-#
-# Maybe fix the end of line woe
-autoload -Uz up-line-or-beginning-search
-autoload -Uz down-line-or-beginning-search
-zle -N up-line-or-beginning-search up-line-or-beginning-search
-zle -N down-line-or-beginning-search down-line-or-beginning-search
-bindkey -v
-# this causes errors in zsh 5.6.2
-# bindkey "${key[Up]}" up-line-or-beginning-search
-# bindkey "${key[Down]}" down-line-or-beginning-search
-#bindkey "^[[A" up-line-or-beginning-search
-#bindkey "^[[B" down-line-or-beginning-search
-bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
-bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
-#GOROOT="/usr/local/go"
-#PATH=$PATH:$GOROOT/bin
-export GOPATH="$HOME/.gocode"
-export PATH=$PATH:$GOPATH/bin
-
-export DEFAULT_USER='tad'
-export TERM=xterm-256color
-
-alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT1" #|grep capacity|cut -d: -f2"
-alias ymd="date +%Y-%m-%d"
-alias ymdhms="date +%Y-%m-%d_%H-%M-%S"
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
-alias grep='grep --color=always'
-alias diff=colordiff
-# Alarm function taken from https://unix.stackexchange.com/questions/1974/how-do-i-make-my-pc-speaker-beep
-alarm() {
-timeout --foreground -s 1 ${2:-0.500} speaker-test --frequency ${1:-3000} --test sine
-}
-# http://blog.stefanxo.com/2014/02/clean-up-after-docker/
-#alias dockercleancontainers='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
-#alias dockercleanimages='docker rm $(docker ps -qa --no-trunc --filter "status=exited")'
-#
-alias dockercleancontainers="docker container prune"
-alias dockercleanimages="docker image prune"
-alias dockerclean="dockercleancontainers && dockercleanimages && echo 'run with -a to reclaim more space'"
-
-fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
-# export PATH="$HOME/.config/composer/vendor/bin":$PATH
-
-
-export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init -)"
-export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules
-
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-export PATH="$PATH:/home/tad/.gem/ruby/2.4.0/bin"
-rbenv global 2.4.0
-
-
-#PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
-#PERL5LIB="/home/tad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-#PERL_LOCAL_LIB_ROOT="/home/tad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-#PERL_MB_OPT="--install_base \"/home/tad/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/home/tad/perl5"; export PERL_MM_OPT;
-
-
-
-
-set -o vi
-export FZF_DEFAULT_COMMAND='ag -g ""'
-
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-
-
-[[ -f /home/tad/.environmental_variables ]] && . /home/tad/.environmental_variables
-
-
-
+unsetopt hist_ignore_dups
+unsetopt hist_ignore_all_dups
+setopt hist_ignore_space
+unsetopt hist_save_no_dups
  unsetopt hist_expire_dups_first
 
  unsetopt hist_ignore_dups
@@ -159,35 +67,177 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
  unsetopt HIST_IGNORE_ALL_DUPS
  setopt HIST_IGNORE_SPACE
  unsetopt HIST_SAVE_NO_DUPS
-# Pyenv config 
+
+# User configuration
+
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin"
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# I keep my installed binaries in my homedir in .local/bin
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/apps/gcloud/google-cloud-sdk/bin:$PATH"
+export PATH="$HOME/.dronedeploy/kutil:$PATH"
+
+export EDITOR='vim'
+set -o vi
 
 
+# Maybe fix the end of line woe
+autoload -Uz up-line-or-beginning-search
+autoload -Uz down-line-or-beginning-search
+zle -N up-line-or-beginning-search up-line-or-beginning-search
+zle -N down-line-or-beginning-search down-line-or-beginning-search
+bindkey -v
+
+# this causes errors in zsh 5.6.2
+# bindkey "${key[Up]}" up-line-or-beginning-search
+# bindkey "${key[Down]}" down-line-or-beginning-search
+#bindkey "^[[A" up-line-or-beginning-search
+#bindkey "^[[B" down-line-or-beginning-search
+bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
+
+# GOLANG
+export PATH=$PATH:$GOPATH/bin
 export GOPATH=$HOME/code/go
 
-aws_completer_path=$HOME/.pyenv/versions/`pyenv version-name`/bin/aws_zsh_completer.sh
+export DEFAULT_USER=$USER
+# export TERM=iterm2-direct
+
+alias ymd="date +%Y-%m-%d"
+alias ymdhms="date +%Y-%m-%d_%H-%M-%S"
+alias dockercleancontainers="docker container prune"
+alias dockercleanimages="docker image prune"
+alias dockerclean="dockercleancontainers && dockercleanimages && echo 'run with -a to reclaim more space'"
+alias gpc="gh pr create --title \"\$(git branch --show-current | awk 'match(\$0, /^([A-Z]{2,3}-[0-9]{2,5})-(.+)$/, a) {print a[1] \" \" gensub(\"([-_])\", \" \", \"g\", a[2])}')\""
+alias fresh_github_token="export GITHUB_TOKEN=$(cat  ~/.config/gh/hosts.yml|grep 'oauth_token'|awk '{print $2}')"
+alias git_fresh="gcm; git pull"
+
+alias kc=kubectl
+source <(kubectl completion zsh)
+
+if [[ "$(uname)" != "Linux" ]]; then
+  alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
+fi
+
+if [[ "$(uname)" != "Darwin" ]]; then
+  alias pbcopy='xsel --clipboard --input'
+  alias pbpaste='xsel --clipboard --output'
+fi
+if [[ "$(which colordiff)" != "" ]]; then
+  alias diff=colordiff
+fi
+# Alarm function taken from https://unix.stackexchange.com/questions/1974/how-do-i-make-my-pc-speaker-beep
+alarm() {
+  timeout --foreground -s 1 ${2:-0.500} speaker-test --frequency ${1:-3000} --test sine
+}
+# http://blog.stefanxo.com/2014/02/clean-up-after-docker/
+#alias dockercleancontainers='docker rmi $(docker images --filter "dangling=true" -q --no-trunc)'
+#alias dockercleanimages='docker rm $(docker ps -qa --no-trunc --filter "status=exited")'
+#
+
+#fpath=(~/.zsh/completion $fpath) # unused, but neat.
+
+
+
+
+# Load env vars if available
+[[ -f $HOME/.environmental_variables ]] && . $HOME/.environmental_variables
+
+
+
+# homebrew BEGIN
+if [[ "$(uname)" == "Darwin" ]]; then
+  case "$(uname -m)" in
+  "x86_64")
+    brew_exec=/usr/local/bin/brew
+    export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+    export CPPFLAGS="-I/usr/local/opt/libffi/include -I/usr/local/opt/openssl@3/include"
+    export LDFLAGS="-L/usr/local/opt/libffi/lib -L/usr/local/opt/openssl@3/lib"
+    export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/openssl@3/lib/pkgconfig"
+    ;;
+  "arm64")
+    brew_exec=/opt/homebrew/bin/brew
+    export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+    export CPPFLAGS="-I/opt/homebrew/opt/libffi/include -I/opt/homebrew/opt/openssl@3/include"
+    export LDFLAGS="-L/opt/homebrew/opt/libffi/lib -L/opt/homebrew/opt/openssl@3/lib"
+    export PKG_CONFIG_PATH="/opt/homebrew/opt/libffi/lib/pkgconfig:/opt/homebrew/opt/openssl@3/lib/pkgconfig"
+
+     ;;
+  esac
+  if [ -x "$brew_exec" ]; then
+     eval "$($brew_exec shellenv)"
+  fi
+  # homebrew END
+fi
+#export NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules # TODO: Is this for CoC?
+
+
+ export PATH="$HOME/.nodenv/bin:$PATH"
+ eval "$(nodenv init -)"
+
+# Pyenv completion
+pre_path=$PATH
+PATH="$HOME/.pyenv-$(uname -m)/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv-$(uname -m)"
+if which -s pyenv >/dev/null; then
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  export PATH="$HOME/.pyenv-$(uname -m)/shims:${PATH}"
+  eval "$(pyenv init - --no-rehash)"
+#  eval "$(pyenv virtualenv-init - zsh --no-rehash)"
+else
+  PATH=$pre_path
+fi
+# rbenv completion
+pre_path=$PATH
+PATH="$HOME/.pyenv-$(uname -m)/bin:$PATH"
+export RBENV_ROOT="$HOME/.rbenv"
+if which -s rbenv >/dev/null; then
+  command -v rbenv >/dev/null || export PATH="$RBENV_ROOT/bin:$PATH"
+  export PATH="$HOME/.rbenv/shims:${PATH}"
+  eval "$(~/.rbenv/bin/rbenv init - zsh)"
+#  eval "$(rbenv virtualenv-init - zsh --no-rehash)"
+else
+  PATH=$pre_path
+fi
+
+
+# AWS cli
+aws_completer_path=$PYENV_ROOT/versions/`pyenv version-name`/bin/aws_zsh_completer.sh
 if [[ -f $aws_completer_path ]]; then
   autoload bashcompinit
   bashcompinit
   source $aws_completer_path
+
+fi
+
+if which fzf  > /dev/null ; then
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
 
 
 
 tmnt() {
+  set -x
   if [[ ! -z $@ ]]; then
     session_identifier=$@
   else
     session_identifier=`basename $PWD|cut -f1 -d.`
   fi
-  session=`tmux ls|grep "$session_identifier"`
+  session=`tmux ls|grep --color=never "$session_identifier"`
   if [[ ! -z $session ]]; then
     tmux attach -t $session_identifier
   else
     tmux new -s $session_identifier
   fi
+  set +x
 }
+
 # BFG https://rtyley.github.io/bfg-repo-cleaner/
-alias bfg="java -jar ~/apps/bfg-1.13.0.jar"
+alias bfg="java -jar ~/apps/bfg-1.14.0.jar"
+
 countdown(){
     date1=$((`date +%s` + $1));
     while [ "$date1" -ge `date +%s` ]; do 
@@ -205,23 +255,38 @@ stopwatch(){
     sleep 0.1
     done
 }
-# Pyenv config 
-PATH="$HOME/.pyenv/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-$(pyenv root)/completions/pyenv.zsh
+
+export PATH="${HOME}/.dronedeploy/kutil:${PATH}"
+#alias refresh_github_token="export GITHUB_TOKEN=\$(cat  ~/.config/gh/hosts.yml|grep 'oauth_token'|awk '{print \$2}')"
+alias refresh_github_token="export GITHUB_TOKEN=\$(gh auth token)"
+
+
+
+
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+if [ -f $HOME'/.docker/init-zsh.sh' ]; then source $HOME/.docker/init-zsh.sh || true ; fi # Added by Docker Desktop; modified
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f $HOME'/.local/gcloud/google-cloud-sdk/path.zsh.inc' ]; then . $HOME'/.local/gcloud/google-cloud-sdk/path.zsh.inc'; fi
+#
+# tfenv config 
+PATH="$HOME/.tfenv/bin:$PATH"
+if command -v tfenv 1>/dev/null 2>&1; then
+  eval "$(tfenv init -)"
 fi
 # Pyenv config 
-PATH="$HOME/.pyenv/bin:$PATH"
+PATH="$HOME/.pyenv-x86_64/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
-$(pyenv root)/completions/pyenv.zsh
+  source $(pyenv root)/completions/pyenv.zsh
 fi
 
-PATH="/home/tad/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/tad/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/tad/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/tad/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/tad/perl5"; export PERL_MM_OPT;
-
-alias gitleaks="sudo docker run -v ${PWD}:/path zricethezav/gitleaks:latest --source='/path' "
+HOSTNAME=`hostnamectl hostname`
+export SSH_AUTH_SOCK=/run/user/`id -u`/gnupg/S.gpg-agent.ssh
+ssh-add -l 2>/dev/null >/dev/null
+if [ $? -ge 2 ]; then
+  ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+fi
+alias k=ddutil
+eval "$(direnv hook zsh)"

@@ -1,11 +1,14 @@
 
 # Used to share common functionality across installers
 source settings.sh
+source osDetection.sh
 
-local_base="$HOME/.local"
 install_base="$HOME/.local/bin"
-
+local_base="$HOME/.local"
 installer_storage="$HOME/dotfiles/installers"
+
+local_bin_path="$HOME/.local/bin" # I should start using local_bin_path instead of install_base... Install base is not intuitive when I haven't looked at this in some time
+local_path="$HOME/.local"
 
 latest_release () {
   version=$(curl -s https://api.github.com/repos/$1/releases/latest \
@@ -15,7 +18,25 @@ latest_release () {
   )
   # Can't return strings in bash.  only integers.
   # Echo string, let whatever needs it pick it up.
+# TODO: figure out if this is needed
+# When merging osx and linux variants, this was different. the meaningful diff is an asterisk before $2.
+  if [[ "$version" == "" ]]; then
+    version=$(curl -s https://api.github.com/repos/$1/releases/latest \
+      | grep -E "browser_download_url.$2" \
+      | cut -d : -f 2,3 \
+      | tr -d \"
+    )
+  fi
   echo $version
+}
+
+
+
+
+
+prepInstallDir(){
+  mkdir -p $local_base/$1
+  cd $local_base/$1
 }
 
 prepWorkingDir(){
@@ -29,21 +50,26 @@ githubDownloadLatestRelease() {
   ghRepo=$2
   ghFileName=$3
   latest_version=$(latest_release "${ghUser}/${ghRepo}" "${ghFileName}")
-  outputFile=${4-`basename $latest_version`}
-  curl -L $latest_version -o $outputFile
+  outputFile=${4:-`basename $latest_version`}
+  curl --silent -L $latest_version -o $outputFile
   echo "$outputFile"
   # chmod +x ~/.local/bin/${ghrepo}
 }
 githubDownloadLatestReleaseBin() {
-  set -x
   fileName=`githubDownloadLatestRelease "$1" "$2" "$3" "$4"`
   ln -sf $PWD/$fileName $install_base/$fileName
   chmod +x $PWD/$fileName
-  set +x
 }
+
 githubDownloadLatestReleaseTar() {
   fileName=`githubDownloadLatestRelease "$1" "$2" "$3" "$4"`
-  tar xf $filename
+  tar xf $fileName
+}
+symlinkFileToLocalBin() {
+  binary=$1
+  name=$2
+
+  ln -sf "$binary" "$install_base/$name"
 }
 
 
@@ -60,7 +86,6 @@ tarGetExtract(){
   curl -L $url -o $fileName
   tar xf $fileName
 }
-
 dpkg_install(){
   url=$1
   installDirName=$2
@@ -81,5 +106,31 @@ dpkg_install(){
 }
 
 
+ensure_text_in_file() {
+    local file="$1"
+    local text_to_insert="$2"
 
+    # Check if the file exists
+    if [ ! -f "$file" ]; then
+        echo "Error: File '$file' does not exist."
+        return 1
+    fi
 
+    # Check if the text is already in the file
+    if grep -qF "$text_to_insert" "$file"; then
+        echo "Text is already present in the file."
+        return 0
+    fi
+
+    # If the text is not in the file, add it
+    if [ -z "$text_to_insert" ]; then
+        echo "Error: Text to insert is empty."
+        return 1
+    fi
+
+    # Use `sed` to append the text to the end of the file
+    echo "$text_to_insert" >> "$file"
+    echo "Text inserted into the file."
+
+    return 0
+}

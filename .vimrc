@@ -1,6 +1,6 @@
  " Note: Skip initialization for vim-tiny or vim-small.
 set nocompatible               " Be iMproved
-set pythonthreedll=/home/tad/.pyenv/versions/3.9.5/lib/libpython3.9.so
+set pythonthreedll=$HOME/.pyenv-x86_64/versions/3.11.5/lib/libpython3.so
 let $PATH=$PATH . ':' . expand('/usr/local/bin/')
 let $PATH=$PATH . ':' . expand($HOME.'/.local/bin/')
 
@@ -32,13 +32,17 @@ call plug#begin('~/.vim/bundle')
   Plug 'junegunn/fzf.vim'
     " Async Lint Engine
   Plug 'w0rp/ale'
+  Plug 'towolf/vim-helm'
+  " Plug 'MattesGroeger/vim-bookmarks'
+  Plug 'fatih/vim-go'
+  Plug 'hashivim/vim-terraform'
+  Plug 'vim-syntastic/syntastic'
+  "Plug 'juliosueiras/vim-terraform-completion'
   " }
 " Plug 'autozimu/LanguageClient-neovim', {
 "   \ 'branch': 'next',
 "   \ 'do': 'bash install.sh',
 "   \ }
-
-  Plug 'm-kat/aws-vim'
 
 " let g:LanguageClient_autoStop = 0
 " let g:LanguageClient_loggingFile = expand('/tmp/languageclient.log')
@@ -61,10 +65,11 @@ call plug#begin('~/.vim/bundle')
 
 
  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+ Plug 'jvirtanen/vim-hocon'
 
 
 
-let g:coc_node_path='/home/tad/.nodenv/shims/node'
+let g:coc_node_path="$HOME/.nodenv/shims/node"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
@@ -246,6 +251,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 "  Plug 'honza/vim-snippets'
 "  let g:completor_python_binary = '/usr/bin/python'
 
+  Plug 'andrewstuart/vim-kubernetes'
+  "Plug 'SirVer/ultisnips'
+
+  Plug 'honza/vim-snippets'
 
 
 
@@ -253,6 +262,35 @@ call plug#end()
 
 filetype plugin indent on     " required!
 
+" Minimal Configuration for terraform-completion
+
+
+" Syntastic Config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" (Optional)Remove Info(Preview) window
+set completeopt-=preview
+
+" (Optional)Hide Info(Preview) window after completions
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" (Optional) Enable terraform plan to be include in filter
+let g:syntastic_terraform_tffilter_plan = 0
+
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 1
+
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 0
+" end Minimal Configuration for terraform-completion
 
 
 "
@@ -373,7 +411,7 @@ set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=0                " Lines to scroll when cursor leaves screen
 "set scrolloff=3                 " Minimum lines to keep above and below cursor
 set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+set listchars=tab:\ \ \ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 set softtabstop=4               " Let backspace delete indent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set splitright                  " Puts new vsplit windows to the right of the current
@@ -418,7 +456,7 @@ endif
 " NerdTree {
 
 let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git$', '\.hg', '\.svn', '\.bzr']
 let NERDTreeChDirMode=0
 "    let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
@@ -473,7 +511,7 @@ endif
 let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 
-map <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
 let g:EasyMotion_leader_key = '<Leader><Leader>' 
 
 
@@ -644,9 +682,13 @@ map <C-b> :Buffers<cr>
 let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
+let g:jedi#usages_command="<leader>u"
 
 
 
 set tags=./tags
 
 set rtp+=~/.fzf
+
+let g:yaml_syntax_yaml_helm = 'helm'
+let g:polyglot_disabled = ['yaml']
