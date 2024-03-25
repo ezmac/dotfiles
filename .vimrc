@@ -44,8 +44,6 @@ call plug#begin('~/.vim/bundle')
 "   \ 'do': 'bash install.sh',
 "   \ }
 
-  Plug 'm-kat/aws-vim'
-
 " let g:LanguageClient_autoStop = 0
 " let g:LanguageClient_loggingFile = expand('/tmp/languageclient.log')
 " let g:LanguageClient_loggingLevel = 'DEBUG'
@@ -67,6 +65,7 @@ call plug#begin('~/.vim/bundle')
 
 
  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+ Plug 'jvirtanen/vim-hocon'
 
 
 

@@ -109,10 +109,12 @@ alias ymdhms="date +%Y-%m-%d_%H-%M-%S"
 alias dockercleancontainers="docker container prune"
 alias dockercleanimages="docker image prune"
 alias dockerclean="dockercleancontainers && dockercleanimages && echo 'run with -a to reclaim more space'"
-alias gpc="gh pr create --title \"\$(git branch --show-current | awk 'match(\$0, /^([A-Z]{2,3}-[0-9]{3,4})-(.+)$/, a) {print a[1] \" \" gensub(\"([-_])\", \" \", \"g\", a[2])}')\""
+alias gpc="gh pr create --title \"\$(git branch --show-current | awk 'match(\$0, /^([A-Z]{2,3}-[0-9]{2,5})-(.+)$/, a) {print a[1] \" \" gensub(\"([-_])\", \" \", \"g\", a[2])}')\""
 alias fresh_github_token="export GITHUB_TOKEN=$(cat  ~/.config/gh/hosts.yml|grep 'oauth_token'|awk '{print $2}')"
+alias git_fresh="gcm; git pull"
 
 alias kc=kubectl
+source <(kubectl completion zsh)
 
 if [[ "$(uname)" != "Linux" ]]; then
   alias battery="upower -i /org/freedesktop/UPower/devices/battery_BAT0" #|grep capacity|cut -d: -f2"
@@ -255,7 +257,11 @@ stopwatch(){
 }
 
 export PATH="${HOME}/.dronedeploy/kutil:${PATH}"
-alias refresh_github_token="export GITHUB_TOKEN=\$(cat  ~/.config/gh/hosts.yml|grep 'oauth_token'|awk '{print \$2}')"
+#alias refresh_github_token="export GITHUB_TOKEN=\$(cat  ~/.config/gh/hosts.yml|grep 'oauth_token'|awk '{print \$2}')"
+alias refresh_github_token="export GITHUB_TOKEN=\$(gh auth token)"
+
+
+
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
@@ -277,7 +283,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 HOSTNAME=`hostnamectl hostname`
-export SSH_AUTH_SOCK=~/.ssh/ssh-agent.$HOSTNAME.sock
+export SSH_AUTH_SOCK=/run/user/`id -u`/gnupg/S.gpg-agent.ssh
 ssh-add -l 2>/dev/null >/dev/null
 if [ $? -ge 2 ]; then
   ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null

@@ -24,7 +24,7 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 sudo apt-get update
-sudo apt-get install -y docker-ce docker-compose
+sudo apt-get install -y docker-ce docker-compose-plugin
 
 echo "Remember to sudo usermod -aG docker $USER"
 echo "Also, groups don't refresh until you log out and back in."
