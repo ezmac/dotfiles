@@ -21,7 +21,7 @@ set -e
 
 if [[ $PLATFORM == "linux" ]]; then
   echo "This needs sudo cause it messes with apt-get; also something about installing in your real sys path"
-  sudo apt-get install -y python-dev ruby-dev git ncurses-dev checkinstall python3 python3-dev
+  sudo apt-get install -y python3-dev ruby-dev git ncurses-dev checkinstall python3
   sudo apt-get remove -y --allow-change-held-packages vim vim-runtime
   sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
 fi

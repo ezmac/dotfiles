@@ -6,7 +6,7 @@ set -x
 if [[ $PLATFORM == "osx" ]]; then 
   brew install pyenv
 else
-  pyenv_path=$HOME/.pyenv-$(uname -m)
+  pyenv_path=$HOME/.pyenv
 
   # https://github.com/pyenv/pyenv
   if [[ ! -d $pyenv_path ]]; then

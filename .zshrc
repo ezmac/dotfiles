@@ -290,3 +290,9 @@ if [ $? -ge 2 ]; then
 fi
 alias k=ddutil
 eval "$(direnv hook zsh)"
+# Pyenv config 
+PATH="/home/tad/.pyenv/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+$(pyenv root)/completions/pyenv.zsh
+fi

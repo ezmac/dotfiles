@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p $HOME/.local/bin
 ln -s -f `pwd`/.vimrc ~/.vimrc
 ln -s -f `pwd`/.zshrc ~/.zshrc
 ln -s -f `pwd`/ezmac.zsh-theme ~/.oh-my-zsh/themes/
