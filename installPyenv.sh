@@ -6,11 +6,11 @@ set -x
 if [[ $PLATFORM == "osx" ]]; then 
   brew install pyenv
 else
-  pyenv_path=$HOME/.pyenv
+  pyenv_path=$HOME/.pyenv-$(uname -m)
 
   # https://github.com/pyenv/pyenv
   if [[ ! -d $pyenv_path ]]; then
-    sudo apt-get install -y tk-dev
+    sudo apt-get install -y tk-dev libsqlite3-dev libbz2-dev libffi-dev
     git clone https://github.com/pyenv/pyenv.git $pyenv_path
     cd $pyenv_path && src/configure && make -C src
     export PATH="$pyenv_path/bin:$PATH"

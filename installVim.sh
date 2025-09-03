@@ -21,51 +21,41 @@ set -e
 
 if [[ $PLATFORM == "linux" ]]; then
   echo "This needs sudo cause it messes with apt-get; also something about installing in your real sys path"
-  sudo apt-get install -y python3-dev ruby-dev git ncurses-dev checkinstall python3
+  sudo apt-get install -y ruby-dev git ncurses-dev checkinstall python3 python3-dev libxt-dev
   sudo apt-get remove -y --allow-change-held-packages vim vim-runtime
   sudo apt-get remove -y --allow-change-held-packages vim-tiny vim-common vim-gui-common vim-nox
 fi
 
-if [[ ! -d ~/installers/vim ]]; then
-  mkdir -p ~/installers/vim
+if [[ ! -d ./installers/vim ]]; then
+  mkdir -p ./installers/vim
   sudo ~/dotfiles/ramdisk.sh mount ~/installers/vim
-  cd ~/installers/vim
+  cd ./installers/vim
   git clone https://github.com/vim/vim.git .
+  cd ../..
 fi
-cd ~/installers/vim
+cd ./installers/vim
 git pull origin master
 set -x
 ./configure --with-features=huge \
             --enable-multibyte \
             --enable-rubyinterp \
             --enable-pythoninterp \
-            --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
+            --with-python3-config-dir=/usr/lib/python3.10/config03.10-x86_64-linux-gnu \
             --enable-python3interp \
             --with-python3-config-dir=$python_libpl \
             --enable-perlinterp \
+            --with-x \
             --enable-luainterp \
             --enable-cscope --prefix=/usr
 # --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
 set +x
 #if [[ $distro == 'Debian' ]]; then
-make VIMRUNTIMEDIR=/usr/share/vim/vim82
+make VIMRUNTIMEDIR=/usr/share/vim/vim91
 #elif [[ $distro == 'Ubuntu' ]]; then
   #make VIMRUNTIMEDIR=/usr/local/share/vim/vim74
 #fi
 if [[ $PLATFORM == "linux" ]]; then
-
-  sudo checkinstall
-
-  echo "I don't have time to debug, but look in ~/installers/vim/ for the deb file.  install it."
-
-  sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-  sudo update-alternatives --set editor /usr/bin/vim
-  sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-  sudo update-alternatives --set vi /usr/bin/vim
-  echo "vim hold" |sudo dpkg --set-selections
-
-else
-  sudo make VIMRUNTIMEDIR=/usr/share/vim/vim82 install
+  sudo make VIMRUNTIMEDIR=/usr/share/vim/vim91 install
 
 fi
 

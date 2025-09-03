@@ -40,3 +40,7 @@ Sometimes I don't have time to automate some changes; previously I've been bad a
 upstart will start gpg-agent for you.  you want to comment out the `start` line in /usr/share/upstart/sessions/gpg-agent.conf
 details at: https://wiki.gnupg.org/GnomeKeyring
 that does mean that starting the agent is now full manual.  Perhaps time to revisit the session thing.
+## Getting started: `...`
+sudo apt-get install -y gnupg2
+sudo dpkg -i ~/Downloads/1password-latest.deb
+git config --global push.default current

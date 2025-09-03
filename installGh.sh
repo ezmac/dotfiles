@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-set -x
 source installerCommon.sh
 if [[ $PLATFORM == "osx" ]]; then 
 
@@ -13,4 +12,6 @@ else
   githubDownloadLatestRelease "cli" "cli" 'gh_.*amd64.deb'
 
   sudo dpkg -i $(basename $latest_version)
+  gh extension install github/gh-copilot
+
 fi

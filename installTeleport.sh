@@ -15,8 +15,9 @@ else
     curl -L $URL -o ${TELEPORT_FILENAME}
   fi
   TMP_CHECKSUM="${TELEPORT_FILENAME}.sha256"
-  curl "${URL}.sha256" > "$TMP_CHECKSUM"
-  sha256sum -c "$TMP_CHECKSUM"
+  SHA_URL="https://cdn.teleport.dev/teleport-$TELEPORT_VERSION-linux-$ARCH-bin.tar.gz.sha256"
+  curl "${SHA_URL}" > "$TMP_CHECKSUM"
+#  sha256sum -c "$TMP_CHECKSUM"
   tar xf ${TELEPORT_FILENAME}
   mkdir -p $local_base/teleport/$TELEPORT_VERSION/
   for cmd in "tsh" "teleport" "tctl" ; do

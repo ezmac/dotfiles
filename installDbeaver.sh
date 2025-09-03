@@ -8,7 +8,7 @@ ghrepo=dbeaver
 #symlinkFileToLocalBin "$PWD/direnv" "direnv"
 #chmod +x ~/.local/bin/direnv
 
-version="23.3.0"
+version="24.3.2"
 
   # libtime-human-perl
 prepInstallDir "dbeaver"

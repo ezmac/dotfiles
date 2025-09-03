@@ -12,7 +12,7 @@ local_path="$HOME/.local"
 
 latest_release () {
   version=$(curl -s https://api.github.com/repos/$1/releases/latest \
-  | grep "browser_download_url.*$2" \
+  | grep "browser_download_url.*$2\"" \
   | cut -d : -f 2,3 \
   | tr -d \"
   )

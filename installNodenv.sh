@@ -11,7 +11,7 @@ else
   cd ~/.nodenv && src/configure && make -C src
   export PATH="$HOME/.nodenv/bin:$PATH"
   export eval $(nodenv init)
-  git clone https://github.com/nodenv/node-build.git $(nodenv root)/plugins/node-build
+  git clone https://github.com/nodenv/node-build.git $(nodenv root)/plugins/node-build||true
 fi
 nodenv install $lts_version
 nodenv global $lts_version

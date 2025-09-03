@@ -16,6 +16,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 
+let g:polyglot_disabled = ['yaml']
 
 call plug#begin('~/.vim/bundle')
   " Language agnostic plugins (tools) {

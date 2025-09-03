@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt-get install -y chromium-browser
+sudo apt-get install -y chromium-browser terminator shutter

@@ -114,6 +114,18 @@ alias fresh_github_token="export GITHUB_TOKEN=$(cat  ~/.config/gh/hosts.yml|grep
 alias git_fresh="gcm; git pull"
 
 alias kc=kubectl
+
+alias tfip="terraform init --reconfigure -upgrade && terraform plan -var-file ../../regional-vars.tfvars"
+alias tfp="terraform plan -var-file ../../regional-vars.tfvars"
+
+
+
+
+
+
+
+
+
 source <(kubectl completion zsh)
 
 if [[ "$(uname)" != "Linux" ]]; then
@@ -142,7 +154,7 @@ alarm() {
 
 
 # Load env vars if available
-[[ -f $HOME/.environmental_variables ]] && . $HOME/.environmental_variables
+#[[ -f $HOME/.environmental_variables ]] && . $HOME/.environmental_variables
 
 
 
@@ -219,20 +231,40 @@ fi
 
 
 
-tmnt() {
-  set -x
-  if [[ ! -z $@ ]]; then
-    session_identifier=$@
+tmnt () {
+    if [[ ! -z $@ ]]; then
+        session_identifier=$@
+    else
+        session_identifier=$(basename "$PWD" | cut -f1 -d.)
+    fi
+
+    session=$(tmux ls | grep --color=never "$session_identifier")
+    if [[ ! -z $session ]]; then
+        _zsh_tmux_plugin_run attach -t $session_identifier
+    else
+        # Start a new tmux session and set up the vertical split, Vim, and focus
+        _zsh_tmux_plugin_run new -s $session_identifier \; \
+            split-window -v -l 30 \; \
+            send-keys -t "$session_identifier":0.0 'vim' C-m \; \
+            select-pane -t "$session_identifier":0.0
+    fi
+}
+function work_on (){
+  local ORG="dronedeploy"
+  local DIR="$HOME/code/${ORG}/${1}"
+  local REPO="${1}"
+  if [ -d "$DIR" ]; then
+    cd "$DIR"
   else
-    session_identifier=`basename $PWD|cut -f1 -d.`
+    git clone git@github.com:"$ORG"/"$REPO".git "$DIR"
+    cd "$DIR"
   fi
-  session=`tmux ls|grep --color=never "$session_identifier"`
-  if [[ ! -z $session ]]; then
-    tmux attach -t $session_identifier
-  else
-    tmux new -s $session_identifier
-  fi
-  set +x
+}
+function tmnt-on (){
+  ORG="dronedeploy"
+  local DIR="$HOME/code/${ORG}/${1}"
+  work_on "$1"
+  tmnt
 }
 
 # BFG https://rtyley.github.io/bfg-repo-cleaner/
@@ -256,6 +288,13 @@ stopwatch(){
     done
 }
 
+
+
+
+
+
+
+
 export PATH="${HOME}/.dronedeploy/kutil:${PATH}"
 #alias refresh_github_token="export GITHUB_TOKEN=\$(cat  ~/.config/gh/hosts.yml|grep 'oauth_token'|awk '{print \$2}')"
 alias refresh_github_token="export GITHUB_TOKEN=\$(gh auth token)"
@@ -266,15 +305,7 @@ alias refresh_github_token="export GITHUB_TOKEN=\$(gh auth token)"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 if [ -f $HOME'/.docker/init-zsh.sh' ]; then source $HOME/.docker/init-zsh.sh || true ; fi # Added by Docker Desktop; modified
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f $HOME'/.local/gcloud/google-cloud-sdk/path.zsh.inc' ]; then . $HOME'/.local/gcloud/google-cloud-sdk/path.zsh.inc'; fi
 #
-# tfenv config 
-PATH="$HOME/.tfenv/bin:$PATH"
-if command -v tfenv 1>/dev/null 2>&1; then
-  eval "$(tfenv init -)"
-fi
 # Pyenv config 
 PATH="$HOME/.pyenv-x86_64/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
@@ -290,9 +321,35 @@ if [ $? -ge 2 ]; then
 fi
 alias k=ddutil
 eval "$(direnv hook zsh)"
-# Pyenv config 
-PATH="/home/tad/.pyenv/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-$(pyenv root)/completions/pyenv.zsh
+# tfenv config 
+PATH="$HOME/.tfenv/bin:$PATH"
+if command -v tfenv 1>/dev/null 2>&1; then
+  eval "$(tfenv init -)"
 fi
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+alias ss-pilot='source s-pilot'
+eval "$(gh copilot alias -- zsh)"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# tfenv config 
+PATH="$HOME/.tfenv/bin:$PATH"
+if command -v tfenv 1>/dev/null 2>&1; then
+  eval "$(tfenv init -)"
+fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/taddd/.local/gcloud/google-cloud-sdk/path.zsh.inc' ]; then . '/home/taddd/.local/gcloud/google-cloud-sdk/path.zsh.inc'; fi
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
